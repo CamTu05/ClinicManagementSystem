@@ -1304,7 +1304,7 @@ body {
     display: block;
     overflow: hidden;
 }
-.team-area .single-team-member .img-holder img{=
+.team-area .single-team-member .img-holder img{
     transition: all 0.5s ease 0s;
     width: 100%;
 }
@@ -3945,7 +3945,7 @@ body {
   text-decoration: inherit;
   color: #f1f1f1;
   font-size: 24px;
-  padding-right: ;
+  padding-right: 1px;
   position: absolute;
   top: -3px;
   left: 30px;    
