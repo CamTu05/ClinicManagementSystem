@@ -25,7 +25,16 @@
 ****************************************************************************************************************/
 
 "use strict";
-
+function scrollToMiddle(event, id) {
+  event.preventDefault(); // chặn hành vi mặc định của anchor
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({
+      behavior: "smooth",
+      block: "center" // "start" là mặc định, còn "center" sẽ đặt giữa màn hình
+    });
+  }
+}
 //===RevolutionSliderActiver===
 function revolutionSliderActiver () {
 	if ($('.rev_slider_wrapper #slider1').length) {
@@ -804,3 +813,7 @@ jQuery(window).load(function() {
         
     })(jQuery);
 });
+
+
+
+

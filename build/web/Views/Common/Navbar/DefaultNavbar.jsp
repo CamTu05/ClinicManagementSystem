@@ -53,7 +53,7 @@
                 <!--End main menu-->  
                 <div class="mainmenu-right-box pull-right">
                     <div class="consultation-button">
-                        <a href="#">Đặt lịch ngay</a>    
+                        <a href="${pageContext.request.contextPath}/Views/HomePage.jsp#appointment-form" onclick="scrollToMiddle(event, 'appointment-form')">Đặt lịch ngay</a>    
                     </div>
                 </div>
             </div>
