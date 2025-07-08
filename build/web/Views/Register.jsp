@@ -1,6 +1,6 @@
 <%-- 
-    Document   : Login
-    Created on : Jul 7, 2025, 3:29:05 PM
+    Document   : Register
+    Created on : Jul 7, 2025, 9:48:29 PM
     Author     : admin
 --%>
 
@@ -8,9 +8,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Đăng nhập</title>
+        <title>Đăng ký</title>
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap&subset=vietnamese" rel="stylesheet">
         <style>
             * {
@@ -97,8 +96,7 @@
 
     </head>
     <body>
-
-        <%@ include file="Common/OtherItems/LoginForm.jsp" %>
+        <%@ include file="Common/OtherItems/RegisterForm.jsp" %>
 
     </body>
 </html>

@@ -5,12 +5,36 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<!-- Start Topbar -->
+<div class="topbar-auth" style="background-color: #f5f5f5; padding: 8px 0;">
+    <div class="container">
+        <div style="text-align: right;">
+            <%
+                Object user = session.getAttribute("user");
+                if (user == null) {
+            %>
+                <a href="${pageContext.request.contextPath}/Views/Login.jsp" style="margin-right: 15px; color: #333; text-decoration: none;">Đăng nhập</a>
+                <a href="${pageContext.request.contextPath}/Views/Register.jsp" style="color: #333; text-decoration: none;">Đăng ký</a>
+            <%
+                } else {
+            %>
+                <span style="margin-right: 10px; color: #333;">Xin chào, <%= user %></span>
+                <a href="${pageContext.request.contextPath}/logout" style="color: #333; text-decoration: none;">Đăng xuất</a>
+            <%
+                }
+            %>
+        </div>
+    </div>
+</div>
+<!-- End Topbar -->
+
+<!-- Start Header -->
 <section class="header-area">
     <div class="container">
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="logo">
-                    <a href="index.html">
+                    <a href="${pageContext.request.contextPath}/Views/HomePage.jsp">
                         <img src="${pageContext.request.contextPath}/images/resources/logo.png" alt="Awesome Logo">
                     </a>
                 </div>
@@ -23,7 +47,7 @@
                                 <span class="flaticon-technology"></span>
                             </div>
                             <div class="text-holder">
-                                <h4>Call us now</h4>
+                                <h4>Tổng đài hỗ trợ</h4>
                                 <span>+1-888-987-6543</span>    
                             </div>
                         </li>
@@ -32,8 +56,8 @@
                                 <span class="flaticon-pin"></span>
                             </div>
                             <div class="text-holder">
-                                <h4>121 Park Drive</h4>
-                                <span>Varick St, Newyork 1006</span>    
+                                <h4>123 Khu CNC Hòa Lạc</h4>
+                                <span>Thạch Hòa, Thạch Thất</span>    
                             </div>
                         </li>
                         <li>
@@ -41,18 +65,14 @@
                                 <span class="flaticon-agenda"></span>
                             </div>
                             <div class="text-holder">
-                                <h4>Mon - Satday</h4>
-                                <span>09.00am to 18.00pm</span>    
+                                <h4>T2 - T7</h4>
+                                <span>8h00 - 17h00</span>    
                             </div>
                         </li>        
                     </ul>
-                    <div class="search-button pull-right">
-                        <div class="toggle-search">
-                            <button><i class="fa fa-search" aria-hidden="true"></i></button>    
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-</section>   
+</section>
+<!-- End Header -->
