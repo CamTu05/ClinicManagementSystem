@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--Start fact counter area-->
-<section class="fact-counter-area" style="background-image:url(images/resources/fact-counter-bg.jpg);">
+<section class="fact-counter-area" style="background-image:url(${pageContext.request.contextPath}/images/resources/fact-counter-bg.jpg);">
     <div class="container">
         <div class="sec-title text-center">
             <h1>Những con số ấn tượng</h1>

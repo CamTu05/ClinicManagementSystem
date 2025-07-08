@@ -20,7 +20,7 @@
                     <div class="single-testimonial-item text-center">
                         <div class="img-box">
                             <div class="img-holder">
-                                <img src="images/testimonial/1.png" alt="Awesome Image">
+                                <img src="${pageContext.request.contextPath}/images/testimonial/HoaMocLan.png" alt="Awesome Image">
                             </div>
                             <div class="quote-box">
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>    
@@ -39,7 +39,7 @@
                     <div class="single-testimonial-item text-center">
                         <div class="img-box">
                             <div class="img-holder">
-                                <img src="images/testimonial/2.png" alt="Awesome Image">
+                                <img src="${pageContext.request.contextPath}/images/testimonial/TungDuong.jpg" alt="Awesome Image">
                             </div>
                             <div class="quote-box">
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>    
@@ -49,8 +49,8 @@
                             <p>Thủ tục rất nhanh gọn, không phải chờ đợi lâu.</p>
                         </div>
                         <div class="name">
-                            <h3>Cao Bá Quát</h3>
-                            <span>Ninh Bình</span>
+                            <h3>Tùng Dương</h3>
+                            <span>Bắc Ninh</span>
                         </div>
                     </div>
                     <!--End single testimonial item-->
@@ -58,7 +58,7 @@
                     <div class="single-testimonial-item text-center">
                         <div class="img-box">
                             <div class="img-holder">
-                                <img src="images/testimonial/1.png" alt="Awesome Image">
+                                <img src="${pageContext.request.contextPath}/images/testimonial/HoNgocHa.jpg" alt="Awesome Image">
                             </div>
                             <div class="quote-box">
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>    
@@ -68,8 +68,8 @@
                             <p>Đây là một nơi theo dõi thai kỳ đáng để gửi gắm. 3 đứa con của tôi đều được theo dõi tại đây.</p>
                         </div>
                         <div class="name">
-                            <h3>Âu Cơ</h3>
-                            <span>Lạc Việt</span>
+                            <h3>Hồ Ngọc Hà</h3>
+                            <span>TP. Hồ Chí Minh</span>
                         </div>
                     </div>
                     <!--End single testimonial item-->
@@ -77,7 +77,7 @@
                     <div class="single-testimonial-item text-center">
                         <div class="img-box">
                             <div class="img-holder">
-                                <img src="images/testimonial/2.png" alt="Awesome Image">
+                                <img src="${pageContext.request.contextPath}/images/testimonial/HarryPotter.jpg" alt="Awesome Image">
                             </div>
                             <div class="quote-box">
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>    
@@ -87,8 +87,8 @@
                             <p>Phòng khám sạch sẽ, như bệnh viện quốc tế.</p>
                         </div>
                         <div class="name">
-                            <h3>Peter Pan</h3>
-                            <span>Mỹ (Đình)</span>
+                            <h3>Harry Potter</h3>
+                            <span>Anh</span>
                         </div>
                     </div>
                     <!--End single testimonial item-->
@@ -96,7 +96,7 @@
                     <div class="single-testimonial-item text-center">
                         <div class="img-box">
                             <div class="img-holder">
-                                <img src="images/testimonial/1.png" alt="Awesome Image">
+                                <img src="${pageContext.request.contextPath}/images/testimonial/SonTung.jpg" alt="Awesome Image">
                             </div>
                             <div class="quote-box">
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>    
@@ -106,8 +106,8 @@
                             <p>Các bác sĩ rất tận tâm.</p>
                         </div>
                         <div class="name">
-                            <h3>Hồ Ngọc Hà</h3>
-                            <span>Hà Nội</span>
+                            <h3>Sơn Tùng</h3>
+                            <span>Hưng Yên</span>
                         </div>
                     </div>
                     <!--End single testimonial item-->
@@ -115,7 +115,7 @@
                     <div class="single-testimonial-item text-center">
                         <div class="img-box">
                             <div class="img-holder">
-                                <img src="images/testimonial/2.png" alt="Awesome Image">
+                                <img src="${pageContext.request.contextPath}/images/testimonial/Jack.png" alt="Awesome Image">
                             </div>
                             <div class="quote-box">
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>    
@@ -125,8 +125,8 @@
                             <p>Khám rất kĩ, đi khám 1 bệnh mà ra 10 bệnh.</p>
                         </div>
                         <div class="name">
-                            <h3>Võ Tắc Thiên</h3>
-                            <span>Trung Quốc</span>
+                            <h3>Trịnh Trần Phương Tuấn</h3>
+                            <span>Vĩnh Long</span>
                         </div>
                     </div>
                     <!--End single testimonial item-->

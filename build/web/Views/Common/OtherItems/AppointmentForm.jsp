@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--Start call to action area-->
-<section class="callto-action-area">
+<section id="appointment-form" class="callto-action-area">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
