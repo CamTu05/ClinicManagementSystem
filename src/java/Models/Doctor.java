@@ -13,15 +13,25 @@ public class Doctor {
     private Specialty specialty;
     private int yearsExp;
     private String description;
+    private String picture;
 
     public Doctor() {
     }
 
-    public Doctor(int id, Specialty specialty, int yearsExp, String description) {
+    public Doctor(int id, Specialty specialty, int yearsExp, String description, String picture) {
         this.id = id;
         this.specialty = specialty;
         this.yearsExp = yearsExp;
         this.description = description;
+        this.picture = picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getPicture() {
+        return picture;
     }
     
     public int getId() {

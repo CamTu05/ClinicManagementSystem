@@ -86,17 +86,17 @@
                     <div class="col-md-9">
                         <div class="row">
                             <div class="col-md-4 text-center mb-4">
-                                <img src="${pageContext.request.contextPath}/images/team/1.jpg" class="img-fluid rounded" alt="Doctor 1">
+                                <img src="${pageContext.request.contextPath}/images/team/anhlh.jpg" class="img-fluid rounded" alt="Doctor 1">
                                 <p class="font-weight-bold">Giles Franklin</p>
                                 <p>Asst. Prof</p>
                             </div>
                             <div class="col-md-4 text-center mb-4">
-                                <img src="doctor2.jpg" class="img-fluid rounded" alt="Doctor 2">
+                                <img src="${pageContext.request.contextPath}/images/team/bichhn.jpg" class="img-fluid rounded" alt="Doctor 2">
                                 <p class="font-weight-bold">Edgar Denzil</p>
                                 <p>Asso. Prof</p>
                             </div>
                             <div class="col-md-4 text-center mb-4">
-                                <img src="doctor3.jpg" class="img-fluid rounded" alt="Doctor 3">
+                                <img src="${pageContext.request.contextPath}/images/team/chauvm.jpg" class="img-fluid rounded" alt="Doctor 3">
                                 <p class="font-weight-bold">Garfield Feris</p>
                                 <p>Sr Resident</p>
                             </div>
@@ -104,19 +104,45 @@
 
                         <div class="row">
                             <div class="col-md-4 text-center mb-4">
-                                <img src="doctor4.jpg" class="img-fluid rounded" alt="Doctor 4">
+                                <img src="${pageContext.request.contextPath}/images/team/dungnv.jpg" class="img-fluid rounded" alt="Doctor 4">
                                 <p class="font-weight-bold">Marc Parcival</p>
                                 <p>Sr Resident</p>
                             </div>
                             <div class="col-md-4 text-center mb-4">
-                                <img src="doctor5.jpg" class="img-fluid rounded" alt="Doctor 5">
+                                <img src="${pageContext.request.contextPath}/images/team/hangpt.jpg" class="img-fluid rounded" alt="Doctor 5">
                                 <p class="font-weight-bold">Alen Bailey</p>
                                 <p>Asst. Prof</p>
                             </div>
                             <div class="col-md-4 text-center mb-4">
-                                <img src="doctor6.jpg" class="img-fluid rounded" alt="Doctor 6">
+                                <img src="${pageContext.request.contextPath}/images/team/huybq.jpg" class="img-fluid rounded" alt="Doctor 6">
                                 <p class="font-weight-bold">Basil Andrew</p>
                                 <p>Asso. Prof</p>
+                            </div>
+                        </div>
+                                
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-4">
+                                <img src="${pageContext.request.contextPath}/images/team/huyentt.jpg" class="img-fluid rounded" alt="Doctor 4">
+                                <p class="font-weight-bold">Marc Parcival</p>
+                                <p>Sr Resident</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <img src="${pageContext.request.contextPath}/images/team/lamdv.jpg" class="img-fluid rounded" alt="Doctor 5">
+                                <p class="font-weight-bold">Alen Bailey</p>
+                                <p>Asst. Prof</p>
+                            </div>
+                            <div class="col-md-4 text-center mb-4">
+                                <img src="${pageContext.request.contextPath}/images/team/lantt.jpg" class="img-fluid rounded" alt="Doctor 6">
+                                <p class="font-weight-bold">Basil Andrew</p>
+                                <p>Asso. Prof</p>
+                            </div>
+                        </div>
+                                
+                        <div class="row">
+                            <div class="col-md-4 text-center mb-4">
+                                <img src="${pageContext.request.contextPath}/images/team/minhdd.jpg" class="img-fluid rounded" alt="Doctor 4">
+                                <p class="font-weight-bold">Marc Parcival</p>
+                                <p>Sr Resident</p>
                             </div>
                         </div>
                     </div>
