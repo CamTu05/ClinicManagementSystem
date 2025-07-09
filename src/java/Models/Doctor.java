@@ -26,51 +26,50 @@ public class Doctor {
         this.picture = picture;
     }
 
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    public String getPicture() {
-        return picture;
-    }
-    
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public Specialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
-    }
-
     public int getYearsExp() {
         return yearsExp;
-    }
-
-    public void setYearsExp(int yearsExp) {
-        this.yearsExp = yearsExp;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public void setYearsExp(int yearsExp) {
+        this.yearsExp = yearsExp;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + '}';
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
+    @Override
+    public String toString() {
+        return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + ", picture=" + picture + '}';
+    }
 
     
 }
