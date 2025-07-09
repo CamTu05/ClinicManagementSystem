@@ -1,10 +1,20 @@
-<%-- 
-    Document   : HomePage
-    Created on : Jul 7, 2025, 3:58:43 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%
+    // Kiểm tra nếu chưa có danh sách trong session
+    if (session.getAttribute("daoServices") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoadServicesServlet");
+        
+        return; 
+    }
+%>
+
+<%
+    //Kiểm tra nếu chưa có specId
+    String idParam = request.getParameter("id");
+    if (idParam != null) {
+        session.setAttribute("specId", Integer.parseInt(idParam)); 
+    }
+%>
 
 <!DOCTYPE html>
 <html>
@@ -27,14 +37,91 @@
     </head>
     <body>
         <div class="boxed_wrapper">
-            <%@ include file="Common/Header/DefaultHeader.jsp" %>
-            <%@ include file="Common/Navbar/DefaultNavbar.jsp" %>
-            <%@ include file="Common/OtherItems/Carousel.jsp" %>
-            <%@ include file="Common/OtherItems/AppointmentForm.jsp" %> <hr/>
-            <%@ include file="Common/OtherItems/FactCounter.jsp" %>
-            <%@ include file="Common/OtherItems/Testimonial.jsp" %>
-            <%@ include file="Common/Footer/DefaultFooter.jsp" %>
-            
+            <%@ include file="../Header/DefaultHeader.jsp" %>
+            <%@ include file="../Navbar/DefaultNavbar.jsp" %>
+
+            <!--Start departments single area-->
+            <section id="departments-single-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9 col-md-8 col-sm-12 col-xs-12 pull-right">  
+
+   
+                            <div class="pricing-box">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="single-box">
+                                            <h3 class="text-center">Bảng dịch vụ </h3>
+                                            <table class="table table-bordered text-center align-middle">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align:center; vertical-align:middle;">Tên dịch vụ</th>
+                                                        <th style="text-align:center; vertical-align:middle;">Mô tả</th>
+                                                        <th style="text-align:center; vertical-align:middle;">Giá</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:forEach items="${sessionScope.daoServices.service}" var="s">
+
+                                                        <c:if test="${s.specialty.id == sessionScope.specId}">
+                                                            
+                                                            <tr>
+                                                                <td>${s.serviceName}</td>
+                                                                <td>${s.description}</td>
+                                                                <td>${s.price}₫</td>
+                                                            </tr>
+                                                        </c:if>
+
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                        </div> 
+
+                        <div class="col-lg-3 col-md-4 col-sm-7 col-xs-12 pull-left">
+                            <div class="departments-sidebar">
+                                <!--Start single sidebar-->
+                                <div class="single-sidebar">
+                                    <div class="title">
+                                        <h3>Services</h3>    
+                                    </div>
+                                    <ul class="all-departments">
+                                        <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
+                                            <li class='${s.id == sessionScope.specId ? 'active' : ''}' >
+                                                <a href="${pageContext.request.contextPath}/Views/Common/OtherItems/Services.jsp?id=${s.id}">${s.specialtyName}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
+                                </div> 
+                                <!--Ens single sidebar--> 
+                                
+                                <!--Start single sidebar-->
+                                <div class="single-sidebar">
+                                    <div class="title">
+                                        <h3>Opening Hours</h3>    
+                                    </div>
+                                    <ul class="opening-time">
+                                        <li>Mon to Friday: <span>09.00 to 18.00</span></li>
+                                        <li>Saturday: <span>10.00 to 16.00</span></li>
+                                        <li>Sunday: <span>10.00 to 14.00</span></li>
+                                    </ul>
+                                </div> 
+                                <!--Ens single sidebar--> 
+
+                            </div>    
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+            <!--End Medical Departments area--> 
+
+            <%@ include file="../Footer/DefaultFooter.jsp" %>
+
 
         </div>
         <!--Scroll to top-->

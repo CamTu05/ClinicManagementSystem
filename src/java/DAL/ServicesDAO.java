@@ -4,20 +4,21 @@
  */
 package DAL;
 
+import Models.Service;
 import Models.Specialty;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.Vector;
 
-public class SpecialtyDAO {
+public class ServicesDAO {
 
     private String status = "ok";
     private Connection con;
-    private Vector<Specialty> spec;
-    public static SpecialtyDAO INSTANCE = new SpecialtyDAO();
+    private Vector<Service> ser;
+    public static ServicesDAO INSTANCE = new ServicesDAO();
 
-    public SpecialtyDAO() {
+    public ServicesDAO() {
         if (INSTANCE == null) {
             INSTANCE = this;
             try {
@@ -28,41 +29,46 @@ public class SpecialtyDAO {
         }
     }
 
-    public Vector<Specialty> getSpecialty() {
-        return spec;
+    public Vector<Service> getService() {
+        return ser;
     }
 
-    public void setSpecialty(Vector<Specialty> spec) {
-        this.spec = spec;
+    public void setService(Vector<Service> ser) {
+        this.ser = ser;
     }
 
-    public void LoadSpecialty() {
-        String sql = "select * from Specialties";
-        spec = new Vector<>();
+
+
+    
+
+    public void LoadServices() {
+        String sql = "select * from Services";
+        ser = new Vector<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+            ResultSet rs = ps.executeQuery();             // can get by fi or by oder number 
             while (rs.next()) {
-                spec.add(new Specialty(rs.getInt(1), rs.getString(2)));
+                Service s = new Service();
+                s.setId(rs.getInt(1));
+                s.setServiceName(rs.getString(2));
+                s.setPrice(rs.getDouble(3));
+                s.setDescription(rs.getString(4));
+                
+                int specialtyId = rs.getInt("specialty_id");
+                Specialty specialty = SpecialtyDAO.INSTANCE.getSpecialtyById(specialtyId);
+                
+                s.setSpecialty(specialty);
 
+                ser.add(s);
             }
         } catch (Exception e) {
-            status = "Error at read Speciality " + e.getMessage();
+            status = "Error at read Student " + e.getMessage();
         }
 
     }
 
-    public String getSpecialtyName(int id) {
-        for (Specialty s : spec) {
-            if (s.getId() == id) {
-                return s.getSpecialtyName();
-            }
-        }
-        return null;
-    }
-
-    public Specialty getSpecialtyById(int id) {
-        for (Specialty s : spec) {
+    public Service getServicesById(int id) {
+        for (Service s : ser) {
             if (s.getId() == id) {
                 return s;
             }

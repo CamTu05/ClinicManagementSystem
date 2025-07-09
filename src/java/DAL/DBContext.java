@@ -32,16 +32,16 @@ public class DBContext {
     private final String password = "Sonha1612!";
 }
 
-class Using {
-
-    public static void main(String[] args) {
-        DBContext db = new DBContext();
-        try {
-            db.getConnection();
-            System.out.println("Ket noi thanh cong");
-        } catch (Exception e) {
-            System.out.println("Ket noi that bai" + e.getMessage());
-        }
-
-    }
-}
+//class Using {
+//
+//    public static void main(String[] args) {
+//        DBContext db = new DBContext();
+//        try {
+//            db.getConnection();
+//            System.out.println("Ket noi thanh cong");
+//        } catch (Exception e) {
+//            System.out.println("Ket noi that bai" + e.getMessage());
+//        }
+//
+//    }
+//}

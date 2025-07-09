@@ -1,9 +1,3 @@
-<%-- 
-    Document   : HomePage
-    Created on : Jul 7, 2025, 3:58:43 PM
-    Author     : admin
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -27,14 +21,33 @@
     </head>
     <body>
         <div class="boxed_wrapper">
-            <%@ include file="Common/Header/DefaultHeader.jsp" %>
-            <%@ include file="Common/Navbar/DefaultNavbar.jsp" %>
-            <%@ include file="Common/OtherItems/Carousel.jsp" %>
-            <%@ include file="Common/OtherItems/AppointmentForm.jsp" %> <hr/>
-            <%@ include file="Common/OtherItems/FactCounter.jsp" %>
-            <%@ include file="Common/OtherItems/Testimonial.jsp" %>
-            <%@ include file="Common/Footer/DefaultFooter.jsp" %>
-            
+            <%@ include file="../Header/DefaultHeader.jsp" %>
+            <%@ include file="../Navbar/DefaultNavbar.jsp" %>
+            <!--Start Medical Departments area-->
+            <section class="medical-departments-area departments-page">
+                <div class="container">
+                    <div class="row">
+                        <!--Start item-->
+ 
+                        <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
+                        <div class="col-lg-3 col-md-6 col-sm-6 col-xs-12">
+                            <div class="single-item text-center">
+
+                                <div class="text-holder">
+                                    <h3>${s.specialtyName}</h3>
+                                    
+                                </div>
+                                <a class="readmore" href="${pageContext.request.contextPath}/Views/Common/OtherItems/Services.jsp?id=${s.id}">Xem thêm</a>
+                            </div>
+                        </div> 
+                            </c:forEach>
+                        <!--End item--> 
+                        
+            </section>
+            <!--End Medical Departments area--> 
+
+            <%@ include file="../Footer/DefaultFooter.jsp" %>
+
 
         </div>
         <!--Scroll to top-->

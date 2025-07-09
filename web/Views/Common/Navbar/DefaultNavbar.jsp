@@ -6,6 +6,13 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    // Kiểm tra nếu chưa có danh sách trong session
+    if (session.getAttribute("daoSpecialty") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoadSpecialtyServlet");
+        return; 
+    }
+%>
 
 <!--Start main menu area-->
 <section class="mainmenu-area stricky">
@@ -33,14 +40,14 @@
                                     <li><a href="#">Phòng trưng bày</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="departments.html">Các chuyên khoa</a>
+                            <li class="dropdown"><a href="${pageContext.request.contextPath}/Views/Common/OtherItems/Specialty.jsp">Các chuyên khoa</a>
                                 <!--load từ db lên -->
                                 <ul>
-                                <c:forEach items="${daoSpecialty.specialty}" var="s">
-                                <li><a href="${pageContext.request.contextPath}/specialty?id=${s.id}">${s.specialtyName}</a></li>
-                                </c:forEach>
-                                 </ul>
-                            
+                                    <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
+                                        <li><a href="${pageContext.request.contextPath}/Views/Common/OtherItems/Services.jsp?id=${s.id}">${s.specialtyName}</a></li>
+                                        </c:forEach>
+                                </ul>
+
                             <li><a href="#">Thời gian biểu</a></li>
                             <li class="dropdown"><a href="#">Tin tức</a></li>
                             <li><a href="#">Giải đáp</a></li>
