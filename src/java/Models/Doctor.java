@@ -18,50 +18,61 @@ public class Doctor {
     public Doctor() {
     }
 
-    public Doctor(int id, Specialty specialty, int yearsExp, String description) {
+    public Doctor(int id, Specialty specialty, int yearsExp, String description, String picture) {
         this.id = id;
         this.specialty = specialty;
         this.yearsExp = yearsExp;
         this.description = description;
-    }
-    
-    public int getId() {
-        return id;
+        this.picture = picture;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getId() {
+        return id;
     }
 
     public Specialty getSpecialty() {
         return specialty;
     }
 
-    public void setSpecialty(Specialty specialty) {
-        this.specialty = specialty;
-    }
-
     public int getYearsExp() {
         return yearsExp;
-    }
-
-    public void setYearsExp(int yearsExp) {
-        this.yearsExp = yearsExp;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setSpecialty(Specialty specialty) {
+        this.specialty = specialty;
+    }
+
+    public void setYearsExp(int yearsExp) {
+        this.yearsExp = yearsExp;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
-    @Override
-    public String toString() {
-        return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + '}';
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
+    @Override
+    public String toString() {
+        return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + ", picture=" + picture + '}';
+    }
 
+    public String getShortName(){
+        return getPicture().substring(0, picture.lastIndexOf("."));
+    }
     
 }
