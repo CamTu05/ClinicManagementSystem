@@ -104,6 +104,7 @@ public class DoctorDAO extends DBContext {
             ps.setInt(1, specialty_id); 
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
+                System.out.println("");
                 Doctor doc = new Doctor();
                 doc.setId(rs.getInt("doctor_id"));
                 doc.setSpecialty(getSpecialtyById(specialty_id));
@@ -139,9 +140,20 @@ public class DoctorDAO extends DBContext {
         }
         return new Vector<>();
     }
+
     
     public static void main(String[] args) {
         DoctorDAO dao = new DoctorDAO();
-        dao.LoadDoctorsBySpecialty(1);
+        Vector<Doctor>doctors = dao.LoadDoctorsBySpecialty(2);
+        for (Doctor d : doctors){
+            System.out.println("id="+d.getId());
+            System.out.println("specialty="+d.getSpecialty());
+            System.out.println("year exp="+d.getYearsExp());
+            System.out.println("description="+d.getDescription());
+            System.out.println("picture="+d.getPicture());
+            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
+            System.out.println();
+        }
+        
     }
 }

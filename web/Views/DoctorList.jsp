@@ -76,89 +76,45 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <ul class="nav nav-tabs tab-menu">
-                            <li><a href="#" data-toggle="tab" onclick="myfun()">Toàn bộ</a></li>
-                            <li><a href="#" data-toggle="tab" onclick="myfun()">Nội tổng quát</a></li>
-                            <li><a href="#" data-toggle="tab" onclick="myfun()" >Tai - Mũi - Họng</a></li>
-                            <li><a href="#" data-toggle="tab" onclick="myfun()" >Răng - Hàm - Mặt</a></li>
-                            <li><a href="#" data-toggle="tab" onclick="myfun()">Sản phụ khoa</a></li>
-                        </ul>
+                        <form action="${pageContext.request.contextPath}/doctorList" method="get">
+                            <ul style="list-style-type: none; padding: 0; margin: 0;">
+                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
+                                    <input type="submit" name="btnFilter" value="Toàn Bộ" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                </li><br/>
+
+                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
+                                    <input type="submit" name="btnFilter" value="Nội Tổng Quát" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                </li><br/>
+
+                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
+                                    <input type="submit" name="btnFilter" value="Tai Mũi Họng" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                </li><br/>
+
+                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
+                                    <input type="submit" name="btnFilter" value="Răng Hàm Mặt" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                </li><br/>
+
+                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
+                                    <input type="submit" name="btnFilter" value="Sản Phụ Khoa" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                </li><br/>
+                            </ul>
+                        </form>
+
+
                     </div>
-                    <!--<div class="col-md-9">
-                                            <div class="row">
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/anhlh.jpg" class="img-fluid rounded" alt="Doctor 1">
-                                                    <p class="font-weight-bold">Giles Franklin</p>
-                                                    <p>Asst. Prof</p>
-                                                </div>
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/bichhn.jpg" class="img-fluid rounded" alt="Doctor 2">
-                                                    <p class="font-weight-bold">Edgar Denzil</p>
-                                                    <p>Asso. Prof</p>
-                                                </div>
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/chauvm.jpg" class="img-fluid rounded" alt="Doctor 3">
-                                                    <p class="font-weight-bold">Garfield Feris</p>
-                                                    <p>Sr Resident</p>
-                                                </div>
-                                            </div>
-                    
-                                            <div class="row">
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/dungnv.jpg" class="img-fluid rounded" alt="Doctor 4">
-                                                    <p class="font-weight-bold">Marc Parcival</p>
-                                                    <p>Sr Resident</p>
-                                                </div>
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/hangpt.jpg" class="img-fluid rounded" alt="Doctor 5">
-                                                    <p class="font-weight-bold">Alen Bailey</p>
-                                                    <p>Asst. Prof</p>
-                                                </div>
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/huybq.jpg" class="img-fluid rounded" alt="Doctor 6">
-                                                    <p class="font-weight-bold">Basil Andrew</p>
-                                                    <p>Asso. Prof</p>
-                                                </div>
-                                            </div>
-                                                    
-                                            <div class="row">
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/huyentt.jpg" class="img-fluid rounded" alt="Doctor 4">
-                                                    <p class="font-weight-bold">Marc Parcival</p>
-                                                    <p>Sr Resident</p>
-                                                </div>
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/lamdv.jpg" class="img-fluid rounded" alt="Doctor 5">
-                                                    <p class="font-weight-bold">Alen Bailey</p>
-                                                    <p>Asst. Prof</p>
-                                                </div>
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/lantt.jpg" class="img-fluid rounded" alt="Doctor 6">
-                                                    <p class="font-weight-bold">Basil Andrew</p>
-                                                    <p>Asso. Prof</p>
-                                                </div>
-                                            </div>
-                                                    
-                                            <div class="row">
-                                                <div class="col-md-4 text-center mb-4">
-                                                    <img src="${pageContext.request.contextPath}/images/team/minhdd.jpg" class="img-fluid rounded" alt="Doctor 4">
-                                                    <p class="font-weight-bold">Marc Parcival</p>
-                                                    <p>Sr Resident</p>
-                                                </div>
-                                            </div>
-                                        </div>-->
                     <div class="col-md-9">
                         <div class="row">
-                            <c:if test="${empty doctorList}">
-                                <p>No doctors available.</p>
-                            </c:if>
                             <c:forEach var="doctor" items="${doctorList}">
                                 <div class="col-md-4 text-center mb-4">
-                                    <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" class="img-fluid rounded" alt="${DoctorDao.getDoctorNameById(doctor.id)}">
-                                    <p class="font-weight-bold">${doctor.doctor_name}</p>
-                                    <p>${DoctorDao.getDoctorNameById(doctor.id)}</p>
-                                </div>-->
-                                <h1>${doctor.id}</h1>
+                                    <div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+                                        <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" 
+                                             alt="${DoctorDAO.getDoctorNameById(doctor.id)}" 
+                                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;">
+                                        <p style="font-size: 18px; font-weight: bold; color: #333; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;">
+                                            ${DoctorDAO.getDoctorNameById(doctor.id)}
+                                        </p>
+                                    </div>
+                                </div>
                             </c:forEach>
                         </div>
                     </div>
@@ -228,9 +184,29 @@
         <script src="assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
 
         <script>
-                                function myfun() {
-                                    document.getElementById("btnFilter").click();
-                                }
+            function filterToanBo() {
+                document.getElementById("filterToanBo").click();
+            }
+        </script>
+        <script>
+            function filterNoiTongQuat() {
+                document.getElementById("filterNoiTongQuat").click();
+            }
+        </script>
+        <script>
+            function filterTaiMuiHong() {
+                document.getElementById("filterTaiMuiHong").click();
+            }
+        </script>
+        <script>
+            function filterRangHamMat() {
+                document.getElementById("filterRangHamMat").click();
+            }
+        </script>
+        <script>
+            function filterSanPhuKhoa() {
+                document.getElementById("filterSanPhuKhoa").click();
+            }
         </script>
 
         <!-- thm custom script -->
