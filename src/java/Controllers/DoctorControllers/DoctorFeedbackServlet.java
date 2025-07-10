@@ -44,48 +44,13 @@ public class DoctorFeedbackServlet extends HttpServlet {
             throws ServletException, IOException {
         DoctorDAO doctorDAO = new DoctorDAO();
         Vector<Doctor> doctors = doctorDAO.LoadAllDoctors(); // Lấy danh sách bác sĩ từ database
+        int doctorId = Integer.parseInt(request.getParameter("doctorId"));
+        int rating = Integer.parseInt(request.getParameter("rating"));
+        String comment = request.getParameter("feedback");
+        Doctor d = doctorDAO.getDoctorById(doctorId, doctors);
 
         // Lấy session nếu có
         HttpSession session = request.getSession(false);
-
-        // Kiểm tra doctorId từ request và chuyển đổi sang số nguyên
-        String doctorIdStr = request.getParameter("doctorId");
-        int doctorId = -1;
-        if (doctorIdStr != null && !doctorIdStr.isEmpty()) {
-            try {
-                doctorId = Integer.parseInt(doctorIdStr);
-                response.getWriter().println(doctorId);
-            } catch (NumberFormatException e) {
-                response.getWriter().println("Invalid doctor ID.");
-                return; // Ngừng xử lý nếu doctorId không hợp lệ
-            }
-        }
-
-        // Lấy bác sĩ từ doctorId
-        Doctor d = doctorDAO.getDoctorById(doctorId, doctors);
-        if (d == null) {
-            response.getWriter().println("Doctor not found.");
-            return; // Ngừng xử lý nếu không tìm thấy bác sĩ
-        }
-
-        // Kiểm tra rating và chuyển đổi
-        int rating = -1; // Giá trị mặc định cho rating
-        String ratingStr = request.getParameter("rating");
-        if (ratingStr != null && !ratingStr.isEmpty()) {
-            try {
-                rating = Integer.parseInt(ratingStr);
-            } catch (NumberFormatException e) {
-                response.getWriter().println("Invalid rating.");
-                return; // Ngừng xử lý nếu rating không hợp lệ
-            }
-        }
-
-        // Lấy comment từ form
-        String comment = request.getParameter("feedback");
-        if (comment == null || comment.trim().isEmpty()) {
-            response.getWriter().println("Feedback comment is required.");
-            return; // Ngừng xử lý nếu comment trống
-        }
 
         // Tạo timestamp cho thời gian hiện tại
         Timestamp createdAt = new Timestamp(System.currentTimeMillis());
@@ -116,13 +81,8 @@ public class DoctorFeedbackServlet extends HttpServlet {
         }
 
         // Thêm feedback vào database
-        boolean isAdded = doctorDAO.addFeedback(feedback);
-        if (isAdded) {
-            response.getWriter().println("Feedback submitted successfully.");
-        } else {
-            response.getWriter().println("Failed to submit feedback.");
-        }
-        request.getRequestDispatcher("/DoctorFeedbackServlet" ).forward(request, response);
+        doctorDAO.addFeedback(feedback);
+        request.getRequestDispatcher("/Views/Doctors/Feedback.jsp" ).forward(request, response);
     }
 
     @Override
