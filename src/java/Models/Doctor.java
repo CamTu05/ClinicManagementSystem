@@ -71,5 +71,8 @@ public class Doctor {
         return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + ", picture=" + picture + '}';
     }
 
+    public String getShortName(){
+        return getPicture().substring(0, picture.lastIndexOf("."));
+    }
     
 }

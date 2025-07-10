@@ -37,7 +37,7 @@
             <%@ include file="Common/Navbar/DefaultNavbar.jsp" %>
         </div>
 
-        <!--Start breadcrumb area-->     
+        <!--Start breadcrumb area-->  
         <section class="breadcrumb-area" style="background-image: url('${pageContext.request.contextPath}/images/resources/breadcrumb-bg.jpg');">
             <div class="container">
                 <div class="row">
@@ -105,14 +105,19 @@
                     <div class="col-md-9">
                         <div class="row">
                             <c:forEach var="doctor" items="${doctorList}">
-                                <div class="col-md-4 text-center mb-4">
-                                    <div style="text-align: center; padding: 20px; background-color: #f9f9f9; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: transform 0.3s ease;">
+                                <div class="col-md-4 text-center mb-4" style="margin-bottom: 30px; padding: 15px;">
+                                    <div style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s ease;">
                                         <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" 
                                              alt="${DoctorDAO.getDoctorNameById(doctor.id)}" 
-                                             style="width: 150px; height: 150px; object-fit: cover; border-radius: 50%; margin-bottom: 10px;">
-                                        <p style="font-size: 18px; font-weight: bold; color: #333; margin-top: 10px; text-transform: uppercase; letter-spacing: 1px;">
+                                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease-in-out;" 
+                                             onmouseover="this.style.transform = 'scale(1.05)';" onmouseout="this.style.transform = 'scale(1)'">
+                                        <br/>
+                                        <a href="${pageContext.request.contextPath}/DoctorIndividualServlet?doctorId=${doctor.id}" 
+                                           style="display: block; margin-top: 10px; font-size: 1.1em; font-weight: bold; color: #333; text-decoration: none; transition: color 0.3s ease, transform 0.3s ease;" 
+                                           onmouseover="this.style.color = '#007bff'; this.style.transform = 'translateY(-2px)';" 
+                                           onmouseout="this.style.color = '#333'; this.style.transform = 'translateY(0)';">
                                             ${DoctorDAO.getDoctorNameById(doctor.id)}
-                                        </p>
+                                        </a>
                                     </div>
                                 </div>
                             </c:forEach>
@@ -183,10 +188,13 @@
         <script src="assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
         <script src="assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
 
+        <!-- thm custom script -->
+        <script src="js/custom.js"></script>
+
         <script>
-            function filterToanBo() {
-                document.getElementById("filterToanBo").click();
-            }
+                                               function filterToanBo() {
+                                                   document.getElementById("filterToanBo").click();
+                                               }
         </script>
         <script>
             function filterNoiTongQuat() {
@@ -209,7 +217,5 @@
             }
         </script>
 
-        <!-- thm custom script -->
-        <script src="js/custom.js"></script>
     </body>
 </html>
