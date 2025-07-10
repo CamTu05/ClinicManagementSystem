@@ -13,7 +13,7 @@
             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
                 <div class="single-footer-widget pd-bottom50">
                     <div class="title">
-                        <h3>Về phòng khám</h3>
+                        <h3>Phòng khám</h3>
                         <span class="border"></span>
                     </div>
                     <div class="our-info">

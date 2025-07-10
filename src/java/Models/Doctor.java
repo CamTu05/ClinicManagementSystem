@@ -13,6 +13,7 @@ public class Doctor {
     private Specialty specialty;
     private int yearsExp;
     private String description;
+    private String picture;
 
     public Doctor() {
     }

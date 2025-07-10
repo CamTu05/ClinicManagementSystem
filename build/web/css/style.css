@@ -979,7 +979,9 @@ body {
     position: relative;
     margin-bottom: 21px;
 }
-.callto-action-area .inner-content .form-holder .input-box input[type="text"] {
+.callto-action-area .inner-content .form-holder .input-box input[type="text"],
+.callto-action-area .inner-content .form-holder .input-box input[type="password"],
+.callto-action-area .inner-content .form-holder .input-box input[type="email"] {
     width: 100%;
     border: 1px solid #ececec;
     background: #ffffff;
@@ -1852,7 +1854,8 @@ body {
     margin-bottom: 11px;
 }
 .facilities-appointment-area .appointment .input-box input[type="text"],
-.facilities-appointment-area .appointment .input-box input[type="email"]{
+.facilities-appointment-area .appointment .input-box input[type="email"],
+.facilities-appointment-area .appointment .input-box input[type="password"]{
     background: #ffffff;
     border: 1px solid #f0f0f0;
     color: #848484;
@@ -4841,9 +4844,11 @@ body {
 .login-register-area .form .input-field {
     position: relative;
 }
-.login-register-area .form .input-field input[type="text"] {
+.login-register-area .form .input-field input[type="text"],
+.login-register-area .form .input-field input[type="email"],
+.login-register-area .form .input-field input[type="password"]{
     border: 2px solid #f4f4f4;
-    color: #777;
+    color: black;
     font-size: 15px;
     height: 50px;
     margin-bottom: 30px;
@@ -4858,7 +4863,7 @@ body {
     top: 11px;
 }
 .login-register-area .form .input-field .icon-holder i {
-    color: #777;
+    color: black;
     font-size: 14px;
     font-weight: 400;
 }
@@ -4935,6 +4940,12 @@ body {
 .login-register-area .form .input-field input[type="text"]:focus{
     border: 2px solid #0392ce;    
 }
+.login-register-area .form .input-field input[type="email"]:focus{
+    border: 2px solid #0392ce;    
+}
+.login-register-area .form .input-field input[type="password"]:focus{
+    border: 2px solid #0392ce;    
+}
 .login-register-area .form .social-icon li a:hover i{
     background: #18387b;   
 }
@@ -4944,7 +4955,9 @@ body {
 .login-register-area .form .social-icon li a:hover i.gplus{
     background: #c62d1a;
 }
-
+input::placeholder{
+    color:#777;
+}
 
 
 /*** 
