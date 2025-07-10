@@ -35,15 +35,13 @@ public class DoctorFeedbackServlet extends HttpServlet {
         request.setAttribute("doctorList", doctors);
         request.setAttribute("doctorDAO", doctorDAO);
         request.setAttribute("doctorName", doctorName);
-
+        
         request.getRequestDispatcher("/Views/Doctors/Feedback.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String submit = request.getParameter("btnSubmit");
-        response.getWriter().println("Submit button value: " + submit);
         DoctorDAO doctorDAO = new DoctorDAO();
         Vector<Doctor> doctors = doctorDAO.LoadAllDoctors(); // Lấy danh sách bác sĩ từ database
 
@@ -124,7 +122,7 @@ public class DoctorFeedbackServlet extends HttpServlet {
         } else {
             response.getWriter().println("Failed to submit feedback.");
         }
-
+        request.getRequestDispatcher("/DoctorFeedbackServlet" ).forward(request, response);
     }
 
     @Override

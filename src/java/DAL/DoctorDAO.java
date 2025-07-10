@@ -257,20 +257,20 @@ public class DoctorDAO extends DBContext {
     public static void main(String[] args) {
         DoctorDAO dao = new DoctorDAO();
         Vector<Doctor>doctors = dao.LoadDoctorsBySpecialty(2);
-        for (Doctor d : doctors){
-            System.out.println("id="+d.getId());
-            System.out.println("specialty="+d.getSpecialty());
-            System.out.println("year exp="+d.getYearsExp());
-            System.out.println("description="+d.getDescription());
-            System.out.println("picture="+d.getPicture());
-            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
-            System.out.println();
-        }
-        Vector<Feedback> fb = dao.getFeedbackByDoctorId(2);
+//        for (Doctor d : doctors){
+//            System.out.println("id="+d.getId());
+//            System.out.println("specialty="+d.getSpecialty());
+//            System.out.println("year exp="+d.getYearsExp());
+//            System.out.println("description="+d.getDescription());
+//            System.out.println("picture="+d.getPicture());
+//            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
+//            System.out.println();
+//        }
+        Vector<Feedback> fb = dao.getFeedbackByDoctorId(3);
         for (Feedback f : fb){
             System.out.println(f.getComment());
         }
-        System.out.println(dao.getDoctorNameById(2));
+        System.out.println(dao.getDoctorNameById(3));
     }
     
     

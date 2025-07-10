@@ -56,7 +56,7 @@
 
         <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">Feedback Form</h2>
 
-        <form action="${pageContext.request.contextPath}/DoctorFeedbackServlet" method="post" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" onsubmit="return validateForm()">
+        <form action="DoctorFeedbackServlet" method="POST" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);" onsubmit="return validateForm(event)">
             <label for="doctor" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Choose Doctor:</label>
             <select id="doctorId" name="doctorId" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
                 <c:forEach var="d" items="${doctorList}" varStatus="status">
@@ -67,24 +67,24 @@
             <!-- Name and Age (same row) -->
             <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                 <div style="flex: 1; padding-right: 10px;">
-                    <label for="name" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Name:</label>
-                    <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                    <label style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Name:</label>
+                    <input type="text" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
                 </div>
                 <div style="flex: 1; padding-left: 10px;">
-                    <label for="age" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Age:</label>
-                    <input type="number" id="age" name="age" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                    <label style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Age:</label>
+                    <input type="number" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
                 </div>
             </div>
 
             <!-- Phone and Email (same row) -->
             <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
                 <div style="flex: 1; padding-right: 10px;">
-                    <label for="phone" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Phone Number:</label>
-                    <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                    <label style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Phone Number:</label>
+                    <input type="tel" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
                 </div>
                 <div style="flex: 1; padding-left: 10px;">
-                    <label for="email" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Email:</label>
-                    <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                    <label style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px;">Your Email:</label>
+                    <input type="email" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
                 </div>
             </div>
 
@@ -112,7 +112,7 @@
             </div>
 
             <!-- Submit Button -->
-            <input type="submit" name="btnSubmit" value="Submit Feedback" style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; transition: background-color 0.3s;" />
+            <input type="submit" value="Submit Feedback" style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; transition: background-color 0.3s;" />
         </form>
 
         <script>
