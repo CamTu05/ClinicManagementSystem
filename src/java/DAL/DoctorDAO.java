@@ -188,7 +188,6 @@ public class DoctorDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return patient;
     }
     
@@ -229,6 +228,30 @@ public class DoctorDAO extends DBContext {
         }
 
         return feedbackList;
+    }
+    
+    public boolean addFeedback(Feedback feedback) {
+        String sql = "INSERT INTO feedback (patient_id, doctor_id, rating, comment, created_at) "
+                   + "VALUES (?, ?, ?, ?, ?)";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            // Set các tham số cho PreparedStatement từ đối tượng feedback
+            ps.setInt(1, feedback.getPatient().getId());  // Gán ID bệnh nhân
+            ps.setInt(2, feedback.getDoctor().getId());    // Gán ID bác sĩ
+            ps.setInt(3, feedback.getRating());            // Gán rating
+            ps.setString(4, feedback.getComment());        // Gán comment
+            ps.setTimestamp(5, feedback.getCreatedAt());   // Gán thời gian tạo feedback
+
+            // Thực thi câu lệnh INSERT
+            int rowsAffected = ps.executeUpdate();
+
+            // Kiểm tra nếu ít nhất một dòng đã được thêm vào cơ sở dữ liệu
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            System.out.println("Error while inserting feedback: " + e.getMessage());
+            status = "Error while inserting feedback: " + e.getMessage();  // Lưu thông báo lỗi
+            return false;
+        }
     }
     
     public static void main(String[] args) {
