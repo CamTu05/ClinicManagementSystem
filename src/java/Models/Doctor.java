@@ -4,6 +4,8 @@
  */
 package Models;
 
+import DAL.UserDAO;
+
 /**
  *
  * @author admin
@@ -13,6 +15,7 @@ public class Doctor {
     private Specialty specialty;
     private int yearsExp;
     private String description;
+    
 
     public Doctor() {
     }
@@ -55,7 +58,8 @@ public class Doctor {
     public void setDescription(String description) {
         this.description = description;
     }
-
+    
+    
     @Override
     public String toString() {
         return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + '}';

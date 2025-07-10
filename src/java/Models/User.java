@@ -4,8 +4,8 @@
  */
 package Models;
 
-import java.security.Timestamp;
-import java.time.LocalDate;
+import java.sql.Time;
+import java.sql.Date;
 
 /**
  *
@@ -19,16 +19,16 @@ public class User {
     private String phone;
     private String fullname;
     private String gender;
-    private LocalDate dob;
+    private Date dob;
     private String address;
     private Role role;
     private boolean isActive;
-    private Timestamp createdAt;
+    private Time createdAt;
 
     public User() {
     }
 
-    public User(int id, String username, String passwordHash, String email, String phone, String fullname, String gender, LocalDate dob, String address, Role role, boolean isActive, Timestamp createdAt) {
+    public User(int id, String username, String passwordHash, String email, String phone, String fullname, String gender, Date dob, String address, Role role, boolean isActive, Time createdAt) {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -99,11 +99,11 @@ public class User {
         this.gender = gender;
     }
 
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -131,13 +131,14 @@ public class User {
         this.isActive = isActive;
     }
 
-    public Timestamp getCreatedAt() {
+    public Time getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Timestamp createdAt) {
+    public void setCreatedAt(Time createdAt) {
         this.createdAt = createdAt;
     }
+    
 
     @Override
     public String toString() {

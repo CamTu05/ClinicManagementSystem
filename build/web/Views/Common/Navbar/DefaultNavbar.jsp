@@ -44,11 +44,11 @@
                                 <!--load từ db lên -->
                                 <ul>
                                     <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
-                                        <li><a href="${pageContext.request.contextPath}/Views/Common/OtherItems/Services.jsp?id=${s.id}">${s.specialtyName}</a></li>
+                                        <li><a href="${pageContext.request.contextPath}/LoadServicesServlet?id=${s.id}">${s.specialtyName}</a></li>
                                         </c:forEach>
                                 </ul>
 
-                            <li><a href="#">Thời gian biểu</a></li>
+                            <li><a href="${pageContext.request.contextPath}/LoadSchedulesServlet?id=0&type=-1">Thời gian biểu</a></li>
                             <li class="dropdown"><a href="#">Tin tức</a></li>
                             <li><a href="#">Giải đáp</a></li>
                         </ul>

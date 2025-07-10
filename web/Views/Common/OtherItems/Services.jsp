@@ -4,17 +4,10 @@
     if (session.getAttribute("daoServices") == null) {
         response.sendRedirect(request.getContextPath() + "/LoadServicesServlet");
         
-        return; 
     }
 %>
 
-<%
-    //Kiểm tra nếu chưa có specId
-    String idParam = request.getParameter("id");
-    if (idParam != null) {
-        session.setAttribute("specId", Integer.parseInt(idParam)); 
-    }
-%>
+
 
 <!DOCTYPE html>
 <html>
@@ -87,12 +80,12 @@
                                 <!--Start single sidebar-->
                                 <div class="single-sidebar">
                                     <div class="title">
-                                        <h3>Services</h3>    
+                                        <h3>Chuyên khoa</h3>    
                                     </div>
                                     <ul class="all-departments">
                                         <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
                                             <li class='${s.id == sessionScope.specId ? 'active' : ''}' >
-                                                <a href="${pageContext.request.contextPath}/Views/Common/OtherItems/Services.jsp?id=${s.id}">${s.specialtyName}</a>
+                                                <a href="${pageContext.request.contextPath}/LoadServicesServlet?id=${s.id}">${s.specialtyName}</a>
                                             </li>
                                         </c:forEach>
                                     </ul>

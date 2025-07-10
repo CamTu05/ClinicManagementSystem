@@ -37,7 +37,7 @@
                                     <h3>${s.specialtyName}</h3>
                                     
                                 </div>
-                                <a class="readmore" href="${pageContext.request.contextPath}/Views/Common/OtherItems/Services.jsp?id=${s.id}">Xem thêm</a>
+                                <a class="readmore" href="${pageContext.request.contextPath}/LoadServicesServlet?id=${s.id}">Xem thêm</a>
                             </div>
                         </div> 
                             </c:forEach>

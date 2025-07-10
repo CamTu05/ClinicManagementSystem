@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="6.0" xmlns="https://jakarta.ee/xml/ns/jakartaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd">
+    <servlet>
+        <servlet-name>LoadSchedulesServlet</servlet-name>
+        <servlet-class>Controllers.LoadSchedulesServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoadSpecialtyServlet</servlet-name>
         <url-pattern>/LoadSpecialtyServlet</url-pattern>
@@ -7,6 +11,10 @@
     <servlet-mapping>
         <servlet-name>LoadServicesServlet</servlet-name>
         <url-pattern>/LoadServicesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadSchedulesServlet</servlet-name>
+        <url-pattern>/LoadSchedulesServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>Views/HomePage.jsp</welcome-file>
