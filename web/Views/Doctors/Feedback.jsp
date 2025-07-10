@@ -10,6 +10,41 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <style>
+            #flip{
+                transform: scaleX(-1);
+                transform-origin: center;
+            }
+            
+            /* Ẩn các nút radio */
+            .rating input[type="radio"] {
+                display: none;
+            }
+
+            /* Thiết lập kiểu cho các ngôi sao */
+            .rating label {
+                font-size: 24px;
+                cursor: pointer;
+                color: #ccc; /* Màu mặc định */
+                transition: color 0.3s ease;
+            }
+
+            /* Khi hover hoặc chọn ngôi sao */
+            .rating label:hover,
+            .rating input[type="radio"]:checked + label,
+            .rating input[type="radio"]:checked + label + label,
+            .rating input[type="radio"]:checked + label + label + label,
+            .rating input[type="radio"]:checked + label + label + label + label,
+            .rating input[type="radio"]:checked ~ label {
+                color: #ff9800; /* Màu vàng khi chọn */
+            }
+
+            /* Đảm bảo rằng các ngôi sao trước ngôi sao đã chọn sáng lên */
+            .rating input[type="radio"]:checked ~ label {
+                color: #ff9800;
+            }
+
+        </style>
         <meta charset="UTF-8">
         <title>Doctors || Hospitals || Responsive HTML 5 Template</title>
 
@@ -33,13 +68,77 @@
         <![endif]-->
     </head>
     <body>
-        <%@ include file="/Views/Common/Header/DefaultHeader.jsp" %>
-        <%@ include file="/Views/Common/Navbar/DefaultNavbar.jsp" %>
-        
-        
-        
-        
-        
+        <div style="padding-bottom: 20px;">
+            <%@ include file="/Views/Common/Header/DefaultHeader.jsp" %>
+            <%@ include file="/Views/Common/Navbar/DefaultNavbar.jsp" %>
+        </div>
+
+
+        <h2 style="text-align: center; font-size: 24px; margin-bottom: 20px; color: #333; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);">Feedback Form</h2>
+
+        <form action="${pageContext.request.contextPath}/DoctorFeedbackServlet" method="post" enctype="multipart/form-data" style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f9f9f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+            <label for="doctor" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Choose Doctor:</label>
+            <select id="doctor" name="doctor" required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;">
+                <c:forEach var="d" items="${doctorList}" varStatus="status">
+                    <option value="${d.id}" style="padding: 5px;">${doctorName[status.index]}</option>
+                </c:forEach>
+            </select>
+            <br><br>
+            
+            <!-- Name and Age (same row) -->
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <div style="flex: 1; padding-right: 10px;">
+                    <label for="name" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Your Name:</label>
+                    <input type="text" id="name" name="name" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                </div>
+                <div style="flex: 1; padding-left: 10px;">
+                    <label for="age" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Your Age:</label>
+                    <input type="number" id="age" name="age" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                </div>
+            </div>
+
+            <!-- Phone and Email (same row) -->
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+                <div style="flex: 1; padding-right: 10px;">
+                    <label for="phone" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Your Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                </div>
+                <div style="flex: 1; padding-left: 10px;">
+                    <label for="email" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Your Email:</label>
+                    <input type="email" id="email" name="email" required style="width: 100%; padding: 8px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;" />
+                </div>
+            </div>
+
+            <!-- Feedback Text -->
+            <label for="feedback" style="font-weight: bold; font-size: 16px; color: #555; margin-bottom: 5px; display: inline-block;">Your Feedback:</label><br>
+            <textarea id="feedback" name="feedback" rows="4" cols="50" placeholder="Write your feedback here..." required style="width: 100%; padding: 8px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box;"></textarea>
+            <br><br>
+
+            <!-- Rating -->
+            <div id="flip" class="rating" style="display: flex; justify-content: space-between; width: 150px; margin-bottom: 15px;">
+                <input type="radio" id="star1" name="rating" value="1" style="display: none;" />
+                <label for="star1">☆</label>
+
+                <input type="radio" id="star2" name="rating" value="2" style="display: none;" />
+                <label for="star2">☆</label>
+
+                <input type="radio" id="star3" name="rating" value="3" style="display: none;" />
+                <label for="star3">☆</label>
+
+                <input type="radio" id="star4" name="rating" value="4" style="display: none;" />
+                <label for="star4">☆</label>
+
+                <input type="radio" id="star5" name="rating" value="5" style="display: none;" />
+                <label for="star5">☆</label>
+            </div>
+
+
+            <!-- Submit Button -->
+            <input type="submit" value="Submit Feedback" style="background-color: #4CAF50; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; transition: background-color 0.3s;" />
+
+        </form>
+
+
         <%@ include file="/Views/Common/Footer/DefaultFooter.jsp" %>
         <!--Scroll to top-->
         <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-triangle-inside-circle"></span></div>

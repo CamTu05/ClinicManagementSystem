@@ -150,6 +150,24 @@ public class DoctorDAO extends DBContext {
         return null;
     }
     
+    public Vector<Specialty> LoadAllSpecialtys() {
+        String sql = "Select specialty_id, specialty_name from Specialties";
+        specialties = new Vector<Specialty>();
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Specialty sp = new Specialty();
+                sp.setId(rs.getInt("specialty_id"));
+                sp.setSpecialtyName(rs.getString("specialty_name"));
+                specialties.add(sp);
+            }
+            return specialties;
+        } catch (SQLException e) {
+            System.out.println("Error at reading Specialty: " + e.getMessage());
+            status = "Error at reading Specialty: " + e.getMessage();
+        }
+        return new Vector<>();
+    }
+    
     public Patient getPatientById(int patientId) {
         Patient patient = null;
         String sql = "SELECT * FROM Patients WHERE patient_id = ?";
@@ -216,20 +234,21 @@ public class DoctorDAO extends DBContext {
     public static void main(String[] args) {
         DoctorDAO dao = new DoctorDAO();
         Vector<Doctor>doctors = dao.LoadDoctorsBySpecialty(2);
-//        for (Doctor d : doctors){
-//            System.out.println("id="+d.getId());
-//            System.out.println("specialty="+d.getSpecialty());
-//            System.out.println("year exp="+d.getYearsExp());
-//            System.out.println("description="+d.getDescription());
-//            System.out.println("picture="+d.getPicture());
-//            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
-//            System.out.println();
-//        }
+        for (Doctor d : doctors){
+            System.out.println("id="+d.getId());
+            System.out.println("specialty="+d.getSpecialty());
+            System.out.println("year exp="+d.getYearsExp());
+            System.out.println("description="+d.getDescription());
+            System.out.println("picture="+d.getPicture());
+            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
+            System.out.println();
+        }
         Vector<Feedback> fb = dao.getFeedbackByDoctorId(2);
         for (Feedback f : fb){
             System.out.println(f.getComment());
         }
         System.out.println(dao.getDoctorNameById(2));
     }
+    
     
 }

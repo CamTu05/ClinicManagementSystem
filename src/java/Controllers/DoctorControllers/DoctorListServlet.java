@@ -24,21 +24,26 @@ public class DoctorListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         DoctorDAO doctorDAO = new DoctorDAO();
+
         Vector<Doctor> doctorList = doctorDAO.LoadAllDoctors();
+        Vector<Specialty> specialties = doctorDAO.LoadAllSpecialtys();
+
         request.setAttribute("doctorList", doctorList);
         request.setAttribute("DoctorDAO", doctorDAO);
+        request.setAttribute("specialties", specialties); 
+        
         String specialty = request.getParameter("btnFilter");
-        if (specialty != null && !specialty.isEmpty()){
-            if(specialty.equals("Toàn Bộ")){
+        if (specialty != null && !specialty.isEmpty()) {
+            if (specialty.equals("Toàn Bộ")) {
                 doctorList = doctorDAO.LoadAllDoctors();
-            }else if (specialty.equals("Nội Tổng Quát")) {
-                doctorList = doctorDAO.LoadDoctorsBySpecialty(1);
-            }else if (specialty.equals("Tai Mũi Họng")) {
-                doctorList = doctorDAO.LoadDoctorsBySpecialty(2);
-            }else if (specialty.equals("Răng Hàm Mặt")) {
-                doctorList = doctorDAO.LoadDoctorsBySpecialty(3);
-            }else if (specialty.equals("Sản Phụ Khoa")) {
-                doctorList = doctorDAO.LoadDoctorsBySpecialty(4); 
+            } else {
+                // Tìm specialty tương ứng từ danh sách specialties
+                for (Specialty s : specialties) {
+                    if (s.getSpecialtyName().equals(specialty)) {
+                        doctorList = doctorDAO.LoadDoctorsBySpecialty(s.getId());
+                        break;
+                    }
+                }
             }
         }
         request.setAttribute("doctorList", doctorList);
