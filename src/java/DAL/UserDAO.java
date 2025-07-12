@@ -148,6 +148,33 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
+    
+        public User getUserByInput(String input) {
+        String sql = "select * from Users where username = ? or email = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, input);
+            st.setString(2, input);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User(rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password_hash"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("fullname"),
+                        rs.getString("gender"),
+                        rs.getDate("dob"),
+                        rs.getString("address"),
+                        rs.getInt("role_id"),
+                        rs.getBoolean("is_active"),
+                        rs.getTimestamp("created_at"));
+                return u;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
     //For Testing
     public static void main(String[] args) {

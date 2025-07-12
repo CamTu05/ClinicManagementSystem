@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.UserDAO;
+import Helpers.BCryptUtil;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -78,7 +79,7 @@ public class RegisterServlet extends HttpServlet {
         String password = request.getParameter("password");
         boolean usernameExists = UserDAO.INSTANCE.isUsernameExists(username);
         boolean emailExists = UserDAO.INSTANCE.isEmailExists(email);
-
+        String hashedPassword = BCryptUtil.hashPassword(password);
         if (usernameExists || emailExists) {
             request.setAttribute("fullname", fullname);
             request.setAttribute("username", username);
@@ -91,9 +92,9 @@ public class RegisterServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/Views/Register.jsp").forward(request, response);
         } else {
-            UserDAO.INSTANCE.insertUser(fullname, username, email, password);
+            UserDAO.INSTANCE.insertUser(fullname, username, email, hashedPassword);
             HttpSession session = request.getSession();
-            User user = UserDAO.INSTANCE.findUser(email, password);
+            User user = UserDAO.INSTANCE.getUserByInput(username);
             session.setAttribute("user", user);
             response.sendRedirect("HomePageServlet");
         }
