@@ -23,17 +23,16 @@ public class DoctorIndividualServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DoctorDAO doctorDAO = new DoctorDAO();
         int id = Integer.parseInt(request.getParameter("doctorId"));
-        Vector<Doctor> doctors = doctorDAO.LoadAllDoctors();
-        Doctor d = doctorDAO.getDoctorById(id, doctors);
-        String name = doctorDAO.getDoctorNameById(id);
+        Vector<Doctor> doctors = DoctorDAO.INSTANCE.LoadAllDoctors();
+        Doctor d = DoctorDAO.INSTANCE.getDoctorById(id, doctors);
+        String name = DoctorDAO.INSTANCE.getDoctorNameById(id);
         request.setAttribute("name", name);
         request.setAttribute("doctor", d);
-        request.setAttribute("doctorDAO", doctorDAO);
-        request.setAttribute("feedback", doctorDAO.getFeedbackByDoctorId(id));
+        request.setAttribute("doctorDAO", DoctorDAO.INSTANCE);
+        request.setAttribute("feedback", DoctorDAO.INSTANCE.getFeedbackByDoctorId(id));
         request.getRequestDispatcher("/Views/IndividualDoctors.jsp" ).forward(request, response);
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
