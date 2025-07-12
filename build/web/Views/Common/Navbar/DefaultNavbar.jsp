@@ -33,16 +33,16 @@
                             </li>
                             <li class="dropdown"><a href="departments.html">Các chuyên khoa</a>
                                 <!--load từ db lên -->
-<!--                                <ul>
-                                    <li><a href="cardiac-clinic.html">Cardiac Clinic</a></li>
-                                    <li><a href="pulmonology.html">Pulmonology</a></li>
-                                    <li><a href="gynecology.html">Gynecology</a></li>
-                                    <li><a href="neurology.html">Neurology</a></li>
-                                    <li><a href="urology.html">Urology</a></li>
-                                    <li><a href="gastrology.html">Gastrology</a></li>
-                                    <li><a href="pediatrician.html">Pediatrician</a></li>
-                                    <li><a href="laborotory.html">Laborotory</a></li>
-                                </ul>-->
+                                <!--                                <ul>
+                                                                    <li><a href="cardiac-clinic.html">Cardiac Clinic</a></li>
+                                                                    <li><a href="pulmonology.html">Pulmonology</a></li>
+                                                                    <li><a href="gynecology.html">Gynecology</a></li>
+                                                                    <li><a href="neurology.html">Neurology</a></li>
+                                                                    <li><a href="urology.html">Urology</a></li>
+                                                                    <li><a href="gastrology.html">Gastrology</a></li>
+                                                                    <li><a href="pediatrician.html">Pediatrician</a></li>
+                                                                    <li><a href="laborotory.html">Laborotory</a></li>
+                                                                </ul>-->
                             </li>
                             <li><a href="#">Thời gian biểu</a></li>
                             <li class="dropdown"><a href="#">Tin tức</a></li>
@@ -53,11 +53,35 @@
                 <!--End main menu-->  
                 <div class="mainmenu-right-box pull-right">
                     <div class="consultation-button">
-                        <a href="${pageContext.request.contextPath}/Views/HomePage.jsp#appointment-form" onclick="scrollToMiddle(event, 'appointment-form')">Đặt lịch ngay</a>    
+                        <a href="#" onclick="goToAppointment(event)">Đặt lịch ngay</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </section>
-<!--End main menu area-->
+
+<script>
+    function goToAppointment(event) {
+        event.preventDefault();
+
+        const currentPath = window.location.pathname;
+
+        // Nếu đang ở HomePage, chỉ cuộn
+        if (currentPath.includes('HomePage.jsp')) {
+            const element = document.getElementById('appointment-form');
+            if (element) {
+                element.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+            }
+        } else {
+            // Nếu không ở HomePage, chuyển trang
+            window.location.href = '${pageContext.request.contextPath}/Views/HomePage.jsp#appointment-form';
+        }
+    }
+</script>
+
+
+

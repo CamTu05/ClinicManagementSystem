@@ -4,8 +4,8 @@
  */
 package Models;
 
-import java.security.Timestamp;
-import java.time.LocalDate;
+import java.sql.Timestamp;
+import java.sql.Date;
 
 /**
  *
@@ -19,16 +19,16 @@ public class User {
     private String phone;
     private String fullname;
     private String gender;
-    private LocalDate dob;
+    private Date dob;
     private String address;
-    private Role role;
+    private int role;
     private boolean isActive;
     private Timestamp createdAt;
 
     public User() {
     }
 
-    public User(int id, String username, String passwordHash, String email, String phone, String fullname, String gender, LocalDate dob, String address, Role role, boolean isActive, Timestamp createdAt) {
+    public User(int id, String username, String passwordHash, String email, String phone, String fullname, String gender, Date dob, String address, int role, boolean isActive, Timestamp createdAt) {
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -99,11 +99,11 @@ public class User {
         this.gender = gender;
     }
 
-    public LocalDate getDob() {
+    public Date getDob() {
         return dob;
     }
 
-    public void setDob(LocalDate dob) {
+    public void setDob(Date dob) {
         this.dob = dob;
     }
 
@@ -115,11 +115,11 @@ public class User {
         this.address = address;
     }
 
-    public Role getRole() {
+    public int getRole() {
         return role;
     }
 
-    public void setRole(Role role) {
+    public void setRole(int role) {
         this.role = role;
     }
 

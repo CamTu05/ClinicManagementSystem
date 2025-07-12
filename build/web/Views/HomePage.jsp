@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>Trang chủ</title>
         <meta charset="UTF-8">
         <!-- responsive meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -24,6 +24,7 @@
         <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/images/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
+
     </head>
     <body>
         <div class="boxed_wrapper">
@@ -97,8 +98,7 @@
 
         <!-- thm custom script -->
         <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-        <script>
-            function scrollToMiddle(event, id) {
+        <script>function scrollToMiddle(event, id) {
                 event.preventDefault();
                 const el = document.getElementById(id);
                 if (el) {
@@ -108,6 +108,33 @@
                     });
                 }
             }
-        </script>
+
+            window.addEventListener('load', function () {
+                if (window.location.hash) {
+                    const id = window.location.hash.substring(1);
+                    const element = document.getElementById(id);
+                    if (element) {
+                        setTimeout(() => {
+                            element.scrollIntoView({
+                                behavior: "smooth",
+                                block: "center"
+                            });
+
+                            // Xóa hash khỏi URL sau khi cuộn
+                            setTimeout(() => {
+                                history.replaceState(null, null, window.location.pathname);
+                            }, 1000);
+                        }, 100);
+                    }
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                // Nếu không có #id trong URL => scroll lên đầu
+                if (!window.location.hash) {
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                }
+            });</script>
+
     </body>
 </html>
