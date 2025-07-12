@@ -1,6 +1,6 @@
 <%-- 
     Document   : Login
-    Created on : Jul 7, 2025, 3:29:05 PM
+    Created on : Jul 9, 2025, 8:58:51 PM
     Author     : admin
 --%>
 
@@ -8,97 +8,180 @@
 <!DOCTYPE html>
 <html>
     <head>
-
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
         <title>Đăng nhập</title>
-        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap&subset=vietnamese" rel="stylesheet">
-        <style>
-            * {
-                box-sizing: border-box;
-                margin: 0;
-                padding: 0;
-                font-family: 'Roboto', sans-serif;
-            }
-
-            body {
-                background: #f0f2f5;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                height: 100vh;
-            }
-
-            .auth-form {
-                background: #fff;
-                padding: 30px;
-                border-radius: 12px;
-                box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-                width: 100%;
-                max-width: 400px;
-            }
-
-            .auth-form h2 {
-                text-align: center;
-                margin-bottom: 20px;
-                color: #333;
-            }
-
-            .auth-form label {
-                display: block;
-                margin: 10px 0 5px;
-                color: #555;
-                font-weight: 500;
-            }
-
-            .auth-form input {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ddd;
-                border-radius: 8px;
-                margin-bottom: 15px;
-                transition: 0.3s;
-            }
-
-            .auth-form input:focus {
-                border-color: #007bff;
-                outline: none;
-            }
-
-            .auth-form button {
-                width: 100%;
-                padding: 10px;
-                background: #007bff;
-                color: white;
-                border: none;
-                border-radius: 8px;
-                font-weight: bold;
-                transition: 0.3s;
-            }
-
-            .auth-form button:hover {
-                background: #0056b3;
-                cursor: pointer;
-            }
-
-            .auth-form .link {
-                text-align: center;
-                margin-top: 15px;
-            }
-
-            .auth-form .link a {
-                color: #007bff;
-                text-decoration: none;
-            }
-
-            .auth-form .link a:hover {
-                text-decoration: underline;
-            }
-        </style>
-
+        <!-- responsive meta -->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- For IE -->
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <!-- master stylesheet -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+        <!-- Responsive stylesheet -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
+        <!-- Favicon -->
+        <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/images/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
     </head>
+
     <body>
+        <div class="boxed_wrapper">
+            <!--Start Preloader -->
+            <div class="preloader"></div>
+            <!--End Preloader --> 
+            <%@ include file="Common/Header/DefaultHeader.jsp" %>
+            <%@ include file="Common/Navbar/DefaultNavbar.jsp" %>
+            <!--Start breadcrumb area-->     
+            <section class="breadcrumb-area" style="background-image: url(${pageContext.request.contextPath}/images/resources/breadcrumb-bg.jpg);">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="breadcrumbs">
+                                <h1>Tài khoản</h1>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="breadcrumb-bottom">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="left pull-left">
+                                    <ul>
+                                        <li><a href="index.html">Trang chủ</a></li>
+                                        <li><i class="fa fa-angle-right" aria-hidden="true"></i></li>
+                                        <li class="active">Tài khoản</li>
+                                    </ul>
+                                </div> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <!--End breadcrumb area-->
+            <!--Start login register area-->
+            <section class="login-register-area">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                        </div>
+                        <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form">
+                                <div class="sec-title">
+                                    <h1>Đăng nhập</h1>
+                                </div>
+                                <p style="color:red">${requestScope.error}</p>
+                                <div class="row">
+                                    <form action="LoginServlet" method="post">
+                                        <div class="col-md-12">
+                                            <div class="input-field">
+                                                <input type="text" name="input" placeholder="Tên đăng nhập hoặc Email *" value="${input}" required>
+                                                <div class="icon-holder">
+                                                    <i class="fa fa-user" aria-hidden="true"></i>
+                                                </div>
+                                            </div>    
+                                        </div> 
+                                        <div class="col-md-12">
+                                            <div class="input-field">
+                                                <input type="password" name="password" placeholder="Mật khẩu *" required>
+                                                <div class="icon-holder">
+                                                    <i class="fa fa-unlock-alt" aria-hidden="true"></i>
+                                                </div>
+                                            </div>    
+                                        </div>
+                                        <div class="col-md-12">
+                                            <p>Chưa có tài khoản? <a style="color:#0392ce" href="RegisterServlet">Đăng ký ngay</a></p>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <button class="thm-btn bgclr-1" type="submit">Đăng nhập</button>
+                                                    <div class="remember-text">
+                                                        <div class="checkbox">
+                                                            <label>
+                                                                <input name="remember" type="checkbox">
+                                                                <span>Nhớ mật khẩu</span>
+                                                            </label>
+                                                        </div>  
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                                    <ul class="social-icon">
+                                                        <li class="login-with">hoặc bằng</li>
+                                                        <li><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-twitter twitter" aria-hidden="true"></i></a></li>
+                                                        <li><a href="#"><i class="fa fa-google-plus gplus" aria-hidden="true"></i></a></li>
+                                                    </ul>
+                                                    <a class="forgot-password" href="#">Quên mật khẩu?</a>
+                                                </div>
+                                            </div>   
+                                        </div> 
+                                    </form>    
+                                </div>
+                            </div>    
+                        </div>
+                    </div>
+                </div>
+            </section>      
+            <!--End login register area-->
+            <%@ include file="Common/Footer/DefaultFooter.jsp" %>
+        </div>
+        <!-- main jQuery -->
+        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
+        <!-- Wow Script -->
+        <script src="${pageContext.request.contextPath}/js/wow.js"></script>
+        <!-- bootstrap -->
+        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
+        <!-- bx slider -->
+        <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
+        <!-- count to -->
+        <script src="${pageContext.request.contextPath}/js/jquery.countTo.js"></script>
+        <!-- owl carousel -->
+        <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
+        <!-- validate -->
+        <script src="${pageContext.request.contextPath}/js/validation.js"></script>
+        <!-- mixit up -->
+        <script src="${pageContext.request.contextPath}/js/jquery.mixitup.min.js"></script>
+        <!-- easing -->
+        <script src="${pageContext.request.contextPath}/js/jquery.easing.min.js"></script>
+        <!-- gmap helper -->
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHzPSV2jshbjI8fqnC_C4L08ffnj5EN3A"></script>
+        <!--gmap script-->
+        <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
+        <script src="${pageContext.request.contextPath}/js/map-helper.js"></script>
+        <!-- fancy box -->
+        <script src="${pageContext.request.contextPath}/js/jquery.fancybox.pack.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.appear.js"></script>
+        <!-- isotope script-->
+        <script src="${pageContext.request.contextPath}/js/isotope.js"></script>
+        <script src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script> 
+        <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-touchspin.js"></script>
+        <!-- jQuery timepicker js -->
+        <script src="${pageContext.request.contextPath}/assets/timepicker/timePicker.js"></script>
+        <!-- Bootstrap select picker js -->
+        <script src="${pageContext.request.contextPath}/assets/bootstrap-sl-1.12.1/bootstrap-select.js"></script>                               
+        <!-- Bootstrap bootstrap touchspin js -->
+        <!-- jQuery ui js -->
+        <script src="${pageContext.request.contextPath}/assets/jquery-ui-1.11.4/jquery-ui.js"></script>
+        <!-- Language Switche  -->
+        <script src="${pageContext.request.contextPath}/assets/language-switcher/jquery.polyglot.language.switcher.js"></script>
+        <!-- Html 5 light box script-->
+        <script src="${pageContext.request.contextPath}/assets/html5lightbox/html5lightbox.js"></script>
 
-        <%@ include file="Common/OtherItems/LoginForm.jsp" %>
+        <!-- revolution slider js -->
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/jquery.themepunch.tools.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/jquery.themepunch.revolution.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.actions.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.migration.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
 
+        <!-- thm custom script -->
+        <script src="${pageContext.request.contextPath}/js/custom.js"></script>
     </body>
 </html>

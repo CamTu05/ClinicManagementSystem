@@ -1,16 +1,15 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jul 7, 2025, 3:58:43 PM
+    Document   : PatientProfile
+    Created on : Jul 11, 2025, 10:52:32 AM
     Author     : admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Trang chủ</title>
+        <title>Thông tin cá nhân</title>
         <meta charset="UTF-8">
         <!-- responsive meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,26 +19,94 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <!-- Responsive stylesheet -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
+        <!-- Extra stylesheet -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mycss.css">
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/images/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
-
     </head>
     <body>
-        <div class="boxed_wrapper">
-            <%@ include file="Common/Header/DefaultHeader.jsp" %>
-            <%@ include file="Common/Navbar/DefaultNavbar.jsp" %>
-            <%@ include file="Common/OtherItems/Carousel.jsp" %>
-            <%@ include file="Common/OtherItems/AppointmentForm.jsp" %> <hr/>
-            <%@ include file="Common/OtherItems/FactCounter.jsp" %>
-            <%@ include file="Common/OtherItems/Testimonial.jsp" %>
-            <%@ include file="Common/Footer/DefaultFooter.jsp" %>
+        <%@ include file="../Common/Header/DefaultHeader.jsp" %>
+        <%@ include file="../Common/Navbar/DefaultNavbar.jsp" %>
+        <<form action="UpdatePatientProfileServlet">
+            <div class="account-form">
+                <h2>Thông Tin Tài Khoản</h2>
 
-        </div>
-        <!--Scroll to top-->
-        <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-triangle-inside-circle"></span></div>
+                <!-- Họ tên + Giới tính -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="fullname">Họ tên</label>
+                        <input type="text" id="fullname" name="fullname" value="${sessionScope.user.fullname}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Giới tính</label>
+                        <select id="gender" name="gender" disabled>
+                            <option value="Nam" ${sessionScope.user.gender == 'Nam' ? 'selected' : ''}>Nam</option>
+                            <option value="Nữ" ${sessionScope.user.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
+                            <option value="" ${sessionScope.user.gender == null ? 'selected' : ''}>Không muốn tiết lộ</option>
+                        </select>
+                    </div>
+                </div>
 
+                <!-- Số điện thoại + Ngày sinh -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="phone">Số điện thoại</label>
+                        <input type="text" id="phone" name="phone" value="${sessionScope.user.phone}" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="dob">Ngày sinh</label>
+                        <input type="date" id="dob" name="dob" value="${sessionScope.user.dob}" readonly>
+                    </div>
+                </div>
+
+                <!-- Username -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="username">Tên đăng nhập</label>
+                        <input type="text" id="username" name="username" value="${sessionScope.user.username}" readonly>
+                    </div>
+                </div>
+
+                <!-- Email -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" value="${sessionScope.user.email}" readonly>
+                    </div>
+                </div>
+
+                <!-- Địa chỉ -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="address">Địa chỉ</label>
+                        <input type="text" id="address" name="address" value="${sessionScope.user.address}" readonly>
+                    </div>
+                </div>
+
+                <!-- Nút sửa / cập nhật -->
+                <div class="form-actions">
+                    <button id="editBtn" type="button">Sửa</button>
+                    <button id="updateBtn" type="submit" style="display:none;">Cập nhật</button>
+                </div>
+            </div>
+        </form>
+        <script>
+            const editBtn = document.getElementById("editBtn");
+            const updateBtn = document.getElementById("updateBtn");
+
+            editBtn.addEventListener("click", function () {
+                document.querySelectorAll("input, select").forEach(input => {
+                    input.removeAttribute("readonly");
+                    input.removeAttribute("disabled");
+                });
+
+                editBtn.style.display = "none";
+                updateBtn.style.display = "inline-block";
+            });
+        </script>
+        <%@ include file="../Common/Footer/DefaultFooter.jsp" %>
         <!-- main jQuery -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <!-- Wow Script -->
@@ -98,43 +165,5 @@
 
         <!-- thm custom script -->
         <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-        <script>function scrollToMiddle(event, id) {
-                event.preventDefault();
-                const el = document.getElementById(id);
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
-                }
-            }
-
-            window.addEventListener('load', function () {
-                if (window.location.hash) {
-                    const id = window.location.hash.substring(1);
-                    const element = document.getElementById(id);
-                    if (element) {
-                        setTimeout(() => {
-                            element.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center"
-                            });
-
-                            // Xóa hash khỏi URL sau khi cuộn
-                            setTimeout(() => {
-                                history.replaceState(null, null, window.location.pathname);
-                            }, 1000);
-                        }, 100);
-                    }
-                }
-            });
-
-            window.addEventListener('DOMContentLoaded', () => {
-                // Nếu không có #id trong URL => scroll lên đầu
-                if (!window.location.hash) {
-                    window.scrollTo({top: 0, behavior: 'smooth'});
-                }
-            });</script>
-
     </body>
 </html>

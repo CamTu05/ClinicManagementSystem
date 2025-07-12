@@ -87,7 +87,7 @@ public class UserDAO extends DBContext {
             PreparedStatement st = con.prepareStatement(sql);
             st.setString(1, email);
             ResultSet rs = st.executeQuery();
-return rs.next();
+            return rs.next();
         } catch (Exception e) {
         }
         return false;
