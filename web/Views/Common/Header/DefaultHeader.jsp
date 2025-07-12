@@ -13,13 +13,19 @@
                 Object user = session.getAttribute("user");
                 if (user == null) {
             %>
-                <a href="${pageContext.request.contextPath}/Views/Login.jsp" style="margin-right: 15px; color: #333; text-decoration: none;">Đăng nhập</a>
-                <a href="${pageContext.request.contextPath}/Views/Register.jsp" style="color: #333; text-decoration: none;">Đăng ký</a>
+            <a href="LoginServlet" style="margin-right: 15px; color: #333; text-decoration: none;">Đăng nhập</a>
+            <a href="RegisterServlet" style="color: #333; text-decoration: none;">Đăng ký</a>
             <%
                 } else {
             %>
-                <span style="margin-right: 10px; color: #333;">Xin chào, <%= user %></span>
-                <a href="${pageContext.request.contextPath}/logout" style="color: #333; text-decoration: none;">Đăng xuất</a>
+                    <li class="option"><a style="color:#0392ce" href="#">Xin chào, ${user.fullname}!</a>
+                        <ul class="option-menu">
+                            <li><a href="PatientProfileServlet">Thông tin tài khoản</a></li>
+                            <li><a href="ChangePasswordServlet">Đổi mật khẩu</a></li>
+                            <li><a href="LogoutServlet">Đăng xuất</a></li>
+                        </ul>
+                    </li>
+                
             <%
                 }
             %>

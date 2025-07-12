@@ -69,10 +69,10 @@
                                 <h1>Đăng ký tài khoản</h1>
                             </div>
                             <div class="row">
-                                <form action="#">
+                                <form id="registerForm" action="RegisterServlet" method="post">
                                     <div class="col-md-12">
                                         <div class="input-field">
-                                            <input type="text" name="name" placeholder="Họ và tên *" required>
+                                            <input type="text" name="fullname" placeholder="Họ và tên *" value="${fullname}" required>
                                             <div class="icon-holder">
                                                 <i class="fa fa-user" aria-hidden="true"></i>
                                             </div>
@@ -80,15 +80,29 @@
                                     </div> 
                                     <div class="col-md-12">
                                         <div class="input-field">
-                                            <input type="email" name="email" placeholder="Email *"required>
+                                            <input type="text" name="username" placeholder="Tên đăng nhập *" value="${username}" required>
+                                            <div class="icon-holder">
+                                                <i class="fa fa-user" aria-hidden="true"></i>
+                                            </div>
+                                        </div>    
+                                        <c:if test="${not empty errorUsername}">
+                                            <p style="color:red;">${errorUsername}</p>
+                                        </c:if>
+                                    </div> 
+                                    <div class="col-md-12">
+                                        <div class="input-field">
+                                            <input type="email" name="email" placeholder="Email *" value="${email}" required>
                                             <div class="icon-holder">
                                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                                             </div>
                                         </div>    
+                                        <c:if test="${not empty errorEmail}">
+                                            <p style="color:red;">${errorEmail}</p>
+                                        </c:if>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-field">
-                                            <input type="password" name="password" placeholder="Mật khẩu" required>
+                                            <input type="password" id="password" name="password" placeholder="Mật khẩu" required>
                                             <div class="icon-holder">
                                                 <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                                             </div>
@@ -96,11 +110,12 @@
                                     </div>
                                     <div class="col-md-12">
                                         <div class="input-field">
-                                            <input type="password" name="password" placeholder="Nhập lại mật khẩu" required>
+                                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Nhập lại mật khẩu" required>
                                             <div class="icon-holder">
                                                 <i class="fa fa-unlock-alt" aria-hidden="true"></i>
                                             </div>
-                                        </div>    
+                                        </div>   
+                                        <span id="passwordMsg" style="color:red;"></span><br>
                                     </div>
                                     <div class="col-md-12">
                                         <div class="row">
@@ -175,5 +190,27 @@
 
         <!-- thm custom script -->
         <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+        <script>
+            document.getElementById("registerForm").addEventListener("submit", function (event) {
+                const pass = document.getElementById("password").value;
+                const confirm = document.getElementById("confirmPassword").value;
+                const msg = document.getElementById("passwordMsg");
+
+                // Reset thông báo
+                msg.innerText = "";
+
+                // Kiểm tra độ dài
+                if (pass.length < 8) {
+                    event.preventDefault();
+                    msg.innerText = "Mật khẩu phải có ít nhất 8 ký tự.";
+                }
+                // Kiểm tra khớp
+                else if (pass !== confirm) {
+                    event.preventDefault();
+                    msg.innerText = "Mật khẩu không khớp.";
+                }
+            });
+        </script>
+
     </body>
 </html>

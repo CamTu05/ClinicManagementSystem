@@ -3,23 +3,20 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
 
-package Controllers;
+package Controllers.Patient;
 
-import DAL.UserDAO;
-import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 
 /**
  *
  * @author admin
  */
-public class LoginServlet extends HttpServlet {
+public class PatientProfileServlet extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +33,10 @@ public class LoginServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet LoginServlet</title>");  
+            out.println("<title>Servlet PatientProfileServlet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet LoginServlet at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet PatientProfileServlet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -56,7 +53,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Patient/PatientProfile.jsp").forward(request, response);
     } 
 
     /** 
@@ -69,19 +66,7 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String i = request.getParameter("input");
-        String p = request.getParameter("password");
-        UserDAO ud = new UserDAO();
-        User user = ud.findUser(i, p);
-        HttpSession session = request.getSession();
-        if(user==null){
-            request.setAttribute("input", i);
-            request.setAttribute("error", "Tên đăng nhập hoặc mật khẩu chưa đúng!!!");
-            request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
-        }else{
-            session.setAttribute("user", user);
-            response.sendRedirect("HomePageServlet");
-        }
+        processRequest(request, response);
     }
 
     /** 

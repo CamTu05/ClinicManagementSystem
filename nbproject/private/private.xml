@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DAL/DoctorDAO.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/Controllers/DoctorControllers/DoctorListServlet.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/WEB-INF/web.xml</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/Views/DoctorList.jsp</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/Controllers/DoctorControllers/LanTTServlet.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/Views/Doctors/lantt.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/DoctorList.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Login.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Models/User.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/WEB-INF/web.xml</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Controllers/RegisterServlet.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Controllers/LoginServlet.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Register.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Common/Header/DefaultHeader.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/DAL/UserDAO.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Common/Navbar/DefaultNavbar.jsp</file>
         </group>
     </open-files>
 </project-private>

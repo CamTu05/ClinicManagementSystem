@@ -70,24 +70,17 @@
                                 <div class="sec-title">
                                     <h1>Đăng nhập</h1>
                                 </div>
+                                <p style="color:red">${requestScope.error}</p>
                                 <div class="row">
-                                    <form action="#">
+                                    <form action="LoginServlet" method="post">
                                         <div class="col-md-12">
                                             <div class="input-field">
-                                                <input type="text" name="name" placeholder="Họ và tên *" required>
+                                                <input type="text" name="input" placeholder="Tên đăng nhập hoặc Email *" value="${input}" required>
                                                 <div class="icon-holder">
                                                     <i class="fa fa-user" aria-hidden="true"></i>
                                                 </div>
                                             </div>    
                                         </div> 
-                                        <div class="col-md-12">
-                                            <div class="input-field">
-                                                <input type="text" name="email" placeholder="Email *" required>
-                                                <div class="icon-holder">
-                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
-                                                </div>
-                                            </div>    
-                                        </div>
                                         <div class="col-md-12">
                                             <div class="input-field">
                                                 <input type="password" name="password" placeholder="Mật khẩu *" required>
@@ -97,7 +90,7 @@
                                             </div>    
                                         </div>
                                         <div class="col-md-12">
-                                            <p>Chưa có tài khoản? <a style="color:#0392ce" href="${pageContext.request.contextPath}/Views/Register.jsp">Đăng ký ngay</a></p>
+                                            <p>Chưa có tài khoản? <a style="color:#0392ce" href="RegisterServlet">Đăng ký ngay</a></p>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="row">
