@@ -3,7 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 
-package Models;
+package Models.TempModels;
 
 import java.sql.Date;
 
@@ -16,7 +16,7 @@ public class DoctorInformation {
     private String phone;
     private String address;
     private String specialtyName;
-    private int    yearsExperience;
+    private int yearsExperience;
     private String description;
     private String picture;
     private String schedule;  

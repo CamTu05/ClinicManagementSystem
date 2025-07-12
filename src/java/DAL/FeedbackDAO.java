@@ -8,6 +8,7 @@ import Models.Doctor;
 import Models.Feedback;
 import Models.Patient;
 import Models.Specialty;
+import Models.TempModels.FeedbackInfor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -77,10 +78,9 @@ public class FeedbackDAO extends DBContext {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return feedbackList;
     }
-    
+
     public boolean addFeedback(Feedback feedback) {
         String sql = "INSERT INTO feedback (patient_id, doctor_id, rating, comment, created_at) "
                 + "VALUES (?, ?, ?, ?, ?)";
@@ -100,5 +100,47 @@ public class FeedbackDAO extends DBContext {
             return false;
         }
     }
+
+    public Vector<FeedbackInfor> getFeedbackInfoByDoctor(int doctorId) throws SQLException {
+        String sql = """
+        SELECT 
+            u.fullname AS patient_name,
+            UPPER(LEFT(
+                RIGHT(LTRIM(RTRIM(u.fullname)), 
+                      CHARINDEX(' ', REVERSE(LTRIM(RTRIM(u.fullname))) + ' ') - 1), 
+                1)) AS initial,
+            CONVERT(VARCHAR(10), f.created_at, 120) AS feedback_date,
+            f.comment
+        FROM Feedbacks f
+        JOIN Users u ON f.patient_id = u.user_id
+        WHERE f.doctor_id = ?
+        ORDER BY f.created_at DESC
+    """;
+
+        Vector<FeedbackInfor> feedbacks = new Vector();
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, doctorId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    FeedbackInfor fb = new FeedbackInfor();
+                    fb.setPatient_name(rs.getString("patient_name"));
+                    fb.setInitial(rs.getString("initial"));
+                    fb.setFeedback_date(rs.getDate("feedback_date"));
+                    fb.setComment(rs.getString("comment"));
+                    feedbacks.add(fb);
+                }
+            }
+        }
+        return feedbacks;
+    }
+
     
+    public static void main(String[] args) throws SQLException {
+//        Vector<FeedbackInfor> fs = FeedbackDAO.INSTANCE.getFeedbackByDoctor(2);
+//        for (FeedbackInfor f : fs){
+//            System.out.println(f.toString());
+//        }
+                
+    }
 }

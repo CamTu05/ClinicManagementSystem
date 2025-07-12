@@ -26,6 +26,8 @@
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
 
+        <link rel="stylesheet" href="css/doctorStyle.css"/>
+
         <!-- Fixing Internet Explorer-->
         <!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -33,41 +35,69 @@
         <![endif]-->
     </head>
     <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
-        <%@ include file="/Views/Common/Header/DefaultHeader.jsp" %>
-        <%@ include file="/Views/Common/Navbar/DefaultNavbar.jsp" %>
+        <div class="layout-bar">
+            <%@ include file="/Views/Common/Header/DefaultHeader.jsp" %>
+            <%@ include file="/Views/Common/Navbar/DefaultNavbar.jsp" %>
+        </div>
+        <br/>
 
-        <div style="display: flex; justify-content: center; align-items: center; margin: 20px; background-color: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 20px;">
+        <!-- CARD -->
+        <section class="card">
+            <div class="doctor-info">
+                <img src="${pageContext.request.contextPath}/images/team/${d.picture}" alt="Ảnh bác sĩ">
+                <div>
+                    <div class="doctor-name">${d.fullName}</div>
+                    <p class="doctor-meta"><strong>Chuyên khoa:</strong> ${d.specialtyName}</p>
+                    <p class="doctor-meta"><strong>Kinh nghiệm:</strong> ${d.yearsExperience}</p>
+                    <p class="doctor-meta"><strong>Email:</strong> ${d.email}</p>
 
-            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; border: 3px solid #ddd;">
-                <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" alt="Doctor Picture" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
 
-            <div style="margin-left: 20px; flex: 1;">
-                <h1 style="color: #2c3e50; font-size: 24px; margin-bottom: 10px;">${name}</h1>
-                <p style="font-size: 18px; color: #7f8c8d; margin-bottom: 20px;">Years of Experience: ${doctor.yearsExp}</p>
-                <p style="font-size: 16px; color: #34495e; margin-bottom: 20px;">
-                    ${doctor.description}
-                </p>
-                <div style="background-color: #ecf0f1; padding: 10px; border-radius: 8px;">
-                    <h3 style="font-size: 18px; color: #2c3e50;">Patient Feedback:</h3>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <c:forEach var="fb" items="${feedback}">
-                            <li style="font-size: 14px; color: #7f8c8d; margin-bottom: 10px;">${fb.comment}</li><br/>
-                            <div style="font-size: 14px; color: #888; margin-top: 5px;">
-                                <strong>Rating:</strong> ${fb.rating} / 5
-                            </div>
-                            <div style="font-size: 14px; color: #888;">
-                                <strong>Created At:</strong> ${fb.createdAt}
-                            </div>
-                        </c:forEach>
-                    </ul>
+                    <div class="rating">
+                        <span class="stars" style="--rating: 4.0;"></span>
+                        <span style="color: #f5b50a;">&#9733;</span>
+                        Rating: ${d.avgRating}/5
+                    </div>
+
+                    <div class="schedule">${d.schedule}</div>
                 </div>
             </div>
 
+            <div class="feedback-form">
+                <br/>
+                <h3>Gửi phản hồi của bạn</h3>
+                <form action="DoctorIndividualServlet" method="post">
+                    <textarea name="comment" placeholder="Nhập phản hồi của bạn..." required></textarea>
+                    <button type="submit" name="btnSubmit">Gửi phản hồi</button>
+                </form>
+            </div>
+
+            <div class="feedback-list">
+                <br/>
+                <h3>Phản hồi từ bệnh nhân</h3>
+                <c:forEach var="f" items="${feedbacks}">
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <div class="avatar">${f.initial}</div>
+                            <span class="author">${f.patient_name}</span>
+                            <span class="date">${f.feedback_date}</span>
+                        </div>
+                        <div class="feedback-content">
+                            ${f.comment}
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </section>
+
+        <!-- Phone -->
+        <div class="phone-bar">
+            <div class="phone-icon">☎</div>
+            <div class="phone-number">${d.phone}</div>
         </div>
 
-
-        <%@ include file="/Views/Common/Footer/DefaultFooter.jsp" %>
+        <div class="layout-bar">
+            <%@ include file="/Views/Common/Footer/DefaultFooter.jsp" %>
+        </div>
         <!--Scroll to top-->
         <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-triangle-inside-circle"></span></div>
 
