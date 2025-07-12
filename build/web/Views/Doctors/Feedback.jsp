@@ -104,11 +104,13 @@
             <div class="flex-row">
                 <div>
                     <label>Your Name:</label>
-                    <input type="text" />
+                    <!-- ★ required -->
+                    <input type="text" name="fullName" required />
                 </div>
                 <div>
                     <label>Your Age:</label>
-                    <input type="number" />
+                    <!-- ★ required + giới hạn tuổi hợp lý (tuỳ chọn) -->
+                    <input type="number" name="age" min="0" max="120" required />
                 </div>
             </div>
 
@@ -116,21 +118,30 @@
             <div class="flex-row">
                 <div>
                     <label>Your Phone Number:</label>
-                    <input type="tel" />
+                    <!-- ★ required + pattern mẫu số VN (tuỳ chỉnh) -->
+                    <input type="tel" name="phone"
+                           pattern="0[0-9]{9,10}" 
+                           title="Số điện thoại bắt đầu bằng 0 và dài 10-11 chữ số"
+                           required />
                 </div>
                 <div>
                     <label>Your Email:</label>
-                    <input type="email" />
+                    <!-- ★ required -->
+                    <input type="email" name="email" required />
                 </div>
             </div>
 
             <!-- Feedback Text -->
             <label for="feedback">Your Feedback:</label><br>
-            <textarea id="feedback" name="feedback" rows="4" placeholder="Write your feedback here..." required></textarea>
+            <!-- ★ required đã có -->
+            <textarea id="feedback" name="feedback" rows="4"
+                      placeholder="Write your feedback here..." required></textarea>
 
             <!-- Rating -->
             <label for="rating">Rating:</label>
-            <select id="rating" name="rating">
+            <!-- ★ required -->
+            <select id="rating" name="rating" required>
+                <option value="" disabled selected>Select rating</option>
                 <option value="1">1 Star</option>
                 <option value="2">2 Stars</option>
                 <option value="3">3 Stars</option>
@@ -140,6 +151,7 @@
 
             <input type="submit" value="Submit Feedback" />
         </form>
+
 
         <%@ include file="/Views/Common/Footer/DefaultFooter.jsp" %>
 
