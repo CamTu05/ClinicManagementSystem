@@ -3,19 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/HomePage.jsp</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Controllers/Patient/UpdatePatientProfileServlet.java</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/DAL/DBContext.java</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/DAL/UserDAO.java</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/css/style.css</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/css/mycss.css</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Controllers/RegisterServlet.java</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Register.jsp</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Controllers/LoginServlet.java</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/src/java/Controllers/Patient/PatientProfileServlet.java</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Common/Header/DefaultHeader.jsp</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Patient/PatientProfile.jsp</file>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Code/ClinicManagementSystem/web/Views/Common/Navbar/DefaultNavbar.jsp</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/css/style.css</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/Doctor.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/DoctorControllers/DoctorFeedbackServlet.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/User.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/DoctorControllers/DoctorIndividualServlet.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/Feedback.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/Specialty.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/PatientDAO.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/WEB-INF/web.xml</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/Service.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/DBContext.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/Role.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/HomePageServlet.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/UserDAO.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/HomePage.jsp</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/Common/Navbar/DefaultNavbar.jsp</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/DoctorControllers/DoctorListServlet.java</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/DoctorDAO.java</file>
         </group>
     </open-files>
 </project-private>
