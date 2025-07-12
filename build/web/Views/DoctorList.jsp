@@ -81,22 +81,11 @@
                                 <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
                                     <input type="submit" name="btnFilter" value="Toàn Bộ" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
                                 </li><br/>
-
-                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
-                                    <input type="submit" name="btnFilter" value="Nội Tổng Quát" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
-                                </li><br/>
-
-                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
-                                    <input type="submit" name="btnFilter" value="Tai Mũi Họng" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
-                                </li><br/>
-
-                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
-                                    <input type="submit" name="btnFilter" value="Răng Hàm Mặt" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
-                                </li><br/>
-
-                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
-                                    <input type="submit" name="btnFilter" value="Sản Phụ Khoa" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
-                                </li><br/>
+                                <c:forEach var="s" items="${specialties}">
+                                    <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
+                                        <input type="submit" name="btnFilter" value="${s.specialtyName}" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                    </li><br/>
+                                </c:forEach>
                             </ul>
                         </form>
 
