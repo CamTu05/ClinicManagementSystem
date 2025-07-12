@@ -1,17 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package DAL;
 
 import Models.*;
 import java.sql.*;
 import java.util.Vector;
 
-/**
- *
- * @author admin
- */
 public class DoctorDAO extends DBContext {
 
     private Vector<Doctor> doctors;
@@ -19,11 +11,16 @@ public class DoctorDAO extends DBContext {
     private String status = "ok";
     private Connection con;
 
+    public static DoctorDAO INSTANCE = new DoctorDAO();
+
     public DoctorDAO() {
-        try {
-            con = new DBContext().getConnection();
-        } catch (Exception e) {
-            status = "Error at connection " + e.getMessage();
+        if (INSTANCE == null) {
+            INSTANCE = this;
+            try {
+                con = new DBContext().getConnection();
+            } catch (Exception e) {
+                status = "Error at connection " + e.getMessage();
+            }
         }
     }
 
@@ -101,7 +98,7 @@ public class DoctorDAO extends DBContext {
         doctors = new Vector<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, specialty_id); 
+            ps.setInt(1, specialty_id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 System.out.println("");
@@ -140,16 +137,16 @@ public class DoctorDAO extends DBContext {
         }
         return new Vector<>();
     }
-    
-    public Doctor getDoctorById(int id, Vector<Doctor> doctors){
-        for (Doctor d : doctors){
-            if (d.getId()==id){
+
+    public Doctor getDoctorById(int id, Vector<Doctor> doctors) {
+        for (Doctor d : doctors) {
+            if (d.getId() == id) {
                 return d;
             }
         }
         return null;
     }
-    
+
     public Vector<Specialty> LoadAllSpecialtys() {
         String sql = "Select specialty_id, specialty_name from Specialties";
         specialties = new Vector<Specialty>();
@@ -167,7 +164,7 @@ public class DoctorDAO extends DBContext {
         }
         return new Vector<>();
     }
-    
+
     public Patient getPatientById(int patientId) {
         Patient patient = null;
         String sql = "SELECT * FROM Patients WHERE patient_id = ?";
@@ -190,8 +187,7 @@ public class DoctorDAO extends DBContext {
         }
         return patient;
     }
-    
-    // Phương thức lấy danh sách Feedback cho bác sĩ
+
     public Vector<Feedback> getFeedbackByDoctorId(int doctorId) {
         Vector<Feedback> feedbackList = new Vector<>();
         String sql = "SELECT [feedback_id]\n"
@@ -204,7 +200,7 @@ public class DoctorDAO extends DBContext {
                 + "Where [doctor_id]=?";
 
         try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, doctorId);  // Set doctorId vào câu truy vấn
+            stmt.setInt(1, doctorId);
             ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
@@ -213,13 +209,10 @@ public class DoctorDAO extends DBContext {
                 String comment = rs.getString("comment");
                 Timestamp createdAt = rs.getTimestamp("created_at");
 
-                // Lấy thông tin patient (có thể thêm đối tượng Patient và Doctor nếu cần)
                 Patient patient = getPatientById(rs.getInt("patient_id"));
 
-                // Lấy thông tin bác sĩ từ Doctor object, giả sử bác sĩ được khởi tạo với doctorId
                 Doctor doctor = getDoctorById(id, doctors);
 
-                // Tạo đối tượng Feedback và thêm vào danh sách
                 Feedback feedback = new Feedback(id, patient, doctor, rating, comment, createdAt);
                 feedbackList.add(feedback);
             }
@@ -229,34 +222,30 @@ public class DoctorDAO extends DBContext {
 
         return feedbackList;
     }
-    
+
     public boolean addFeedback(Feedback feedback) {
         String sql = "INSERT INTO feedback (patient_id, doctor_id, rating, comment, created_at) "
-                   + "VALUES (?, ?, ?, ?, ?)";
+                + "VALUES (?, ?, ?, ?, ?)";
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            // Set các tham số cho PreparedStatement từ đối tượng feedback
-            ps.setInt(1, feedback.getPatient().getId());  // Gán ID bệnh nhân
-            ps.setInt(2, feedback.getDoctor().getId());    // Gán ID bác sĩ
-            ps.setInt(3, feedback.getRating());            // Gán rating
-            ps.setString(4, feedback.getComment());        // Gán comment
-            ps.setTimestamp(5, feedback.getCreatedAt());   // Gán thời gian tạo feedback
+            ps.setInt(1, feedback.getPatient().getId());
+            ps.setInt(2, feedback.getDoctor().getId());
+            ps.setInt(3, feedback.getRating());
+            ps.setString(4, feedback.getComment());
+            ps.setTimestamp(5, feedback.getCreatedAt());
 
-            // Thực thi câu lệnh INSERT
             int rowsAffected = ps.executeUpdate();
 
-            // Kiểm tra nếu ít nhất một dòng đã được thêm vào cơ sở dữ liệu
             return rowsAffected > 0;
         } catch (SQLException e) {
-            System.out.println("Error while inserting feedback: " + e.getMessage());
-            status = "Error while inserting feedback: " + e.getMessage();  // Lưu thông báo lỗi
+            System.out.println(e);
             return false;
         }
     }
-    
+
     public static void main(String[] args) {
         DoctorDAO dao = new DoctorDAO();
-        Vector<Doctor>doctors = dao.LoadDoctorsBySpecialty(2);
+        Vector<Doctor> doctors = dao.LoadDoctorsBySpecialty(2);
 //        for (Doctor d : doctors){
 //            System.out.println("id="+d.getId());
 //            System.out.println("specialty="+d.getSpecialty());
@@ -267,11 +256,9 @@ public class DoctorDAO extends DBContext {
 //            System.out.println();
 //        }
         Vector<Feedback> fb = dao.getFeedbackByDoctorId(3);
-        for (Feedback f : fb){
+        for (Feedback f : fb) {
             System.out.println(f.getComment());
         }
         System.out.println(dao.getDoctorNameById(3));
     }
-    
-    
 }

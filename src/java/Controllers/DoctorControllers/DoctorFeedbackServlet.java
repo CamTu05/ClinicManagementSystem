@@ -26,14 +26,13 @@ public class DoctorFeedbackServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DoctorDAO doctorDAO = new DoctorDAO();
-        Vector<Doctor> doctors = doctorDAO.LoadAllDoctors();
+        Vector<Doctor> doctors = DoctorDAO.INSTANCE.LoadAllDoctors();
         List<String> doctorName = new ArrayList<>();
         for (Doctor d : doctors) {
-            doctorName.add(doctorDAO.getDoctorNameById(d.getId()));
+            doctorName.add(DoctorDAO.INSTANCE.getDoctorNameById(d.getId()));
         }
         request.setAttribute("doctorList", doctors);
-        request.setAttribute("doctorDAO", doctorDAO);
+        request.setAttribute("doctorDAO", DoctorDAO.INSTANCE);
         request.setAttribute("doctorName", doctorName);
         
         request.getRequestDispatcher("/Views/Doctors/Feedback.jsp").forward(request, response);
@@ -42,12 +41,11 @@ public class DoctorFeedbackServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DoctorDAO doctorDAO = new DoctorDAO();
-        Vector<Doctor> doctors = doctorDAO.LoadAllDoctors(); // Lấy danh sách bác sĩ từ database
+        Vector<Doctor> doctors = DoctorDAO.INSTANCE.LoadAllDoctors(); // Lấy danh sách bác sĩ từ database
         int doctorId = Integer.parseInt(request.getParameter("doctorId"));
         int rating = Integer.parseInt(request.getParameter("rating"));
         String comment = request.getParameter("feedback");
-        Doctor d = doctorDAO.getDoctorById(doctorId, doctors);
+        Doctor d = DoctorDAO.INSTANCE.getDoctorById(doctorId, doctors);
 
         // Lấy session nếu có
         HttpSession session = request.getSession(false);
@@ -63,7 +61,7 @@ public class DoctorFeedbackServlet extends HttpServlet {
             User user = (User) session.getAttribute("user");
             if (user != null) {
                 int userId = user.getId();
-                Patient p = doctorDAO.getPatientById(userId);
+                Patient p = DoctorDAO.INSTANCE.getPatientById(userId);
                 if (p != null) {
                     // Tạo đối tượng Feedback với thông tin người dùng, bác sĩ, và các tham số khác
                     feedback = new Feedback(userId, p, d, rating, comment, createdAt);
@@ -81,7 +79,7 @@ public class DoctorFeedbackServlet extends HttpServlet {
         }
 
         // Thêm feedback vào database
-        doctorDAO.addFeedback(feedback);
+        DoctorDAO.INSTANCE.addFeedback(feedback);
         request.getRequestDispatcher("/Views/Doctors/Feedback.jsp" ).forward(request, response);
     }
 

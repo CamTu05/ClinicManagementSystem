@@ -23,24 +23,22 @@ public class DoctorListServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DoctorDAO doctorDAO = new DoctorDAO();
-
-        Vector<Doctor> doctorList = doctorDAO.LoadAllDoctors();
-        Vector<Specialty> specialties = doctorDAO.LoadAllSpecialtys();
+        Vector<Doctor> doctorList = DoctorDAO.INSTANCE.LoadAllDoctors();
+        Vector<Specialty> specialties = DoctorDAO.INSTANCE.LoadAllSpecialtys();
 
         request.setAttribute("doctorList", doctorList);
-        request.setAttribute("DoctorDAO", doctorDAO);
+        request.setAttribute("DoctorDAO", DoctorDAO.INSTANCE);
         request.setAttribute("specialties", specialties); 
         
         String specialty = request.getParameter("btnFilter");
         if (specialty != null && !specialty.isEmpty()) {
             if (specialty.equals("Toàn Bộ")) {
-                doctorList = doctorDAO.LoadAllDoctors();
+                doctorList = DoctorDAO.INSTANCE.LoadAllDoctors();
             } else {
                 // Tìm specialty tương ứng từ danh sách specialties
                 for (Specialty s : specialties) {
                     if (s.getSpecialtyName().equals(specialty)) {
-                        doctorList = doctorDAO.LoadDoctorsBySpecialty(s.getId());
+                        doctorList = DoctorDAO.INSTANCE.LoadDoctorsBySpecialty(s.getId());
                         break;
                     }
                 }
@@ -48,7 +46,7 @@ public class DoctorListServlet extends HttpServlet {
         }
         request.setAttribute("doctorList", doctorList);
         request.getRequestDispatcher("/Views/DoctorList.jsp").forward(request, response);
-    } 
+    }
 
 
     @Override
