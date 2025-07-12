@@ -17,6 +17,9 @@ import java.sql.Date;
  */
 public class UserDAO extends DBContext {
 
+    private Vector<User> user;
+    public static UserDAO INSTANCE = new UserDAO();
+
     private String status = "ok";
     private Connection con;
 
@@ -26,6 +29,14 @@ public class UserDAO extends DBContext {
         } catch (Exception e) {
             status = "Error at connection " + e.getMessage();
         }
+    }
+
+    public Vector<User> getUser() {
+        return user;
+    }
+
+    public void setUser(Vector<User> user) {
+        this.user = user;
     }
 
     public User findUser(String input, String password) {
@@ -136,9 +147,52 @@ public class UserDAO extends DBContext {
         return null;
     }
 
-    //For Testing
-    public static void main(String[] args) {
-        UserDAO d = new UserDAO();
+    public void LoadUser() {
+        String sql = "select * from Users";
+        user = new Vector<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("id"));
+                u.setUsername(rs.getString("username"));
+                u.setPasswordHash(rs.getString("password_hash"));
+                u.setEmail(rs.getString("email"));
+                u.setPhone(rs.getString("phone"));
+                u.setFullname(rs.getString("fullname"));
+                u.setGender(rs.getString("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setAddress(rs.getString("address"));
 
+                u.setRole(rs.getInt("role_id"));
+                u.setIsActive(rs.getBoolean("is_active"));
+                u.setCreatedAt(rs.getTimestamp("created_at"));
+                user.add(u);
+                System.out.println(u);
+            }
+        } catch (Exception e) {
+            status = "Error at reading users: " + e.getMessage();
+        }
     }
+
+    public String getFullNameById(int id) {
+        for (User u : user) {
+            if (u.getId() == id) {
+                return u.getFullname();
+            }
+        }
+        return "Unknown";
+    }
+
 }
+//
+//class Using {
+//
+//    public static void main(String[] args) {
+//        UserDAO.INSTANCE.LoadUser();
+//        int n = UserDAO.INSTANCE.getUser().size();
+//
+//        System.out.println(n);
+//    }
+//}

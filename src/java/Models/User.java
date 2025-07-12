@@ -29,6 +29,7 @@ public class User {
     }
 
     public User(int id, String username, String passwordHash, String email, String phone, String fullname, String gender, Date dob, String address, int role, boolean isActive, Timestamp createdAt) {
+
         this.id = id;
         this.username = username;
         this.passwordHash = passwordHash;
@@ -138,6 +139,7 @@ public class User {
     public void setCreatedAt(Timestamp createdAt) {
         this.createdAt = createdAt;
     }
+    
 
     @Override
     public String toString() {
