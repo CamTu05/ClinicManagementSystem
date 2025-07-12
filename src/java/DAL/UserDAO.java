@@ -148,8 +148,8 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
-        public User getUserByInput(String input) {
+
+    public User getUserByInput(String input) {
         String sql = "select * from Users where username = ? or email = ?";
         try {
             PreparedStatement st = con.prepareStatement(sql);
@@ -174,6 +174,17 @@ public class UserDAO extends DBContext {
         } catch (Exception e) {
         }
         return null;
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        String sql = "UPDATE Users SET password_hash = ? WHERE username = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setString(2, user.getUsername());
+            st.execute();
+        } catch (Exception e) {
+        }
     }
 
     //For Testing

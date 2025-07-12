@@ -29,7 +29,7 @@
     <body>
         <%@ include file="../Common/Header/DefaultHeader.jsp" %>
         <%@ include file="../Common/Navbar/DefaultNavbar.jsp" %>
-        <<form action="UpdatePatientProfileServlet" method="post">
+        <form action="UpdatePatientProfileServlet" method="post">
             <div class="account-form">
                 <h2>Thông Tin Tài Khoản</h2>
                 <p style="color:green">${success}</p>
