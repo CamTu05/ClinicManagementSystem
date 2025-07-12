@@ -20,12 +20,25 @@ public class UserDAO extends DBContext {
     private String status = "ok";
     private Connection con;
 
+    public static UserDAO INSTANCE = new UserDAO();
+
     public UserDAO() {
-        try {
-            con = new DBContext().getConnection();
-        } catch (Exception e) {
-            status = "Error at connection " + e.getMessage();
+        if (INSTANCE == null) {
+            INSTANCE = this;
+            try {
+                con = new DBContext().getConnection();
+            } catch (Exception e) {
+                status = "Error at connection " + e.getMessage();
+            }
         }
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public User findUser(String input, String password) {
