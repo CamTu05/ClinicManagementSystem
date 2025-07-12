@@ -19,12 +19,24 @@ body {
   padding: 36px 0;
 }
 
-.layout-bar {
-  width: 80%;
-  max-width: none;
-  margin: 0 auto;
-  padding: 0;
-  box-sizing: border-box;
+/* Giảm bề rộng layout xuống 85 % */
+.layout-bar{
+    width:85%;
+    margin:0 auto;       /* luôn căn giữa */
+    padding:0;
+    box-sizing:border-box;
+}
+
+/* Giữ navbar không rớt dòng trong vùng 85 % */
+.layout-bar nav.navbar .container{
+    max-width:none;      /* bỏ giới hạn Bootstrap */
+    width:100%;
+    flex-wrap:nowrap;    /* không cho menu rớt dòng khi đủ chỗ */
+}
+
+/* Tùy chọn: giảm khoảng cách giữa các mục menu để vừa 85 % */
+.layout-bar nav.navbar .navbar-nav>li{
+    margin:0 8px;
 }
 
 .layout-bar .container {

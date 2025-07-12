@@ -42,7 +42,7 @@ public class PatientDAO extends DBContext{
 
             if (rs.next()) {
                 // Lấy dữ liệu từ ResultSet và tạo đối tượng Patient
-                int id = rs.getInt("id");
+                int id = rs.getInt("patient_id");
                 String bloodType = rs.getString("blood_type");
                 String allergies = rs.getString("allergies");
                 String medicalHistory = rs.getString("medical_history");
@@ -53,5 +53,10 @@ public class PatientDAO extends DBContext{
             e.printStackTrace();
         }
         return patient;
+    }
+    
+    public static void main(String[] args) {
+        Patient patient = PatientDAO.INSTANCE.getPatientById(14);
+        System.out.println(patient.getMedicalHistory());
     }
 }
