@@ -71,8 +71,7 @@ public class LoginServlet extends HttpServlet {
     throws ServletException, IOException {
         String i = request.getParameter("input");
         String p = request.getParameter("password");
-        UserDAO ud = new UserDAO();
-        User user = ud.findUser(i, p);
+        User user = UserDAO.INSTANCE.findUser(i, p);
         HttpSession session = request.getSession();
         if(user==null){
             request.setAttribute("input", i);
