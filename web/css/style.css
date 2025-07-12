@@ -5767,7 +5767,7 @@ input#datepicker {
 
 /*** 
 =============================================
-   Time table Area style
+   Time table Area style (Fixed Version)
 =============================================
 ***/
 .time-table-area {
@@ -5799,7 +5799,7 @@ input#datepicker {
     top: 13px;
     right: 15px;
 }
-.time-table-area .input-box .icon-box i{
+.time-table-area .input-box .icon-box i {
     color: #848484;
     font-size: 16px;
 }
@@ -5821,8 +5821,8 @@ input#datepicker {
     text-transform: capitalize;
     width: 100%;
 }
-.time-table thead tr{
-    border: 1px solid #f0f0f0;
+.time-table thead tr {
+    border: 1px solid #f0f0f0;    
 }
 .time-table thead tr th {
     color: #222222;
@@ -5834,11 +5834,8 @@ input#datepicker {
     text-align: center;
 }
 
-
-.time-table tbody{
-}
-.time-table tbody tr{
-}
+.time-table tbody {}
+.time-table tbody tr {}
 .time-table tbody tr td {
     border: 1px solid #f0f0f0;
     background: #fff;
@@ -5846,54 +5843,49 @@ input#datepicker {
     text-align: center;
 }
 
-.time-table tbody .bgclr-1 {
-    background: #0392ce;
-    border: none;
+/* Màu nền + viền trắng cho các ô nội dung theo từng ngày */
+.time-table tbody .bgclr-1,
+.time-table tbody .bgclr-2,
+.time-table tbody .bgclr-3,
+.time-table tbody .bgclr-4,
+.time-table tbody .bgclr-5,
+.time-table tbody .bgclr-6 {
+    border: 1px solid #ffffff;
     color: #ffffff;
     transition: all 500ms ease;
 }
-.time-table tbody .bgclr-1:hover{
-    background: #0284bb;
-}
-.time-table tbody .bgclr-2{
-    background: #1abc9c;
-    transition: all 500ms ease;
-}
-.time-table tbody .bgclr-2:hover{
-    background: #09a284;
-}
-.time-table tbody .bgclr-3{
-    background: #a569bd;
-    transition: all 500ms ease;
-}
-.time-table tbody .bgclr-3:hover{
-    background: #8938aa;
-}
-.time-table tbody .bgclr-4{
-    background: #e9940e;
-    transition: all 500ms ease;
-}
-.time-table tbody .bgclr-4:hover{
-    background: #d28307;
-}
 
-.time-table tbody .white{
+/* Màu từng ô */
+.time-table tbody .bgclr-1 { background: #0392ce; }
+.time-table tbody .bgclr-1:hover { background: #0284bb; }
+
+.time-table tbody .bgclr-2 { background: #1abc9c; }
+.time-table tbody .bgclr-2:hover { background: #09a284; }
+
+.time-table tbody .bgclr-3 { background: #a569bd; }
+.time-table tbody .bgclr-3:hover { background: #8938aa; }
+
+.time-table tbody .bgclr-4 { background: #e9940e; }
+.time-table tbody .bgclr-4:hover { background: #d28307; }
+
+.time-table tbody .bgclr-5 { background: #e74c3c; }
+.time-table tbody .bgclr-5:hover { background: #c0392b; }
+
+.time-table tbody .bgclr-6 { background: #34495e; }
+.time-table tbody .bgclr-6:hover { background: #2c3e50; }
+
+/* Các ô đặc biệt */
+.time-table tbody .white {
     background: #ffffff;
 }
-.time-table tbody .time{
+.time-table tbody .time {
     background: #fcfcfc;
 }
 
+/* Nội dung trong các ô */
+.time-table tbody tr .single-box .inner-content {}
 
-.time-table tbody tr .single-box .inner-content{
-}
-.time-table tbody tr .single-box.time .inner-content span {
-    color: #848484;
-    font-size: 14px;
-    font-weight: 400;
-    line-height: 20px;
-    font-family: 'Poppins', sans-serif;
-}
+.time-table tbody tr .single-box.time .inner-content span,
 .time-table tbody tr .single-box.time .inner-content p {
     color: #848484;
     font-size: 14px;
@@ -5912,7 +5904,7 @@ input#datepicker {
     font-family: 'Poppins', sans-serif;
     margin: 0 0 5px;
 }
-.time-table tbody tr .single-box .inner-content span{
+.time-table tbody tr .single-box .inner-content span {
     color: #fcfcfc;
     font-size: 16px;
     font-weight: 300;
@@ -5926,13 +5918,22 @@ input#datepicker {
     font-family: 'Hind', sans-serif;
     margin: 5px 0 5px;
 }
-.time-table tbody tr .single-box .inner-content .level{
+.time-table tbody tr .single-box .inner-content .level {
     color: #fcfcfc;
     font-size: 16px;
     font-weight: 600;
     font-family: 'Poppins', sans-serif;
-    margin: 0 0 3px;
+    margin: 0 0 3px;        
 }
-.time-table tbody tr .single-box .inner-content .level span{
+.time-table tbody tr .single-box .inner-content .level span {
     font-weight: 300;
+}
+
+
+/*add more*/
+li.active a {
+    color: #fff;
+    background-color: #007bff;
+    font-weight: bold;
+    border-radius: 4px;
 }
