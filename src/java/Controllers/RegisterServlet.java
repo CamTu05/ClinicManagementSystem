@@ -76,9 +76,8 @@ public class RegisterServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        UserDAO ud = new UserDAO();
-        boolean usernameExists = ud.isUsernameExists(username);
-        boolean emailExists = ud.isEmailExists(email);
+        boolean usernameExists = UserDAO.INSTANCE.isUsernameExists(username);
+        boolean emailExists = UserDAO.INSTANCE.isEmailExists(email);
 
         if (usernameExists || emailExists) {
             request.setAttribute("fullname", fullname);
@@ -92,9 +91,9 @@ public class RegisterServlet extends HttpServlet {
             }
             request.getRequestDispatcher("/Views/Register.jsp").forward(request, response);
         } else {
-            ud.insertUser(fullname, username, email, password);
+            UserDAO.INSTANCE.insertUser(fullname, username, email, password);
             HttpSession session = request.getSession();
-            User user = ud.findUser(email, password);
+            User user = UserDAO.INSTANCE.findUser(email, password);
             session.setAttribute("user", user);
             response.sendRedirect("HomePageServlet");
         }
