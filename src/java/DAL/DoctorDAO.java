@@ -7,7 +7,6 @@ import java.util.Vector;
 public class DoctorDAO extends DBContext {
 
     private Vector<Doctor> doctors;
-    private Vector<Specialty> specialties;
     private String status = "ok";
     private Connection con;
 
@@ -38,38 +37,6 @@ public class DoctorDAO extends DBContext {
 
     public void setDoctors(Vector<Doctor> doctors) {
         this.doctors = doctors;
-    }
-
-    public Vector<Specialty> getSpecialty() {
-        specialties = new Vector<>();
-        String sql = "select * from Specialties";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Specialty thisSpecialty = new Specialty(rs.getInt(1), rs.getString(2));
-                specialties.add(thisSpecialty);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return specialties;
-    }
-
-    public Specialty getSpecialtyById(int id) {
-        String sql = "Select * From Specialties where specialty_id = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Specialty s = new Specialty(rs.getInt("specialty_id"), rs.getString("specialty_name"));
-                return s;
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
     }
 
     public String getDoctorNameById(int id) {
@@ -104,7 +71,7 @@ public class DoctorDAO extends DBContext {
                 System.out.println("");
                 Doctor doc = new Doctor();
                 doc.setId(rs.getInt("doctor_id"));
-                doc.setSpecialty(getSpecialtyById(specialty_id));
+                doc.setSpecialty(SpecialtyDAO.INSTANCE.getSpecialtyById(specialty_id));
                 doc.setYearsExp(rs.getInt("years_experience"));
                 doc.setDescription(rs.getString("description"));
                 doc.setPicture(rs.getString("picture"));
@@ -124,7 +91,7 @@ public class DoctorDAO extends DBContext {
             while (rs.next()) {
                 Doctor doc = new Doctor();
                 doc.setId(rs.getInt("doctor_id"));
-                doc.setSpecialty(getSpecialtyById(rs.getInt("specialty_id")));
+                doc.setSpecialty(SpecialtyDAO.INSTANCE.getSpecialtyById(rs.getInt("specialty_id")));
                 doc.setYearsExp(rs.getInt("years_experience"));
                 doc.setDescription(rs.getString("description"));
                 doc.setPicture(rs.getString("picture"));
@@ -147,118 +114,7 @@ public class DoctorDAO extends DBContext {
         return null;
     }
 
-    public Vector<Specialty> LoadAllSpecialtys() {
-        String sql = "Select specialty_id, specialty_name from Specialties";
-        specialties = new Vector<Specialty>();
-        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Specialty sp = new Specialty();
-                sp.setId(rs.getInt("specialty_id"));
-                sp.setSpecialtyName(rs.getString("specialty_name"));
-                specialties.add(sp);
-            }
-            return specialties;
-        } catch (SQLException e) {
-            System.out.println("Error at reading Specialty: " + e.getMessage());
-            status = "Error at reading Specialty: " + e.getMessage();
-        }
-        return new Vector<>();
-    }
-
-    public Patient getPatientById(int patientId) {
-        Patient patient = null;
-        String sql = "SELECT * FROM Patients WHERE patient_id = ?";
-
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, patientId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                // Lấy dữ liệu từ ResultSet và tạo đối tượng Patient
-                int id = rs.getInt("id");
-                String bloodType = rs.getString("blood_type");
-                String allergies = rs.getString("allergies");
-                String medicalHistory = rs.getString("medical_history");
-
-                patient = new Patient(id, bloodType, allergies, medicalHistory);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return patient;
-    }
-
-    public Vector<Feedback> getFeedbackByDoctorId(int doctorId) {
-        Vector<Feedback> feedbackList = new Vector<>();
-        String sql = "SELECT [feedback_id]\n"
-                + "      ,[patient_id]\n"
-                + "      ,[doctor_id]\n"
-                + "      ,[rating]\n"
-                + "      ,[comment]\n"
-                + "      ,[created_at]\n"
-                + "  FROM [dbo].[Feedbacks]"
-                + "Where [doctor_id]=?";
-
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, doctorId);
-            ResultSet rs = stmt.executeQuery();
-
-            while (rs.next()) {
-                int id = rs.getInt("feedback_id");
-                int rating = rs.getInt("rating");
-                String comment = rs.getString("comment");
-                Timestamp createdAt = rs.getTimestamp("created_at");
-
-                Patient patient = getPatientById(rs.getInt("patient_id"));
-
-                Doctor doctor = getDoctorById(id, doctors);
-
-                Feedback feedback = new Feedback(id, patient, doctor, rating, comment, createdAt);
-                feedbackList.add(feedback);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return feedbackList;
-    }
-
-    public boolean addFeedback(Feedback feedback) {
-        String sql = "INSERT INTO feedback (patient_id, doctor_id, rating, comment, created_at) "
-                + "VALUES (?, ?, ?, ?, ?)";
-
-        try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, feedback.getPatient().getId());
-            ps.setInt(2, feedback.getDoctor().getId());
-            ps.setInt(3, feedback.getRating());
-            ps.setString(4, feedback.getComment());
-            ps.setTimestamp(5, feedback.getCreatedAt());
-
-            int rowsAffected = ps.executeUpdate();
-
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-            return false;
-        }
-    }
-
     public static void main(String[] args) {
-        DoctorDAO dao = new DoctorDAO();
-        Vector<Doctor> doctors = dao.LoadDoctorsBySpecialty(2);
-//        for (Doctor d : doctors){
-//            System.out.println("id="+d.getId());
-//            System.out.println("specialty="+d.getSpecialty());
-//            System.out.println("year exp="+d.getYearsExp());
-//            System.out.println("description="+d.getDescription());
-//            System.out.println("picture="+d.getPicture());
-//            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
-//            System.out.println();
-//        }
-        Vector<Feedback> fb = dao.getFeedbackByDoctorId(3);
-        for (Feedback f : fb) {
-            System.out.println(f.getComment());
-        }
-        System.out.println(dao.getDoctorNameById(3));
+
     }
 }

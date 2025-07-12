@@ -5,7 +5,7 @@
 
 package Controllers.DoctorControllers;
 
-import DAL.DoctorDAO;
+import DAL.*;
 import Models.Doctor;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -30,10 +30,10 @@ public class DoctorIndividualServlet extends HttpServlet {
         request.setAttribute("name", name);
         request.setAttribute("doctor", d);
         request.setAttribute("doctorDAO", DoctorDAO.INSTANCE);
-        request.setAttribute("feedback", DoctorDAO.INSTANCE.getFeedbackByDoctorId(id));
+        request.setAttribute("feedback", FeedbackDAO.INSTANCE.getFeedbackByDoctorId(id));
         request.getRequestDispatcher("/Views/IndividualDoctors.jsp" ).forward(request, response);
     }
-
+    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {

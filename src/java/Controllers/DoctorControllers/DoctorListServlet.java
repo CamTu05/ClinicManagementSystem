@@ -5,7 +5,7 @@
 
 package Controllers.DoctorControllers;
 
-import DAL.DoctorDAO;
+import DAL.*;
 import Models.*;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -24,7 +24,7 @@ public class DoctorListServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         Vector<Doctor> doctorList = DoctorDAO.INSTANCE.LoadAllDoctors();
-        Vector<Specialty> specialties = DoctorDAO.INSTANCE.LoadAllSpecialtys();
+        Vector<Specialty> specialties = SpecialtyDAO.INSTANCE.LoadAllSpecialtys();
 
         request.setAttribute("doctorList", doctorList);
         request.setAttribute("DoctorDAO", DoctorDAO.INSTANCE);
