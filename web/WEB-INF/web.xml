@@ -88,4 +88,29 @@
         <welcome-file>HomePageServlet</welcome-file>
         <!-- Đảm bảo đường dẫn chính xác -->
     </welcome-file-list>
+      <servlet>
+        <servlet-name>LoadSchedulesServlet</servlet-name>
+        <servlet-class>Controllers.LoadSchedulesServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadSpecialtyServlet</servlet-name>
+        <servlet-class>Controllers.LoadSpecialtyServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LoadServicesServlet</servlet-name>
+        <servlet-class>Controllers.LoadServicesServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>LoadSpecialtyServlet</servlet-name>
+        <url-pattern>/LoadSpecialtyServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadServicesServlet</servlet-name>
+        <url-pattern>/LoadServicesServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoadSchedulesServlet</servlet-name>
+        <url-pattern>/LoadSchedulesServlet</url-pattern>
+    </servlet-mapping>
 </web-app>

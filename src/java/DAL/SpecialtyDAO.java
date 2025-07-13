@@ -91,5 +91,45 @@ public class SpecialtyDAO extends DBContext {
         }
         return new Vector<>();
     }    
+
+        public void LoadSpecialty() {
+        String sql = "select * from Specialties";
+        specialties = new Vector<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                specialties.add(new Specialty(rs.getInt(1), rs.getString(2)));
+
+            }
+        } catch (Exception e) {
+            status = "Error at read Speciality " + e.getMessage();
+        }
+
+    }
+
+    public String getSpecialtyName(int id) {
+        for (Specialty s : specialties) {
+            if (s.getId() == id) {
+                return s.getSpecialtyName();
+            }
+        }
+        return null;
+    }
+
+
+
     
 }
+
+ 
+
+//class Using{
+//    public static void main(String[] args) {
+//        SpecialtyDAO.INSTANCE.LoadSpecialty();
+//        int n= SpecialtyDAO.INSTANCE.getSpecialty().size();
+//                
+//        System.out.println(n);
+//    }
+//}
+

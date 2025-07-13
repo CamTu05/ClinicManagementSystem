@@ -49,7 +49,7 @@ margin-left: 0px;
 .flaticon-user-silhouette:before { content: "\f111"; }
 .flaticon-minus-symbol:before { content: "\f112"; }
 .flaticon-plus-symbol:before { content: "\f113"; }
-.flaticon-vagina-1:before { content: "\f114"; }
+.flaticon-SpecialtyIcon4:before { content: "\f116"; }
 .flaticon-neurology:before { content: "\f115"; }
 .flaticon-vagina:before { content: "\f116"; }
 .flaticon-lungs:before { content: "\f117"; }
@@ -72,3 +72,4 @@ margin-left: 0px;
 .flaticon-pin:before { content: "\f128"; }
 .flaticon-technology:before { content: "\f129"; }
 .flaticon-phone:before { content: "\f12a"; }
+.flaticon-body:before {content: "\f119";}
