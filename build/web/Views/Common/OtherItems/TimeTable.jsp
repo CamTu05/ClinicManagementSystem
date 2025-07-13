@@ -157,12 +157,7 @@
                                                                           && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
                                                                   <h5>${sch.doctor.specialty.specialtyName}</h5>
 
-                                                                  <c:forEach items="${sessionScope.daoUser.user}" var="u">
-                                                                      <c:if test="${u.id == sch.doctor.id}">
-                                                                          <p>Dr. ${u.fullName}</p>
-                                                                      </c:if>
-                                                                  </c:forEach>
-
+                                                                  
                                                                   <h6 class="level"><span>Năm kinh nghiệm: ${sch.doctor.yearsExp}</span></h6>
                                                                   <hr>
                                                             </c:if>
@@ -208,11 +203,7 @@
                                                                           && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
                                                                   <h5>${sch.doctor.specialty.specialtyName}</h5>
 
-                                                                  <c:forEach items="${sessionScope.daoUser.user}" var="u">
-                                                                      <c:if test="${u.id == sch.doctor.id}">
-                                                                          <p>Dr. ${u.fullName}</p>
-                                                                      </c:if>
-                                                                  </c:forEach>
+                                                             
 
                                                                   <h6 class="level"><span>Năm kinh nghiệm: ${sch.doctor.yearsExp}</span></h6>
                                                                   <hr>

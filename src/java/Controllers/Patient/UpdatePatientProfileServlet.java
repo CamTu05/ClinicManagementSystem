@@ -1,122 +1,112 @@
-///*
-// * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
-// * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
-// */
-//
-//package Controllers.Patient;
-//
-//import DAL.UserDAO;
-//import Models.User;
-//import java.io.IOException;
-//import java.io.PrintWriter;
-//import jakarta.servlet.ServletException;
-//import jakarta.servlet.http.HttpServlet;
-//import jakarta.servlet.http.HttpServletRequest;
-//import jakarta.servlet.http.HttpServletResponse;
-//import jakarta.servlet.http.HttpSession;
-//import java.sql.Date;
-//
-///**
-// *
-// * @author admin
-// */
-//public class UpdatePatientProfileServlet extends HttpServlet {
-//   
-//    /** 
-//     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        response.setContentType("text/html;charset=UTF-8");
-//        try (PrintWriter out = response.getWriter()) {
-//            /* TODO output your page here. You may use following sample code. */
-//            out.println("<!DOCTYPE html>");
-//            out.println("<html>");
-//            out.println("<head>");
-//            out.println("<title>Servlet UpdatePatientProfileServlet</title>");  
-//            out.println("</head>");
-//            out.println("<body>");
-//            out.println("<h1>Servlet UpdatePatientProfileServlet at " + request.getContextPath () + "</h1>");
-//            out.println("</body>");
-//            out.println("</html>");
-//        }
-//    } 
-//
-//    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-//    /** 
-//     * Handles the HTTP <code>GET</code> method.
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    @Override
-//    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        String fullname = request.getParameter("fullname");
-//        String gender = request.getParameter("gender");
-//        String phone = request.getParameter("phone");
-//        String dob_raw = request.getParameter("dob");
-//        String username = request.getParameter("username");
-//        String email = request.getParameter("email");
-//        String address = request.getParameter("address");
-//        
-//        UserDAO ud = new UserDAO();
-//        boolean usernameExists = ud.isUsernameExists(username);
-//        boolean emailExists = ud.isEmailExists(email);
-//    HttpSession session = request.getSession();
-//                Date dob;
-//    if (usernameExists || emailExists) {
-//        request.setAttribute("error", "Cập nhật thất bại!");
-//        if (usernameExists) {
-//            request.setAttribute("errorUsername", "Tên đăng nhập đã được sử dụng!");
-//        }
-//        if (emailExists) {
-//            request.setAttribute("errorEmail", "Email đã được sử dụng!");
-//        }
-//        request.setAttribute("user", session.getAttribute("user")); 
-//        request.getRequestDispatcher("/Views/PatientProfile.jsp").forward(request, response);
-//    } else {
-//        try {
-//            dob = Date.valueOf(dob_raw);
-//        } catch (Exception e) {
-//        }
-//
-//        ud.updateUserInfo((User)session.getAttribute("user"), fullname, gender, phone, dob, username, email, address);
-//
-//        User updateUser = ud.findUserById(((User)session.getAttribute("user"))
-//        session.setAttribute("user", currentUser);
-//
-//        response.sendRedirect("PatientProfile.jsp");
-//    }
-//}
-//
-//    } 
-//
-//    /** 
-//     * Handles the HTTP <code>POST</code> method.
-//     * @param request servlet request
-//     * @param response servlet response
-//     * @throws ServletException if a servlet-specific error occurs
-//     * @throws IOException if an I/O error occurs
-//     */
-//    @Override
-//    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-//    throws ServletException, IOException {
-//        processRequest(request, response);
-//    }
-//
-//    /** 
-//     * Returns a short description of the servlet.
-//     * @return a String containing servlet description
-//     */
-//    @Override
-//    public String getServletInfo() {
-//        return "Short description";
-//    }// </editor-fold>
-//
-//}
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
+ */
+package Controllers.Patient;
+
+import DAL.UserDAO;
+import Models.User;
+import java.io.IOException;
+import java.io.PrintWriter;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.sql.Date;
+
+/**
+ *
+ * @author admin
+ */
+public class UpdatePatientProfileServlet extends HttpServlet {
+
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet UpdatePatientProfileServlet</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet UpdatePatientProfileServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("Views/Patient/PatientProfile.jsp").forward(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String fullname = request.getParameter("fullname");
+        String gender = request.getParameter("gender");
+        String phone = request.getParameter("phone");
+        String dob_raw = request.getParameter("dob");
+        String username = request.getParameter("username");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+
+        boolean usernameExists = UserDAO.INSTANCE.isUsernameExists(username);
+        boolean emailExists = UserDAO.INSTANCE.isEmailExists(email);
+        HttpSession session = request.getSession();
+        User currentUser = (User) session.getAttribute("user");
+        Date dob = null;
+
+        try {
+            dob = Date.valueOf(dob_raw);
+        } catch (Exception e) {
+        }
+        UserDAO.INSTANCE.updateUserInfo(currentUser, fullname, gender, phone, dob, username, email, address);
+        User updateUser = UserDAO.INSTANCE.findUserById(currentUser.getId());
+        session.setAttribute("user", updateUser);
+        request.setAttribute("success", "Cập nhật thành công!");
+
+        request.getRequestDispatcher("Views/Patient/PatientProfile.jsp").forward(request, response);
+    }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
+
+}

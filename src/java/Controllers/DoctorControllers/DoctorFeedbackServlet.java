@@ -4,7 +4,7 @@
  */
 package Controllers.DoctorControllers;
 
-import DAL.DoctorDAO;
+import DAL.*;
 import Models.*;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -61,7 +61,7 @@ public class DoctorFeedbackServlet extends HttpServlet {
             User user = (User) session.getAttribute("user");
             if (user != null) {
                 int userId = user.getId();
-                Patient p = DoctorDAO.INSTANCE.getPatientById(userId);
+                Patient p = PatientDAO.INSTANCE.getPatientById(userId);
                 if (p != null) {
                     // Tạo đối tượng Feedback với thông tin người dùng, bác sĩ, và các tham số khác
                     feedback = new Feedback(userId, p, d, rating, comment, createdAt);
@@ -79,7 +79,7 @@ public class DoctorFeedbackServlet extends HttpServlet {
         }
 
         // Thêm feedback vào database
-        DoctorDAO.INSTANCE.addFeedback(feedback);
+        FeedbackDAO.INSTANCE.addFeedback(feedback);
         request.getRequestDispatcher("/Views/Doctors/Feedback.jsp" ).forward(request, response);
     }
 

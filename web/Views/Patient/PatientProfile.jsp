@@ -29,10 +29,10 @@
     <body>
         <%@ include file="../Common/Header/DefaultHeader.jsp" %>
         <%@ include file="../Common/Navbar/DefaultNavbar.jsp" %>
-        <<form action="UpdatePatientProfileServlet">
+        <form action="UpdatePatientProfileServlet" method="post">
             <div class="account-form">
                 <h2>Thông Tin Tài Khoản</h2>
-
+                <p style="color:green">${success}</p>
                 <!-- Họ tên + Giới tính -->
                 <div class="form-row">
                     <div class="form-group">
@@ -42,9 +42,9 @@
                     <div class="form-group">
                         <label for="gender">Giới tính</label>
                         <select id="gender" name="gender" disabled>
+                            <option value="" disabled selected hidden ${sessionScope.user.gender == null ? 'selected' : ''}>-- Chọn giới tính --</option>
                             <option value="Nam" ${sessionScope.user.gender == 'Nam' ? 'selected' : ''}>Nam</option>
                             <option value="Nữ" ${sessionScope.user.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
-                            <option value="" ${sessionScope.user.gender == null ? 'selected' : ''}>Không muốn tiết lộ</option>
                         </select>
                     </div>
                 </div>
@@ -56,7 +56,7 @@
                         <input type="text" id="phone" name="phone" value="${sessionScope.user.phone}" readonly>
                     </div>
                     <div class="form-group">
-                        <label for="dob">Ngày sinh</label>
+                        <label for="dob">Ngày sinh (mm/dd/yyyy)</label>
                         <input type="date" id="dob" name="dob" value="${sessionScope.user.dob}" readonly>
                     </div>
                 </div>
@@ -98,8 +98,11 @@
 
             editBtn.addEventListener("click", function () {
                 document.querySelectorAll("input, select").forEach(input => {
-                    input.removeAttribute("readonly");
-                    input.removeAttribute("disabled");
+                    const id = input.id;
+                    if (id !== "username" && id !== "email") {
+                        input.removeAttribute("readonly");
+                        input.removeAttribute("disabled");
+                    }
                 });
 
                 editBtn.style.display = "none";

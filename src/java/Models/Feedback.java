@@ -11,7 +11,7 @@ import java.sql.Timestamp;
  * @author admin
  */
 public class Feedback {
-    private int id;
+    private Integer id;
     private Patient patient;
     private Doctor doctor;
     private int rating;
@@ -21,7 +21,7 @@ public class Feedback {
     public Feedback() {
     }
 
-    public Feedback(int id, Patient patient, Doctor doctor, int rating, String comment, Timestamp createdAt) {
+    public Feedback(Integer id, Patient patient, Doctor doctor, int rating, String comment, Timestamp createdAt) {
         this.id = id;
         this.patient = patient;
         this.doctor = doctor;
@@ -31,7 +31,7 @@ public class Feedback {
     }
 
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

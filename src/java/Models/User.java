@@ -142,7 +142,7 @@ public class User {
     
 
     @Override
-    public String toString() {
+public String toString() {
         return "User{" + "id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", email=" + email + ", phone=" + phone + ", fullname=" + fullname + ", gender=" + gender + ", dob=" + dob + ", address=" + address + ", role=" + role + ", isActive=" + isActive + ", createdAt=" + createdAt + '}';
     }
 

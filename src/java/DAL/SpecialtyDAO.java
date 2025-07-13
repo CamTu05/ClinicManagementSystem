@@ -91,8 +91,8 @@ public class SpecialtyDAO extends DBContext {
         }
         return new Vector<>();
     }    
-        
-            public void LoadSpecialty() {
+
+        public void LoadSpecialty() {
         String sql = "select * from Specialties";
         specialties = new Vector<>();
         try {
@@ -132,3 +132,4 @@ public class SpecialtyDAO extends DBContext {
 //        System.out.println(n);
 //    }
 //}
+
