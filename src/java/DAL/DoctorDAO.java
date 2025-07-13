@@ -1,6 +1,6 @@
 package DAL;
 
-import Models.TempModels.DoctorInformation;
+import DTO.DoctorInformation;
 import Models.*;
 import java.sql.*;
 import java.util.Vector;
@@ -106,8 +106,8 @@ public class DoctorDAO extends DBContext {
         return new Vector<>();
     }
 
-    public Doctor getDoctorById(int id, Vector<Doctor> doctors) {
-        for (Doctor d : doctors) {
+    public Doctor getDoctorById(int id) {
+        for (Doctor d : DoctorDAO.INSTANCE.LoadAllDoctors()) {
             if (d.getId() == id) {
                 return d;
             }
@@ -173,7 +173,6 @@ public class DoctorDAO extends DBContext {
     }
 
     public DoctorInformation getDoctorInformationById(String doctorId) throws SQLException {
-
         String sql = """
         WITH DoctorSchedule AS (
             SELECT s.doctor_id,

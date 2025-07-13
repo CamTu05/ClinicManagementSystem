@@ -4,10 +4,10 @@
  */
 package Controllers.DoctorControllers;
 
-import Models.TempModels.DoctorInformation;
+import DTO.DoctorInformation;
 import DAL.*;
 import Models.*;
-import Models.TempModels.FeedbackInfor;
+import DTO.FeedbackInfor;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -67,7 +67,7 @@ public class DoctorIndividualServlet extends HttpServlet {
             int rating = Integer.parseInt(request.getParameter("rating"));
             String comment = request.getParameter("comment");
             Patient patient = PatientDAO.INSTANCE.getPatientById(user.getId());
-            Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(doctorId, DoctorDAO.INSTANCE.LoadAllDoctors());
+            Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(doctorId);
             Feedback feedback = new Feedback(null, patient, doctor, rating, comment, new Timestamp(System.currentTimeMillis()));
             FeedbackDAO.INSTANCE.addFeedback(feedback);
         }

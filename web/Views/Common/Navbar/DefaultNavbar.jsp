@@ -44,7 +44,7 @@
                                                                     <li><a href="laborotory.html">Laborotory</a></li>
                                                                 </ul>-->
                             </li>
-                            <li><a href="#">Thời gian biểu</a></li>
+                            <li><a href="${pageContext.request.contextPath}/DoctorScheduleServlet">Thời gian biểu</a></li>
                             <li class="dropdown"><a href="#">Tin tức</a></li>
                             <li><a href="#">Giải đáp</a></li>
                         </ul>

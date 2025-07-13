@@ -45,7 +45,7 @@ public class DoctorFeedbackServlet extends HttpServlet {
         int doctorId = Integer.parseInt(request.getParameter("doctorId"));
         int rating = Integer.parseInt(request.getParameter("rating"));
         String comment = request.getParameter("feedback");
-        Doctor d = DoctorDAO.INSTANCE.getDoctorById(doctorId, doctors);
+        Doctor d = DoctorDAO.INSTANCE.getDoctorById(doctorId);
 
         // Lấy session nếu có
         HttpSession session = request.getSession(false);
