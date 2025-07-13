@@ -6,6 +6,9 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -26,48 +29,150 @@
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
 
+        <link rel="stylesheet" href="css/doctorStyle.css"/>
+
+        <style>
+            .star-group {
+                display: inline-flex;
+                flex-direction: row-reverse;          /* đảo thứ tự để tô sao từ trái qua phải */
+                gap: 4px;
+                font-size: 24px;
+                cursor: pointer;
+            }
+            .star-group input {
+                display: none;                        /* ẩn radio gốc */
+            }
+            .star-group label {
+                color: #ccc;                          /* sao rỗng */
+                transition: color 0.2s;
+            }
+            .star-group input:checked ~ label,
+            .star-group label:hover,
+            .star-group label:hover ~ label {
+                color: #f5b50a;                       /* sao vàng khi hover/chọn */
+            }
+
+            .pill-rating {
+                display: inline-flex;
+                gap: .25rem;
+            }
+            .pill-rating input {
+                display: none;
+            }
+
+            .pill-rating label {
+                padding: .4rem .8rem;
+                border: 1px solid #ddd;
+                border-radius: 999px;
+                cursor: pointer;
+                background: #f8f8f8;
+                transition: background .2s, color .2s, border-color .2s;
+            }
+            .pill-rating input:checked + label,
+            .pill-rating label:hover {
+                background: #FFB400;
+                border-color: #FFB400;
+                color: #fff;
+            }
+
+        </style>
+
         <!-- Fixing Internet Explorer-->
         <!--[if lt IE 9]>
             <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
             <script src="js/html5shiv.js"></script>
         <![endif]-->
     </head>
+
     <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; margin: 0; padding: 0;">
-        <%@ include file="/Views/Common/Header/DefaultHeader.jsp" %>
-        <%@ include file="/Views/Common/Navbar/DefaultNavbar.jsp" %>
+        <c:if test="${not empty message}">
+            <script>alert("${fn:escapeXml(message)}");</script>
+        </c:if>
 
-        <div style="display: flex; justify-content: center; align-items: center; margin: 20px; background-color: white; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 20px;">
+        <div class="layout-bar">
+            <%@ include file="/Views/Common/Header/DefaultHeader.jsp" %>
+            <%@ include file="/Views/Common/Navbar/DefaultNavbar.jsp" %>
+        </div>
+        <br/>
 
-            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden; border: 3px solid #ddd;">
-                <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" alt="Doctor Picture" style="width: 100%; height: 100%; object-fit: cover;">
-            </div>
+        <!-- CARD -->
+        <section class="card">
+            <div class="doctor-info">
+                <img src="${pageContext.request.contextPath}/images/team/${d.picture}" alt="Ảnh bác sĩ">
+                <div>
+                    <div class="doctor-name">${d.fullName}</div>
+                    <p class="doctor-meta"><strong>Chuyên khoa:</strong> ${d.specialtyName}</p>
+                    <p class="doctor-meta"><strong>Kinh nghiệm:</strong> ${d.yearsExperience}</p>
+                    <p class="doctor-meta"><strong>Email:</strong> ${d.email}</p>
 
-            <div style="margin-left: 20px; flex: 1;">
-                <h1 style="color: #2c3e50; font-size: 24px; margin-bottom: 10px;">${name}</h1>
-                <p style="font-size: 18px; color: #7f8c8d; margin-bottom: 20px;">Years of Experience: ${doctor.yearsExp}</p>
-                <p style="font-size: 16px; color: #34495e; margin-bottom: 20px;">
-                    ${doctor.description}
-                </p>
-                <div style="background-color: #ecf0f1; padding: 10px; border-radius: 8px;">
-                    <h3 style="font-size: 18px; color: #2c3e50;">Patient Feedback:</h3>
-                    <ul style="list-style-type: none; padding-left: 0;">
-                        <c:forEach var="fb" items="${feedback}">
-                            <li style="font-size: 14px; color: #7f8c8d; margin-bottom: 10px;">${fb.comment}</li><br/>
-                            <div style="font-size: 14px; color: #888; margin-top: 5px;">
-                                <strong>Rating:</strong> ${fb.rating} / 5
-                            </div>
-                            <div style="font-size: 14px; color: #888;">
-                                <strong>Created At:</strong> ${fb.createdAt}
-                            </div>
-                        </c:forEach>
-                    </ul>
+
+                    <div class="rating">
+                        <span class="stars" style="--rating: 4.0;"></span>
+                        <span style="color: #f5b50a;">&#9733;</span>
+                        Rating: ${d.avgRating}/5
+                    </div>
+
+                    <div class="schedule">${d.schedule}</div>
                 </div>
             </div>
 
+            <div class="feedback-form">
+                <br/>
+                <h3>Gửi phản hồi của bạn</h3>
+                <form action="DoctorIndividualServlet" method="post">
+                    <input type="hidden" name="DoctorId" value="${d.doctorId}">
+
+                    <!-- Comment -->
+                    <textarea name="comment" placeholder="Nhập phản hồi của bạn..." required></textarea>
+
+                    <div class="pill-rating" role="radiogroup">
+                        <input type="radio" id="p1" name="rating" value="1" required>
+                        <label for="p1">1</label>
+
+                        <input type="radio" id="p2" name="rating" value="2">
+                        <label for="p2">2</label>
+
+                        <input type="radio" id="p3" name="rating" value="3">
+                        <label for="p3">3</label>
+
+                        <input type="radio" id="p4" name="rating" value="4">
+                        <label for="p4">4</label>
+
+                        <input type="radio" id="p5" name="rating" value="5">
+                        <label for="p5">5</label>
+                    </div>
+                    <br/>
+                    <button type="submit" name="btnSubmit" value="oke">Gửi phản hồi</button>
+                </form>
+            </div>
+
+            <div class="feedback-list">
+                <br/>
+                <h3>Phản hồi từ bệnh nhân</h3>
+                <c:forEach var="f" items="${feedbacks}">
+                    <div class="feedback-item">
+                        <div class="feedback-header">
+                            <div class="avatar">${f.initial}</div>
+                            <span class="author">${f.patient_name}</span>
+                            <span class="date">${f.feedback_date}</span>
+                        </div>
+                        <div class="feedback-content">
+                            ${f.comment}
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </section>
+
+        <!-- Phone -->
+        <div class="phone-bar">
+            <div class="phone-icon">☎</div>
+            <div class="phone-number">${d.phone}</div>
         </div>
 
-
-        <%@ include file="/Views/Common/Footer/DefaultFooter.jsp" %>
+        <div class="layout-bar">
+            <%@ include file="/Views/Common/Footer/DefaultFooter.jsp" %>
+        </div>
         <!--Scroll to top-->
         <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-triangle-inside-circle"></span></div>
 

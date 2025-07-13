@@ -1,5 +1,6 @@
 package DAL;
 
+import Models.TempModels.DoctorInformation;
 import Models.*;
 import java.sql.*;
 import java.util.Vector;
@@ -7,7 +8,6 @@ import java.util.Vector;
 public class DoctorDAO extends DBContext {
 
     private Vector<Doctor> doctors;
-    private Vector<Specialty> specialties;
     private String status = "ok";
     private Connection con;
 
@@ -38,38 +38,6 @@ public class DoctorDAO extends DBContext {
 
     public void setDoctors(Vector<Doctor> doctors) {
         this.doctors = doctors;
-    }
-
-    public Vector<Specialty> getSpecialty() {
-        specialties = new Vector<>();
-        String sql = "select * from Specialties";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                Specialty thisSpecialty = new Specialty(rs.getInt(1), rs.getString(2));
-                specialties.add(thisSpecialty);
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return specialties;
-    }
-
-    public Specialty getSpecialtyById(int id) {
-        String sql = "Select * From Specialties where specialty_id = ?";
-        try {
-            PreparedStatement ps = con.prepareStatement(sql);
-            ps.setInt(1, id);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                Specialty s = new Specialty(rs.getInt("specialty_id"), rs.getString("specialty_name"));
-                return s;
-            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-        return null;
     }
 
     public String getDoctorNameById(int id) {
@@ -104,7 +72,7 @@ public class DoctorDAO extends DBContext {
                 System.out.println("");
                 Doctor doc = new Doctor();
                 doc.setId(rs.getInt("doctor_id"));
-                doc.setSpecialty(getSpecialtyById(specialty_id));
+                doc.setSpecialty(SpecialtyDAO.INSTANCE.getSpecialtyById(specialty_id));
                 doc.setYearsExp(rs.getInt("years_experience"));
                 doc.setDescription(rs.getString("description"));
                 doc.setPicture(rs.getString("picture"));
@@ -124,7 +92,7 @@ public class DoctorDAO extends DBContext {
             while (rs.next()) {
                 Doctor doc = new Doctor();
                 doc.setId(rs.getInt("doctor_id"));
-                doc.setSpecialty(getSpecialtyById(rs.getInt("specialty_id")));
+                doc.setSpecialty(SpecialtyDAO.INSTANCE.getSpecialtyById(rs.getInt("specialty_id")));
                 doc.setYearsExp(rs.getInt("years_experience"));
                 doc.setDescription(rs.getString("description"));
                 doc.setPicture(rs.getString("picture"));
@@ -147,118 +115,126 @@ public class DoctorDAO extends DBContext {
         return null;
     }
 
-    public Vector<Specialty> LoadAllSpecialtys() {
-        String sql = "Select specialty_id, specialty_name from Specialties";
-        specialties = new Vector<Specialty>();
+    public Vector<DoctorInformation> getDoctorInformation() throws SQLException {
+        String sql = """
+            WITH DoctorSchedule AS (
+                SELECT s.doctor_id,
+                       CASE s.weekday
+                            WHEN 0 THEN N'Chủ nhật' WHEN 1 THEN N'Thứ 2'
+                            WHEN 2 THEN N'Thứ 3'    WHEN 3 THEN N'Thứ 4'
+                            WHEN 4 THEN N'Thứ 5'    WHEN 5 THEN N'Thứ 6'
+                            WHEN 6 THEN N'Thứ 7' END AS weekday_name,
+                       s.start_time, s.end_time
+                FROM Schedules s )
+            SELECT d.doctor_id, u.fullname, u.gender, u.dob, u.email,
+                   u.phone, u.address, sp.specialty_name,
+                   d.years_experience, d.[description], d.picture,
+                   STRING_AGG(
+                       FORMATMESSAGE(N'%s %s-%s',
+                                     ds.weekday_name,
+                                     FORMAT(ds.start_time, N'hh\\:mm'),
+                                     FORMAT(ds.end_time  , N'hh\\:mm')), N', ')
+                       WITHIN GROUP (ORDER BY ds.weekday_name) AS schedule,
+                   ROUND(AVG(f.rating*1.0),1) AS avg_rating
+            FROM Doctors d
+            JOIN Users u           ON u.user_id      = d.doctor_id
+            JOIN Specialties sp    ON sp.specialty_id = d.specialty_id
+            LEFT JOIN DoctorSchedule ds ON ds.doctor_id = d.doctor_id
+            LEFT JOIN Feedbacks f  ON f.doctor_id    = d.doctor_id
+            GROUP BY d.doctor_id, u.fullname, u.gender, u.dob, u.email,
+                     u.phone, u.address, sp.specialty_name,
+                     d.years_experience, d.[description], d.picture;
+            """;
+
+        Vector<DoctorInformation> result = new Vector<>();
+
         try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
-            while (rs.next()) {
-                Specialty sp = new Specialty();
-                sp.setId(rs.getInt("specialty_id"));
-                sp.setSpecialtyName(rs.getString("specialty_name"));
-                specialties.add(sp);
-            }
-            return specialties;
-        } catch (SQLException e) {
-            System.out.println("Error at reading Specialty: " + e.getMessage());
-            status = "Error at reading Specialty: " + e.getMessage();
-        }
-        return new Vector<>();
-    }
-
-    public Patient getPatientById(int patientId) {
-        Patient patient = null;
-        String sql = "SELECT * FROM Patients WHERE patient_id = ?";
-
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, patientId);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                // Lấy dữ liệu từ ResultSet và tạo đối tượng Patient
-                int id = rs.getInt("id");
-                String bloodType = rs.getString("blood_type");
-                String allergies = rs.getString("allergies");
-                String medicalHistory = rs.getString("medical_history");
-
-                patient = new Patient(id, bloodType, allergies, medicalHistory);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return patient;
-    }
-
-    public Vector<Feedback> getFeedbackByDoctorId(int doctorId) {
-        Vector<Feedback> feedbackList = new Vector<>();
-        String sql = "SELECT [feedback_id]\n"
-                + "      ,[patient_id]\n"
-                + "      ,[doctor_id]\n"
-                + "      ,[rating]\n"
-                + "      ,[comment]\n"
-                + "      ,[created_at]\n"
-                + "  FROM [dbo].[Feedbacks]"
-                + "Where [doctor_id]=?";
-
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, doctorId);
-            ResultSet rs = stmt.executeQuery();
 
             while (rs.next()) {
-                int id = rs.getInt("feedback_id");
-                int rating = rs.getInt("rating");
-                String comment = rs.getString("comment");
-                Timestamp createdAt = rs.getTimestamp("created_at");
+                DoctorInformation info = new DoctorInformation();
+                info.setDoctorId(rs.getInt("doctor_id"));
+                info.setFullName(rs.getString("fullname"));
+                info.setGender(rs.getString("gender"));
+                info.setDob(rs.getDate("dob"));
+                info.setEmail(rs.getString("email"));
+                info.setPhone(rs.getString("phone"));
+                info.setAddress(rs.getString("address"));
+                info.setSpecialtyName(rs.getString("specialty_name"));
+                info.setYearsExperience(rs.getInt("years_experience"));
+                info.setDescription(rs.getString("description"));
+                info.setPicture(rs.getString("picture"));
+                info.setSchedule(rs.getString("schedule"));
+                info.setAvgRating(rs.getDouble("avg_rating"));
 
-                Patient patient = getPatientById(rs.getInt("patient_id"));
-
-                Doctor doctor = getDoctorById(id, doctors);
-
-                Feedback feedback = new Feedback(id, patient, doctor, rating, comment, createdAt);
-                feedbackList.add(feedback);
+                result.add(info);
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
-        return feedbackList;
+        return result;
     }
 
-    public boolean addFeedback(Feedback feedback) {
-        String sql = "INSERT INTO feedback (patient_id, doctor_id, rating, comment, created_at) "
-                + "VALUES (?, ?, ?, ?, ?)";
+    public DoctorInformation getDoctorInformationById(String doctorId) throws SQLException {
+
+        String sql = """
+        WITH DoctorSchedule AS (
+            SELECT s.doctor_id,
+                   CASE s.weekday
+                        WHEN 0 THEN N'Chủ nhật' WHEN 1 THEN N'Thứ 2'
+                        WHEN 2 THEN N'Thứ 3'    WHEN 3 THEN N'Thứ 4'
+                        WHEN 4 THEN N'Thứ 5'    WHEN 5 THEN N'Thứ 6'
+                        WHEN 6 THEN N'Thứ 7' END AS weekday_name,
+                   s.start_time, s.end_time
+            FROM Schedules s )
+        SELECT d.doctor_id, u.fullname, u.gender, u.dob, u.email,
+               u.phone, u.address, sp.specialty_name,
+               d.years_experience, d.[description], d.picture,
+               STRING_AGG(
+                   FORMATMESSAGE(N'%s %s-%s',
+                                 ds.weekday_name,
+                                 FORMAT(ds.start_time, N'hh\\:mm'),
+                                 FORMAT(ds.end_time  , N'hh\\:mm')), N', ')
+                   WITHIN GROUP (ORDER BY ds.weekday_name) AS schedule,
+               ROUND(AVG(f.rating*1.0),1) AS avg_rating
+        FROM Doctors d
+        JOIN Users u           ON u.user_id      = d.doctor_id
+        JOIN Specialties sp    ON sp.specialty_id = d.specialty_id
+        LEFT JOIN DoctorSchedule ds ON ds.doctor_id = d.doctor_id
+        LEFT JOIN Feedbacks f  ON f.doctor_id    = d.doctor_id
+        WHERE d.doctor_id = ?                      -- chỉ 1 bác sĩ
+        GROUP BY d.doctor_id, u.fullname, u.gender, u.dob, u.email,
+                 u.phone, u.address, sp.specialty_name,
+                 d.years_experience, d.[description], d.picture;
+        """;
 
         try (PreparedStatement ps = con.prepareStatement(sql)) {
-            ps.setInt(1, feedback.getPatient().getId());
-            ps.setInt(2, feedback.getDoctor().getId());
-            ps.setInt(3, feedback.getRating());
-            ps.setString(4, feedback.getComment());
-            ps.setTimestamp(5, feedback.getCreatedAt());
+            ps.setInt(1, Integer.parseInt(doctorId));
 
-            int rowsAffected = ps.executeUpdate();
-
-            return rowsAffected > 0;
-        } catch (SQLException e) {
-            System.out.println(e);
-            return false;
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    DoctorInformation info = new DoctorInformation();
+                    info.setDoctorId(rs.getInt("doctor_id"));
+                    info.setFullName(rs.getString("fullname"));
+                    info.setGender(rs.getString("gender"));
+                    info.setDob(rs.getDate("dob"));
+                    info.setEmail(rs.getString("email"));
+                    info.setPhone(rs.getString("phone"));
+                    info.setAddress(rs.getString("address"));
+                    info.setSpecialtyName(rs.getString("specialty_name"));
+                    info.setYearsExperience(rs.getInt("years_experience"));
+                    info.setDescription(rs.getString("description"));
+                    info.setPicture(rs.getString("picture"));
+                    info.setSchedule(rs.getString("schedule"));
+                    info.setAvgRating(rs.getDouble("avg_rating"));
+                    return info;
+                }
+            }
         }
+        return null;  // không tìm thấy
     }
 
-    public static void main(String[] args) {
-        DoctorDAO dao = new DoctorDAO();
-        Vector<Doctor> doctors = dao.LoadDoctorsBySpecialty(2);
-//        for (Doctor d : doctors){
-//            System.out.println("id="+d.getId());
-//            System.out.println("specialty="+d.getSpecialty());
-//            System.out.println("year exp="+d.getYearsExp());
-//            System.out.println("description="+d.getDescription());
-//            System.out.println("picture="+d.getPicture());
-//            System.out.println("Name=" + dao.getDoctorNameById(d.getId()));
-//            System.out.println();
-//        }
-        Vector<Feedback> fb = dao.getFeedbackByDoctorId(3);
-        for (Feedback f : fb) {
-            System.out.println(f.getComment());
+    public static void main(String[] args) throws SQLException {
+        Vector<DoctorInformation> info = DoctorDAO.INSTANCE.getDoctorInformation();
+        for (DoctorInformation d : info) {
+            System.out.println(d.toString());
         }
-        System.out.println(dao.getDoctorNameById(3));
     }
 }
