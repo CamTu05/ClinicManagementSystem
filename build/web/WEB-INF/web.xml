@@ -86,6 +86,5 @@
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>HomePageServlet</welcome-file>
-        <!-- Đảm bảo đường dẫn chính xác -->
     </welcome-file-list>
 </web-app>

@@ -21,7 +21,7 @@
                     </div>
                     <div class="navbar-collapse collapse clearfix">
                         <ul class="navigation clearfix">
-                            <li class="current"><a href="${pageContext.request.contextPath}/Views/HomePage.jsp">Trang chủ</a></li>
+                            <li class="current"><a href="HomePageServlet">Trang chủ</a></li>
                             <li class="dropdown"><a href="#">Giới thiệu</a>
                                 <ul>
                                     <li><a href="#">Giới thiệu Phòng khám</a></li>
