@@ -1,16 +1,15 @@
 <%-- 
-    Document   : HomePage
-    Created on : Jul 7, 2025, 3:58:43 PM
+    Document   : ChangePassword
+    Created on : Jul 13, 2025, 12:24:11 AM
     Author     : admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Trang chủ</title>
+        <title>Đổi mật khẩu</title>
         <meta charset="UTF-8">
         <!-- responsive meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -20,26 +19,51 @@
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
         <!-- Responsive stylesheet -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
+        <!-- Extra stylesheet -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mycss.css">
         <!-- Favicon -->
         <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/images/favicon/apple-touch-icon.png">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
-
     </head>
     <body>
-        <div class="boxed_wrapper">
-            <%@ include file="Common/Header/DefaultHeader.jsp" %>
-            <%@ include file="Common/Navbar/DefaultNavbar.jsp" %>
-            <%@ include file="Common/OtherItems/Carousel.jsp" %>
-            <%@ include file="Common/OtherItems/AppointmentForm.jsp" %> <hr/>
-            <%@ include file="Common/OtherItems/FactCounter.jsp" %>
-            <%@ include file="Common/OtherItems/Testimonial.jsp" %>
-            <%@ include file="Common/Footer/DefaultFooter.jsp" %>
+        <%@ include file="../Common/Header/DefaultHeader.jsp" %>
+        <%@ include file="../Common/Navbar/DefaultNavbar.jsp" %>
+        <form id="changePasswordForm" action="ChangePasswordServlet" method="post">
+            <div class="account-form">
+                <h2>Đổi Mật Khẩu</h2>
+                <p style="color:green">${success}</p>
+                <p style="color:red">${error}</p>
 
-        </div>
-        <!--Scroll to top-->
-        <div class="scroll-to-top scroll-to-target" data-target="html"><span class="flaticon-triangle-inside-circle"></span></div>
+                <!-- Mật khẩu hiện tại -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="currentPassword">Mật khẩu hiện tại</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required>
+                    </div>
+                </div>
 
+                <!-- Mật khẩu mới + Xác nhận -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="newPassword">Mật khẩu mới</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Xác nhận mật khẩu mới</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </div>
+                <p id="passwordMsg" style="color:red; text-align:center;"></p>
+
+                <!-- Nút đổi mật khẩu -->
+                <div class="form-actions">
+                    <button type="submit">Đổi mật khẩu</button>
+                </div>
+            </div>
+        </form>
+
+        <%@ include file="../Common/Footer/DefaultFooter.jsp" %>
         <!-- main jQuery -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
         <!-- Wow Script -->
@@ -98,43 +122,27 @@
 
         <!-- thm custom script -->
         <script src="${pageContext.request.contextPath}/js/custom.js"></script>
-        <script>function scrollToMiddle(event, id) {
-                event.preventDefault();
-                const el = document.getElementById(id);
-                if (el) {
-                    el.scrollIntoView({
-                        behavior: "smooth",
-                        block: "center"
-                    });
+        <script>
+            document.getElementById("changePasswordForm").addEventListener("submit", function (event) {
+                const pass = document.getElementById("newPassword").value;
+                const confirm = document.getElementById("confirmPassword").value;
+                const msg = document.getElementById("passwordMsg");
+
+                // Reset thông báo
+                msg.innerText = "";
+
+                // Kiểm tra độ dài
+                if (pass.length < 8) {
+                    event.preventDefault();
+                    msg.innerText = "Mật khẩu phải có ít nhất 8 ký tự.";
                 }
-            }
-
-            window.addEventListener('load', function () {
-                if (window.location.hash) {
-                    const id = window.location.hash.substring(1);
-                    const element = document.getElementById(id);
-                    if (element) {
-                        setTimeout(() => {
-                            element.scrollIntoView({
-                                behavior: "smooth",
-                                block: "center"
-                            });
-
-                            // Xóa hash khỏi URL sau khi cuộn
-                            setTimeout(() => {
-                                history.replaceState(null, null, window.location.pathname);
-                            }, 1000);
-                        }, 100);
-                    }
+                // Kiểm tra khớp
+                else if (pass !== confirm) {
+                    event.preventDefault();
+                    msg.innerText = "Mật khẩu không khớp.";
                 }
             });
-
-            window.addEventListener('DOMContentLoaded', () => {
-                // Nếu không có #id trong URL => scroll lên đầu
-                if (!window.location.hash) {
-                    window.scrollTo({top: 0, behavior: 'smooth'});
-                }
-            });</script>
+        </script>
 
     </body>
 </html>

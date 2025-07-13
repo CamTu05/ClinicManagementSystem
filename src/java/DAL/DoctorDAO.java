@@ -229,8 +229,10 @@ public class DoctorDAO extends DBContext {
         }
         return null;  // không tìm thấy
     }
+}
 
-    public static void main(String[] args) throws SQLException {
+class main{
+        public static void main(String[] args) throws SQLException {
         Vector<DoctorInformation> info = DoctorDAO.INSTANCE.getDoctorInformation();
         for (DoctorInformation d : info) {
             System.out.println(d.toString());

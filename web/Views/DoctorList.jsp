@@ -76,7 +76,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-3">
-                        <form action="${pageContext.request.contextPath}/doctorList" method="get">
+                        <form action="/doctorList" method="get">
                             <ul style="list-style-type: none; padding: 0; margin: 0;">
                                 <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
                                     <input type="submit" name="btnFilter" value="Toàn Bộ" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
