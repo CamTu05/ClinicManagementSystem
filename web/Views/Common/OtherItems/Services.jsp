@@ -1,11 +1,4 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    // Kiểm tra nếu chưa có danh sách trong session
-    if (session.getAttribute("daoServices") == null) {
-        response.sendRedirect(request.getContextPath() + "/LoadServicesServlet");
-        
-    }
-%>
 
 
 

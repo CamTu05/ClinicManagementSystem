@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%
   if (session.getAttribute("daoSchedules") == null ||
   session.getAttribute("daoDoctor") == null||
@@ -12,10 +13,8 @@
   session.getAttribute("daoUser") == null) {
   
       response.sendRedirect(request.getContextPath() + "/LoadSchedulesServlet?id=0&type=-1");
-
   }
 %>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,7 +50,7 @@
                                 <div class="col-md-6">
 
                                     <select class="selectmenu" onchange="location.href = this.value;">
-                                        <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=0&type=${sessionScope.typeDay}">All</option>
+                                        <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=0&type=${sessionScope.typeDay}">Tất cả</option>
                                         <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
                                             <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${s.id}&type=${sessionScope.typeDay}"
                                                     <c:if test="${sessionScope.idTable == s.id}">selected</c:if>>
@@ -66,35 +65,35 @@
                                         <select class="selectmenu" onchange="location.href = this.value;">
                                             <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=-1"
                                                     <c:if test="${sessionScope.typeDay == -1}">selected</c:if>>
-                                                        All Days
+                                                        Cả tuần
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=0"
                                                     <c:if test="${sessionScope.typeDay == 0}">selected</c:if>>
-                                                        Monday
+                                                        Thứ 2 
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=1"
                                                     <c:if test="${sessionScope.typeDay == 1}">selected</c:if>>
-                                                        Tuesday
+                                                        Thứ 3
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=2"
                                                     <c:if test="${sessionScope.typeDay == 2}">selected</c:if>>
-                                                        Wednesday
+                                                        Thứ 4
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=3"
                                                     <c:if test="${sessionScope.typeDay == 3}">selected</c:if>>
-                                                        Thursday
+                                                        Thứ 5
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=4"
                                                     <c:if test="${sessionScope.typeDay == 4}">selected</c:if>>
-                                                        Friday
+                                                        Thứ 6
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=5"
                                                     <c:if test="${sessionScope.typeDay == 5}">selected</c:if>>
-                                                        Saturday
+                                                        Thứ 7
                                                     </option>
                                                     <option value="${pageContext.request.contextPath}/LoadSchedulesServlet?id=${sessionScope.idTable}&type=6"
                                                     <c:if test="${sessionScope.typeDay == 6}">selected</c:if>>
-                                                        Sunday
+                                                        Chủ nhật
                                                     </option>
                                             </select>
 
@@ -106,127 +105,127 @@
                             </div>
                         </div>
                         <div class="row">
-<div class="col-md-12">
-    <div class="table-responsive">
-        <table class="time-table">
-            <thead>
-                <tr>
-                    <th>Time / Days</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                    <th>Sunday</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Buổi sáng -->
-                <tr>
-                    <td class="single-box time ">
-                        <div class="inner-content text-center">
-                            <span>08.00 - 12.00</span>
-                            <p>am</p>
-                        </div>
-                    </td>
+                            <div class="col-md-12">
+                                <div class="table-responsive">
+                                    <table class="time-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Ca / Ngày</th>
+                                                <th>Thứ 2</th>
+                                                <th>Thứ 3</th>
+                                                <th>Thứ 4</th>
+                                                <th>Thứ 5</th>
+                                                <th>Thứ 6</th>
+                                                <th>Thứ 7</th>
+                                                <th>Chủ nhật</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- Buổi sáng -->
+                                            <tr>
+                                                <td class="single-box time ">
+                                                    <div class="inner-content text-center">
+                                                        <span>08.00 - 12.00</span>
+                                                        <p>am</p>
+                                                    </div>
+                                                </td>
 
-                    <c:forEach var="day" begin="0" end="6">
-                        <c:set var="hasSchedule" value="false" />
-                        <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
-                            <c:if test="${sch.weekday == day && sch.startTime.hours == 8 
-                                         && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
-                                         && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
-                                <c:set var="hasSchedule" value="true" />
-                            </c:if>
-                        </c:forEach>
+                                            <c:forEach var="day" begin="0" end="6">
+                                                <c:set var="hasSchedule" value="false" />
+                                                <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
+                                                    <c:if test="${sch.weekday == day && sch.startTime.hours == 8 
+                                                                  && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
+                                                                  && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
+                                                        <c:set var="hasSchedule" value="true" />
+                                                    </c:if>
+                                                </c:forEach>
 
-                        <c:choose>
-                            <c:when test="${hasSchedule}">
-                                <c:set var="bgClass" value="bgclr-${((day+1) % 4)+1}" />
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="bgClass" value="" />
-                            </c:otherwise>
-                        </c:choose>
+                                                <c:choose>
+                                                    <c:when test="${hasSchedule}">
+                                                        <c:set var="bgClass" value="bgclr-${(day%4)+1}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="bgClass" value="" />
+                                                    </c:otherwise>
+                                                </c:choose>
 
-                        <td class="single-box ${bgClass}">
-                            <div class="inner-content text-center">
-                                <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
-                                    <c:if test="${sch.weekday == day && sch.startTime.hours == 8 
-                                                 && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
-                                                 && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
-                                        <h5>${sch.doctor.specialty.specialtyName}</h5>
+                                                <td class="single-box ${bgClass}">
+                                                    <div class="inner-content text-center">
+                                                        <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
+                                                            <c:if test="${sch.weekday == day && sch.startTime.hours == 8 
+                                                                          && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
+                                                                          && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
+                                                                  <h5>${sch.doctor.specialty.specialtyName}</h5>
 
-                                        <c:forEach items="${sessionScope.daoUser.user}" var="u">
-                                            <c:if test="${u.id == sch.doctor.id}">
-                                                <p>Dr. ${u.fullName}</p>
-                                            </c:if>
-                                        </c:forEach>
+                                                                  <c:forEach items="${sessionScope.daoUser.user}" var="u">
+                                                                      <c:if test="${u.id == sch.doctor.id}">
+                                                                          <p>Dr. ${u.fullName}</p>
+                                                                      </c:if>
+                                                                  </c:forEach>
 
-                                        <h6 class="level">Years of Experience: <span>${sch.doctor.yearsExp}</span></h6>
-                                        <hr>
-                                    </c:if>
-                                </c:forEach>
+                                                                  <h6 class="level"><span>Năm kinh nghiệm: ${sch.doctor.yearsExp}</span></h6>
+                                                                  <hr>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </div>
+                                                </td>
+                                            </c:forEach>
+                                        </tr>
+
+                                        <!-- Buổi chiều -->
+                                        <tr>
+                                            <td class="single-box time ">
+                                                <div class="inner-content text-center">
+                                                    <span>13.00 - 17.00</span>
+                                                    <p>pm</p>
+                                                </div>
+                                            </td>
+
+                                            <c:forEach var="day" begin="0" end="6">
+                                                <c:set var="hasSchedule" value="false" />
+                                                <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
+                                                    <c:if test="${sch.weekday == day && sch.startTime.hours == 13 
+                                                                  && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
+                                                                  && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
+                                                        <c:set var="hasSchedule" value="true" />
+                                                    </c:if>
+                                                </c:forEach>
+
+                                                <c:choose>
+                                                    <c:when test="${hasSchedule}">
+                                                        <c:set var="bgClass" value="bgclr-${((day+1) % 4)+1}" />
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <c:set var="bgClass" value="" />
+                                                    </c:otherwise>
+                                                </c:choose>
+
+                                                <td class="single-box ${bgClass}">
+                                                    <div class="inner-content text-center">
+                                                        <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
+                                                            <c:if test="${sch.weekday == day && sch.startTime.hours == 13 
+                                                                          && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
+                                                                          && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
+                                                                  <h5>${sch.doctor.specialty.specialtyName}</h5>
+
+                                                                  <c:forEach items="${sessionScope.daoUser.user}" var="u">
+                                                                      <c:if test="${u.id == sch.doctor.id}">
+                                                                          <p>Dr. ${u.fullName}</p>
+                                                                      </c:if>
+                                                                  </c:forEach>
+
+                                                                  <h6 class="level"><span>Năm kinh nghiệm: ${sch.doctor.yearsExp}</span></h6>
+                                                                  <hr>
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </div>
+                                                </td>
+                                            </c:forEach>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
-                        </td>
-                    </c:forEach>
-                </tr>
-
-                <!-- Buổi chiều -->
-                <tr>
-                    <td class="single-box time ">
-                        <div class="inner-content text-center">
-                            <span>13.00 - 17.00</span>
-                            <p>pm</p>
                         </div>
-                    </td>
-
-                    <c:forEach var="day" begin="0" end="6">
-                        <c:set var="hasSchedule" value="false" />
-                        <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
-                            <c:if test="${sch.weekday == day && sch.startTime.hours == 13 
-                                         && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
-                                         && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
-                                <c:set var="hasSchedule" value="true" />
-                            </c:if>
-                        </c:forEach>
-
-                        <c:choose>
-                            <c:when test="${hasSchedule}">
-                                <c:set var="bgClass" value="bgclr-${((day+1) % 4)+1}" />
-                            </c:when>
-                            <c:otherwise>
-                                <c:set var="bgClass" value="" />
-                            </c:otherwise>
-                        </c:choose>
-
-                        <td class="single-box ${bgClass}">
-                            <div class="inner-content text-center">
-                                <c:forEach items="${sessionScope.daoSchedules.schedules}" var="sch">
-                                    <c:if test="${sch.weekday == day && sch.startTime.hours == 13 
-                                                 && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
-                                                 && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
-                                        <h5>${sch.doctor.specialty.specialtyName}</h5>
-
-                                        <c:forEach items="${sessionScope.daoUser.user}" var="u">
-                                            <c:if test="${u.id == sch.doctor.id}">
-                                                <p>Dr. ${u.fullName}</p>
-                                            </c:if>
-                                        </c:forEach>
-
-                                        <h6 class="level">Years of Experience: <span>${sch.doctor.yearsExp}</span></h6>
-                                        <hr>
-                                    </c:if>
-                                </c:forEach>
-                            </div>
-                        </td>
-                    </c:forEach>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
 
                     </div>
                 </div>
@@ -300,16 +299,16 @@
         <!-- thm custom script -->
         <script src="${pageContext.request.contextPath}/js/custom.js"></script>
         <script>
-                                           function scrollToMiddle(event, id) {
-                                               event.preventDefault();
-                                               const el = document.getElementById(id);
-                                               if (el) {
-                                                   el.scrollIntoView({
-                                                       behavior: "smooth",
-                                                       block: "center"
-                                                   });
-                                               }
-                                           }
+                                            function scrollToMiddle(event, id) {
+                                                event.preventDefault();
+                                                const el = document.getElementById(id);
+                                                if (el) {
+                                                    el.scrollIntoView({
+                                                        behavior: "smooth",
+                                                        block: "center"
+                                                    });
+                                                }
+                                            }
         </script>
     </body>
 </html>
