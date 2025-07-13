@@ -98,11 +98,11 @@ public class SchedulesDAO {
 
 
 }
-class Using{
-    public static void main(String[] args) {
-        DoctorDAO.INSTANCE.LoadDoctor();
-        int n= DoctorDAO.INSTANCE.getDoctors().size();
-                
-        System.out.println(n);
-    }
-}
+//class Using{
+//    public static void main(String[] args) {
+//        DoctorDAO.INSTANCE.LoadDoctor();
+//        int n= DoctorDAO.INSTANCE.getDoctors().size();
+//                
+//        System.out.println(n);
+//    }
+//}

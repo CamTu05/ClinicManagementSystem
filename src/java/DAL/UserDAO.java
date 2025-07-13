@@ -17,12 +17,20 @@ import java.sql.Date;
  */
 public class UserDAO extends DBContext {
 
-    private Vector<User> user;
-    public static UserDAO INSTANCE = new UserDAO();
-
     private String status = "ok";
     private Connection con;
+    private Vector<User> users;
 
+    public Vector<User> getUser() {
+        return users;
+    }
+
+    public void setUser(Vector<User> users) {
+        this.users = users;
+    }
+
+
+    public static UserDAO INSTANCE = new UserDAO();
 
     public UserDAO() {
         if (INSTANCE == null) {
@@ -35,13 +43,6 @@ public class UserDAO extends DBContext {
         }
     }
 
-    public Vector<User> getUser() {
-        return user;
-    }
-
-    public void setUser(Vector<User> user) {
-        this.user = user;
-    }
     public String getStatus() {
         return status;
     }
@@ -158,9 +159,54 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    public User getUserByInput(String input) {
+        String sql = "select * from Users where username = ? or email = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, input);
+            st.setString(2, input);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User u = new User(rs.getInt("user_id"),
+                        rs.getString("username"),
+                        rs.getString("password_hash"),
+                        rs.getString("email"),
+                        rs.getString("phone"),
+                        rs.getString("fullname"),
+                        rs.getString("gender"),
+                        rs.getDate("dob"),
+                        rs.getString("address"),
+                        rs.getInt("role_id"),
+                        rs.getBoolean("is_active"),
+                        rs.getTimestamp("created_at"));
+                return u;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public void updatePassword(User user, String newPassword) {
+        String sql = "UPDATE Users SET password_hash = ? WHERE username = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setString(1, newPassword);
+            st.setString(2, user.getUsername());
+            st.execute();
+        } catch (Exception e) {
+        }
+    }
+
+    //For Testing
+    public static void main(String[] args) {
+        UserDAO d = new UserDAO();
+
+    }
+    
+
     public void LoadUser() {
         String sql = "select * from Users";
-        user = new Vector<>();
+        users = new Vector<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
@@ -179,7 +225,7 @@ public class UserDAO extends DBContext {
                 u.setRole(rs.getInt("role_id"));
                 u.setIsActive(rs.getBoolean("is_active"));
                 u.setCreatedAt(rs.getTimestamp("created_at"));
-                user.add(u);
+                users.add(u);
                 System.out.println(u);
             }
         } catch (Exception e) {
@@ -188,22 +234,11 @@ public class UserDAO extends DBContext {
     }
 
     public String getFullNameById(int id) {
-        for (User u : user) {
+        for (User u : users) {
             if (u.getId() == id) {
                 return u.getFullname();
             }
         }
         return "Unknown";
     }
-
 }
-//
-//class Using {
-//
-//    public static void main(String[] args) {
-//        UserDAO.INSTANCE.LoadUser();
-//        int n = UserDAO.INSTANCE.getUser().size();
-//
-//        System.out.println(n);
-//    }
-//}

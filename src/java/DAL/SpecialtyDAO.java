@@ -8,13 +8,19 @@ import Models.Specialty;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Vector;
 
-public class SpecialtyDAO {
+/**
+ *
+ * @author admin
+ */
+public class SpecialtyDAO extends DBContext {
 
     private String status = "ok";
     private Connection con;
-    private Vector<Specialty> spec;
+    private Vector<Specialty> specialties;
+
     public static SpecialtyDAO INSTANCE = new SpecialtyDAO();
 
     public SpecialtyDAO() {
@@ -28,22 +34,72 @@ public class SpecialtyDAO {
         }
     }
 
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     public Vector<Specialty> getSpecialty() {
-        return spec;
-    }
-
-    public void setSpecialty(Vector<Specialty> spec) {
-        this.spec = spec;
-    }
-
-    public void LoadSpecialty() {
+        specialties = new Vector<>();
         String sql = "select * from Specialties";
-        spec = new Vector<>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                spec.add(new Specialty(rs.getInt(1), rs.getString(2)));
+                Specialty thisSpecialty = new Specialty(rs.getInt(1), rs.getString(2));
+                specialties.add(thisSpecialty);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return specialties;
+    }
+
+        public Specialty getSpecialtyById(int id) {
+        String sql = "Select * From Specialties where specialty_id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                Specialty s = new Specialty(rs.getInt("specialty_id"), rs.getString("specialty_name"));
+                return s;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+        
+        public Vector<Specialty> LoadAllSpecialtys() {
+        String sql = "Select specialty_id, specialty_name from Specialties";
+        specialties = new Vector<Specialty>();
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+            while (rs.next()) {
+                Specialty sp = new Specialty();
+                sp.setId(rs.getInt("specialty_id"));
+                sp.setSpecialtyName(rs.getString("specialty_name"));
+                specialties.add(sp);
+            }
+            return specialties;
+        } catch (SQLException e) {
+            System.out.println("Error at reading Specialty: " + e.getMessage());
+            status = "Error at reading Specialty: " + e.getMessage();
+        }
+        return new Vector<>();
+    }    
+        
+            public void LoadSpecialty() {
+        String sql = "select * from Specialties";
+        specialties = new Vector<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                specialties.add(new Specialty(rs.getInt(1), rs.getString(2)));
 
             }
         } catch (Exception e) {
@@ -53,7 +109,7 @@ public class SpecialtyDAO {
     }
 
     public String getSpecialtyName(int id) {
-        for (Specialty s : spec) {
+        for (Specialty s : specialties) {
             if (s.getId() == id) {
                 return s.getSpecialtyName();
             }
@@ -61,20 +117,12 @@ public class SpecialtyDAO {
         return null;
     }
 
-    public Specialty getSpecialtyById(int id) {
-        for (Specialty s : spec) {
-            if (s.getId() == id) {
-                return s;
-            }
-        }
-        return null;
-    }
 
-    public String getStatus() {
 
-        return status;
-    }
+    
 }
+
+ 
 
 //class Using{
 //    public static void main(String[] args) {
