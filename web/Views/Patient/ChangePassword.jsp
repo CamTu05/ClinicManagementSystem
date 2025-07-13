@@ -1,6 +1,6 @@
 <%-- 
-    Document   : PatientProfile
-    Created on : Jul 11, 2025, 10:52:32 AM
+    Document   : ChangePassword
+    Created on : Jul 13, 2025, 12:24:11 AM
     Author     : admin
 --%>
 
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Thông tin cá nhân</title>
+        <title>Đổi mật khẩu</title>
         <meta charset="UTF-8">
         <!-- responsive meta -->
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,86 +29,40 @@
     <body>
         <%@ include file="../Common/Header/DefaultHeader.jsp" %>
         <%@ include file="../Common/Navbar/DefaultNavbar.jsp" %>
-        <form action="UpdatePatientProfileServlet" method="post">
+        <form id="changePasswordForm" action="ChangePasswordServlet" method="post">
             <div class="account-form">
-                <h2>Thông Tin Tài Khoản</h2>
+                <h2>Đổi Mật Khẩu</h2>
                 <p style="color:green">${success}</p>
-                <!-- Họ tên + Giới tính -->
+                <p style="color:red">${error}</p>
+
+                <!-- Mật khẩu hiện tại -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="fullname">Họ tên</label>
-                        <input type="text" id="fullname" name="fullname" value="${sessionScope.user.fullname}" readonly>
-                    </div>
-                    <div class="form-group">
-                        <label for="gender">Giới tính</label>
-                        <select id="gender" name="gender" disabled>
-                            <option value="" disabled selected hidden ${sessionScope.user.gender == null ? 'selected' : ''}>-- Chọn giới tính --</option>
-                            <option value="Nam" ${sessionScope.user.gender == 'Nam' ? 'selected' : ''}>Nam</option>
-                            <option value="Nữ" ${sessionScope.user.gender == 'Nữ' ? 'selected' : ''}>Nữ</option>
-                        </select>
+                        <label for="currentPassword">Mật khẩu hiện tại</label>
+                        <input type="password" id="currentPassword" name="currentPassword" required>
                     </div>
                 </div>
 
-                <!-- Số điện thoại + Ngày sinh -->
+                <!-- Mật khẩu mới + Xác nhận -->
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="phone">Số điện thoại</label>
-                        <input type="text" id="phone" name="phone" value="${sessionScope.user.phone}" readonly>
+                        <label for="newPassword">Mật khẩu mới</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
                     </div>
                     <div class="form-group">
-                        <label for="dob">Ngày sinh (mm/dd/yyyy)</label>
-                        <input type="date" id="dob" name="dob" value="${sessionScope.user.dob}" readonly>
+                        <label for="confirmPassword">Xác nhận mật khẩu mới</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
                     </div>
                 </div>
+                <p id="passwordMsg" style="color:red; text-align:center;"></p>
 
-                <!-- Username -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="username">Tên đăng nhập</label>
-                        <input type="text" id="username" name="username" value="${sessionScope.user.username}" readonly>
-                    </div>
-                </div>
-
-                <!-- Email -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" value="${sessionScope.user.email}" readonly>
-                    </div>
-                </div>
-
-                <!-- Địa chỉ -->
-                <div class="form-row">
-                    <div class="form-group">
-                        <label for="address">Địa chỉ</label>
-                        <input type="text" id="address" name="address" value="${sessionScope.user.address}" readonly>
-                    </div>
-                </div>
-
-                <!-- Nút sửa / cập nhật -->
+                <!-- Nút đổi mật khẩu -->
                 <div class="form-actions">
-                    <button id="editBtn" type="button">Sửa</button>
-                    <button id="updateBtn" type="submit" style="display:none;">Cập nhật</button>
+                    <button type="submit">Đổi mật khẩu</button>
                 </div>
             </div>
         </form>
-        <script>
-            const editBtn = document.getElementById("editBtn");
-            const updateBtn = document.getElementById("updateBtn");
 
-            editBtn.addEventListener("click", function () {
-                document.querySelectorAll("input, select").forEach(input => {
-                    const id = input.id;
-                    if (id !== "username" && id !== "email") {
-                        input.removeAttribute("readonly");
-                        input.removeAttribute("disabled");
-                    }
-                });
-
-                editBtn.style.display = "none";
-                updateBtn.style.display = "inline-block";
-            });
-        </script>
         <%@ include file="../Common/Footer/DefaultFooter.jsp" %>
         <!-- main jQuery -->
         <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
@@ -168,5 +122,27 @@
 
         <!-- thm custom script -->
         <script src="${pageContext.request.contextPath}/js/custom.js"></script>
+        <script>
+            document.getElementById("changePasswordForm").addEventListener("submit", function (event) {
+                const pass = document.getElementById("newPassword").value;
+                const confirm = document.getElementById("confirmPassword").value;
+                const msg = document.getElementById("passwordMsg");
+
+                // Reset thông báo
+                msg.innerText = "";
+
+                // Kiểm tra độ dài
+                if (pass.length < 8) {
+                    event.preventDefault();
+                    msg.innerText = "Mật khẩu phải có ít nhất 8 ký tự.";
+                }
+                // Kiểm tra khớp
+                else if (pass !== confirm) {
+                    event.preventDefault();
+                    msg.innerText = "Mật khẩu không khớp.";
+                }
+            });
+        </script>
+
     </body>
 </html>
