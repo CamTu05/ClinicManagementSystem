@@ -109,7 +109,6 @@
                 </div>
                 <div>
                     <label>Your Age:</label>
-                    <!-- ★ required + giới hạn tuổi hợp lý (tuỳ chọn) -->
                     <input type="number" name="age" min="0" max="120" required />
                 </div>
             </div>

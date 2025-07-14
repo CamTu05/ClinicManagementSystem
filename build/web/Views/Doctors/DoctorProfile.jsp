@@ -174,7 +174,8 @@
                             </td>
                             <td>
                                 <button class="btn-insert" type="submit"
-                                        name="action" value="insert_${sch.id}" disabled>
+                                       <td>
+                                          <name="action" value="insert_${sch.id}" disabled>
                                     Thêm
                                 </button>
                             </td>
@@ -183,7 +184,7 @@
                     </tbody>
                 </table>
 
-                <!-- Số điện thoại + Ngày sinh -->
+                <!-- Số điện thoaại + Ngày sinh -->
                 <div class="form-row">
                     <div class="form-group">
                         <label for="phone">Số điện thoại</label>

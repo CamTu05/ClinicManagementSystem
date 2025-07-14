@@ -52,7 +52,126 @@
         <div class="main-wrapper">
             <%@ include file="../Common/Header/DashboardHeader.jsp" %>
             <%@ include file="../Common/Navbar/DoctorNavbar.jsp" %>
+        </div>
 
+        <div class="container-fluid">
+            <div class="row g-0">
+                <!-- Cột trống (bên trái) chiếm 3/12 -->
+                <div class="col-12 col-lg-2"></div>
+
+                <!-- Container bên phải chiếm 9/12 -->
+                <div class="col-12 col-lg-9">
+                    <div class="p-4">
+                        <div style="margin-left: 10px">
+                            <h4 class="fw-bold mb-0">Doctor Dashboard</h4>
+                        </div>
+
+                        <table class="schedule-table">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>📅 Thứ</th>
+                                    <th>⏰ Ca làm</th>
+                                    <th>🛠️ Thao tác</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="sch" items="${schedules}" varStatus="st">
+                                <tr>
+                                    <!-- STT -->
+                                    <td>${st.index + 1}</td>
+
+                                    <!-- THỨ -->
+                                    <td>
+                                        <select name="weekday_${sch.id}" disabled>
+                                            <c:set var="w" value="${sch.weekday}" />
+                                            <option value="1" ${w==1?'selected':''}>Thứ&nbsp;2</option>
+                                            <option value="2" ${w==2?'selected':''}>Thứ&nbsp;3</option>
+                                            <option value="3" ${w==3?'selected':''}>Thứ&nbsp;4</option>
+                                            <option value="4" ${w==4?'selected':''}>Thứ&nbsp;5</option>
+                                            <option value="5" ${w==5?'selected':''}>Thứ&nbsp;6</option>
+                                            <option value="6" ${w==6?'selected':''}>Thứ&nbsp;7</option>
+                                            <option value="0" ${w==0?'selected':''}>Chủ&nbsp;nhật</option>
+                                        </select>
+                                    </td>
+
+                                    <!-- CA -->
+                                    <td>
+                                        <select name="shift_${sch.id}" disabled> 
+                                            <c:set var="shift"
+                                                   value="${sch.startTime lt '12:00:00' ? 'MORNING' : 'AFTERNOON'}" />
+                                            <option value="MORNING"  ${shift=='MORNING' ? 'selected' : ''}>
+                                                Sáng&nbsp;(08–12h)
+                                            </option>
+                                            <option value="AFTERNOON" ${shift=='AFTERNOON' ? 'selected' : ''}>
+                                                Chiều&nbsp;(13–17h)
+                                            </option>
+                                        </select>
+                                    </td>
+
+                                    <!-- XÓA -->
+                                    <td>
+                                        <button class="btn-delete" type="submit"
+                                                name="action" value="delete_${sch.id}" disabled>
+                                            Xóa
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+
+                            <tr>
+                                <td>+</td>
+                                <td>
+                                    <select name="newWeekday" disabled>
+                                        <option disabled selected readonly>Chọn thứ</option>
+                                        <option value="1">Thứ 2</option>
+                                        <option value="2">Thứ 3</option>
+                                        <option value="3">Thứ 4</option>
+                                        <option value="4">Thứ 5</option>
+                                        <option value="5">Thứ 6</option>
+                                        <option value="6">Thứ 7</option>
+                                        <option value="0">Chủ nhật</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <select name="newShift" disabled>
+                                        <option disabled selected>Chọn ca</option>
+                                        <option value="MORNING">Sáng (08–12h)</option>
+                                        <option value="AFTERNOON">Chiều (13–17h)</option>
+                                    </select>
+                                </td>
+                                <td>
+                                    <button class="btn-insert" type="submit"
+                                            name="action" value="insert_${sch.id}" disabled>
+                                        Thêm
+                                    </button>
+                                </td>
+                                <td></td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     </body>
 </html>

@@ -80,7 +80,7 @@
         </div>
         <br/>
 
-        <!-- CARD -->
+        <!-- CARDS -->
         <section class="card">
             <div class="doctor-info">
                 <img src="${pageContext.request.contextPath}/images/team/${d.picture}" alt="Ảnh bác sĩ">

@@ -46,48 +46,48 @@
                     <ul>
                         <li class="active">
                             <a href="doctor-dashboard.html">
-                                <i class="ti ti-layout-dashboard"></i><span>Dashboard</span>
+                                <i class="ti ti-layout-dashboard"></i><span>Bảng điều khiển</span>
                             </a>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);">
-                                <i class="ti ti-calendar-check"></i><span>Appointments</span>
+                                <i class="ti ti-calendar-check"></i><span>Cuộc hẹn</span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul>
-                                <li><a href="doctors-appointments.html">Appointments</a></li>
-                                <li><a href="online-consultations.html">Online Consultations</a></li>
+                                <li><a href="doctors-appointments.html">Cuộc hẹn</a></li>
+                                <li><a href="online-consultations.html">Tư vấn trực tuyến</a></li>
                             </ul>
                         </li>
                         <li>
-                            <a href="doctors-schedules.html">
-                                <i class="ti ti-clock-check"></i><span>My Schedule</span>
+                            <a href="${pageContext.request.contextPath}/DoctorProfileServlet">
+                                <i class="ti ti-clock-check"></i><span>Lịch trình</span>
                             </a>
                         </li>
                         <li>
                             <a href="doctors-prescriptions.html">
-                                <i class="ti ti-prescription"></i><span>Prescriptions</span>
+                                <i class="ti ti-prescription"></i><span>Đơn thuốc</span>
                             </a>
                         </li>
                         <li>
                             <a href="doctors-leaves.html">
-                                <i class="ti ti-calendar-x"></i><span>Leave</span>
+                                <i class="ti ti-calendar-x"></i><span>Rời khỏi</span>
                             </a>
                         </li>
                         <li>
                             <a href="doctors-reviews.html">
-                                <i class="ti ti-star"></i><span>Reviews</span>
+                                <i class="ti ti-star"></i><span>Đánh giá</span>
                             </a>
                         </li>
                         <li class="submenu">
                             <a href="javascript:void(0);">
-                                <i class="ti ti-settings"></i><span>Settings</span>
+                                <i class="ti ti-settings"></i><span>Cài đặt</span>
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul>
-                                <li><a href="doctors-profile-settings.html">Profile Settings</a></li>
-                                <li><a href="doctors-password-settings.html">Change Password</a></li>
-                                <li><a href="doctors-notification-settings.html">Notifications</a></li>
+                                <li><a href="doctors-profile-settings.html">Cài đặt hồ sơ</a></li>
+                                <li><a href="doctors-password-settings.html">Thay đổi mật khẩu</a></li>
+                                <li><a href="doctors-notification-settings.html">Thông báo</a></li>
                             </ul>
                         </li>
                     </ul>
