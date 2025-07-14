@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %> %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,13 +48,141 @@
         <!-- Main CSS -->
         <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" id="app-style">
 
+        <link rel="stylesheet" href="css/doctorDashboardStyle.css"/>
+
     </head>
     <body>
+
         <div class="main-wrapper">
             <%@ include file="../Common/Header/DashboardHeader.jsp" %>
             <%@ include file="../Common/Navbar/DoctorNavbar.jsp" %>
-
         </div>
+
+        <br/>
+        <div class="container-fluid">
+            <div class="row g-0">
+                <!-- Cột trống bên trái -->
+                <div class="col-12 col-lg-3"></div>
+
+                <!-- Cột chính bên phải -->
+                <div class="col-12 col-lg-9" style="margin-left: -60px;">
+                    <!-- Tiêu đề và nút -->
+                    <div class="d-flex justify-content-between align-items-center mb-4">
+                        <h4 class="fw-bold mb-0">Doctor Dashboard</h4>
+                        <div class="d-flex gap-2">
+                            <button class="btn btn-primary fw-medium">+ New Appointment</button>
+                            <button class="btn btn-outline-secondary fw-medium">
+                                <i class="ti ti-calendar-check me-1"></i> Schedule Availability
+                            </button>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <!-- Các card thống kê -->
+                    <div class="row g-4">
+                        <!-- Card 1: Total Appointments -->
+                        <div class="col-12 col-md-6 col-xl-4 d-flex">
+                            <div class="card flex-fill w-100">
+                                <div class="dashboard-wrapper">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <p class="mb-1">Total Appointments</p>
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h3 class="fw-bold mb-0">658</h3>
+                                                    <span class="badge bg-success fw-medium">+95%</span>
+                                                </div>
+                                            </div>
+                                            <span class="avatar border border-primary text-primary rounded-2">
+                                                <i class="ti ti-calendar-heart fs-20"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex align-items-center">   <!-- đổi align-items-end → center -->
+                                            <div id="s-col-5" class="chart-set me-2"></div>   <!-- thêm margin-end -->
+
+                                            <span class="badge badge-soft-success fw-medium me-2">
+                                                +21% <i class="ti ti-arrow-up ms-1"></i>
+                                            </span>
+
+                                            <p class="fs-13 mb-0 text-nowrap">in last 7 Days</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Card 2: Online Consultations -->
+                        <div class="col-12 col-md-6 col-xl-4 d-flex">
+                            <div class="card flex-fill w-100">
+                                <div class="dashboard-wrapper">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <p class="mb-1">Online Consultations</p>
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h3 class="fw-bold mb-0">125</h3>
+                                                    <span class="badge bg-danger fw-medium">-15%</span>
+                                                </div>
+                                            </div>
+                                            <span class="avatar border border-danger text-danger rounded-2">
+                                                <i class="ti ti-users fs-20"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex align-items-center">
+                                            <div id="s-col-6" class="chart-set me-2"></div>
+
+                                            <span class="badge badge-soft-danger fw-medium me-2">
+                                                +21% <i class="ti ti-arrow-down ms-1"></i>
+                                            </span>
+
+                                            <p class="fs-13 mb-0 text-nowrap">in last 7 Days</p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Card 3: Cancelled Appointments -->
+                        <div class="col-12 col-md-6 col-xl-4 d-flex">
+                            <div class="card flex-fill w-100">
+                                <div class="dashboard-wrapper"> 
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between align-items-center mb-3">
+                                            <div>
+                                                <p class="mb-1">Cancelled Appointments</p>
+                                                <div class="d-flex align-items-center gap-1">
+                                                    <h3 class="fw-bold mb-0">35</h3>
+                                                    <span class="badge bg-success fw-medium">+45%</span>
+                                                </div>
+                                            </div>
+                                            <span class="avatar border border-success text-success rounded-2">
+                                                <i class="ti ti-versions fs-20"></i>
+                                            </span>
+                                        </div>
+
+                                        <div class="d-flex align-items-center">
+                                            <div id="s-col-7" class="chart-set me-2"></div>
+
+                                            <span class="badge badge-soft-success fw-medium me-2">
+                                                +31% <i class="ti ti-arrow-up ms-1"></i>
+                                            </span>
+
+                                            <p class="fs-13 mb-0 text-nowrap">in last 7 Days</p>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div> <!-- end row -->
+                </div>
+            </div>
+        </div>
+
     </body>
 </html>
 <!-- jQuery -->

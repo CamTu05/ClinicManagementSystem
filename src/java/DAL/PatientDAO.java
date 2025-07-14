@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DAL;
 
 import Models.Patient;
@@ -12,7 +9,7 @@ import java.sql.SQLException;
 
 /**
  *
- * @author admin
+ * @au
  */
 public class PatientDAO extends DBContext{
     
@@ -36,9 +33,9 @@ public class PatientDAO extends DBContext{
         Patient patient = null;
         String sql = "SELECT * FROM Patients WHERE patient_id = ?";
 
-        try (PreparedStatement stmt = con.prepareStatement(sql)) {
-            stmt.setInt(1, patientId);
-            ResultSet rs = stmt.executeQuery();
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ResultSet rs = ps.executeQuery();
 
             if (rs.next()) {
                 // Lấy dữ liệu từ ResultSet và tạo đối tượng Patient

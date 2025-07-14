@@ -30,8 +30,24 @@
         <servlet-class>Controllers.Patient.UpdatePatientProfileServlet</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DoctorScheduleServlet</servlet-name>
+        <servlet-class>Controllers.DoctorControllers.DoctorScheduleServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorProfileServlet</servlet-name>
+        <servlet-class>Controllers.DoctorControllers.DoctorDashboardServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <servlet-class>Controllers.ChangePasswordServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyDoctorSchedule</servlet-name>
+        <servlet-class>Controllers.DoctorControllers.MyDoctorSchedule</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorDashboardServlet</servlet-name>
+        <servlet-class>Controllers.DoctorControllers.DoctorDashboardServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>
@@ -81,14 +97,30 @@
         <url-pattern>/UpdatePatientProfileServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DoctorScheduleServlet</servlet-name>
+        <url-pattern>/DoctorScheduleServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorProfileServlet</servlet-name>
+        <url-pattern>/DoctorProfileServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ChangePasswordServlet</servlet-name>
         <url-pattern>/ChangePasswordServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyDoctorSchedule</servlet-name>
+        <url-pattern>/MyDoctorSchedule</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorDashboardServlet</servlet-name>
+        <url-pattern>/DoctorDashboardServlet</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
         <welcome-file>HomePageServlet</welcome-file>
         <!-- Đảm bảo đường dẫn chính xác -->
     </welcome-file-list>
-      <servlet>
+    <servlet>
         <servlet-name>LoadSchedulesServlet</servlet-name>
         <servlet-class>Controllers.LoadSchedulesServlet</servlet-class>
     </servlet>
@@ -100,7 +132,6 @@
         <servlet-name>LoadServicesServlet</servlet-name>
         <servlet-class>Controllers.LoadServicesServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>LoadSpecialtyServlet</servlet-name>
         <url-pattern>/LoadSpecialtyServlet</url-pattern>
