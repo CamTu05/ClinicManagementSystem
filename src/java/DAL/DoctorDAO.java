@@ -1,6 +1,6 @@
 package DAL;
 
-import Models.TempModels.DoctorInformation;
+import DTO.DoctorInformation;
 import Models.*;
 import java.sql.*;
 import java.util.Vector;
@@ -106,8 +106,8 @@ public class DoctorDAO extends DBContext {
         return new Vector<>();
     }
 
-    public Doctor getDoctorById(int id, Vector<Doctor> doctors) {
-        for (Doctor d : doctors) {
+    public Doctor getDoctorById(int id) {
+        for (Doctor d : DoctorDAO.INSTANCE.LoadAllDoctors()) {
             if (d.getId() == id) {
                 return d;
             }
@@ -140,16 +140,6 @@ public class DoctorDAO extends DBContext {
         }
 
     }
-
-    public Doctor getDoctorById(int id) {
-        for (Doctor d : doctors) {
-            if (d.getId() == id) {
-                return d;
-            }
-        }
-        return null;
-    }
-
 
 
     public Vector<DoctorInformation> getDoctorInformation() throws SQLException {
@@ -210,7 +200,6 @@ public class DoctorDAO extends DBContext {
     }
 
     public DoctorInformation getDoctorInformationById(String doctorId) throws SQLException {
-
         String sql = """
         WITH DoctorSchedule AS (
             SELECT s.doctor_id,
@@ -267,12 +256,15 @@ public class DoctorDAO extends DBContext {
         }
         return null;  // không tìm thấy
     }
+}
 
-    public static void main(String[] args) throws SQLException {
-        Vector<DoctorInformation> info = DoctorDAO.INSTANCE.getDoctorInformation();
-        for (DoctorInformation d : info) {
-            System.out.println(d.toString());
-        }
+class main{
+        public static void main(String[] args) throws SQLException {
+//        Vector<DoctorInformation> info = DoctorDAO.INSTANCE.getDoctorInformation();
+//        for (DoctorInformation d : info) {
+//            System.out.println(d.toString());
+//        }
+        
+            System.out.println(DoctorDAO.INSTANCE.getDoctorNameById(21));
     }
-
 }
