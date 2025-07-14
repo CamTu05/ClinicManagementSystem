@@ -53,10 +53,8 @@
     </head>
     <body>
 
-        <div class="main-wrapper">
-            <%@ include file="../Common/Header/DashboardHeader.jsp" %>
-            <%@ include file="../Common/Navbar/DoctorNavbar.jsp" %>
-        </div>
+        <%@ include file="../Common/Header/DashboardHeader.jsp" %>
+        <%@ include file="../Common/Navbar/DoctorNavbar.jsp" %>
 
         <br/>
         <div class="container-fluid">
