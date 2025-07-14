@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!-- Topbar Start -->
 <header class="navbar-header">
     <div class="page-container topbar-menu">
@@ -119,16 +121,16 @@
             <!-- User Dropdown -->
             <div class="dropdown profile-dropdown d-flex align-items-center justify-content-center">
                 <a href="javascript:void(0);" class="topbar-link dropdown-toggle drop-arrow-none position-relative" data-bs-toggle="dropdown" data-bs-offset="0,22" aria-haspopup="false" aria-expanded="false">
-                    <img src="${pageContext.request.contextPath}/assets/img/users/user-01.jpg" width="32" class="rounded-circle d-flex" alt="user-image">
+                    <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" width="32" class="rounded-circle d-flex" alt="user-image">
                     <span class="online text-success"><i class="ti ti-circle-filled d-flex bg-white rounded-circle border border-1 border-white"></i></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-md p-2">
 
                     <div class="d-flex align-items-center bg-light rounded-3 p-2 mb-2">
-                        <img src="${pageContext.request.contextPath}/assets/img/users/user-01.jpg" class="rounded-circle" width="42" height="42" alt="">
+                        <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" class="rounded-circle" width="42" height="42" alt="">
                         <div class="ms-2">
-                            <p class="fw-medium text-dark mb-0">Jimmy Anderson</p>
-                            <span class="d-block fs-13">Administrator</span>
+                            <p class="fw-medium text-dark mb-0">${DoctorDAO.getDoctorNameById(doctor.id)}</p>
+                            <span class="d-block fs-13">Doctor</span>
                         </div>
                     </div>
 
@@ -160,7 +162,7 @@
 
                     <!-- Item-->
                     <div class="pt-2 mt-2 border-top">
-                        <a href="login.html" class="dropdown-item text-danger">
+                        <a href="${pageContext.request.contextPath}/LogoutServlet" class="dropdown-item text-danger">
                             <i class="ti ti-logout me-1 fs-17 align-middle"></i>
                             <span class="align-middle">Log Out</span>
                         </a>

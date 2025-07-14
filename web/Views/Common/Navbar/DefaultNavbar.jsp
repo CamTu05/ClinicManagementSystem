@@ -5,6 +5,15 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%
+    // Kiểm tra nếu chưa có danh sách trong session
+    if (session.getAttribute("daoSpecialty") == null) {
+        response.sendRedirect(request.getContextPath() + "/LoadSpecialtyServlet");
+        return; 
+    }
+%>
+
 <!--Start main menu area-->
 <section class="mainmenu-area stricky">
     <div class="container">
@@ -31,20 +40,15 @@
                                     <li><a href="#">Phòng trưng bày</a></li>
                                 </ul>
                             </li>
-                            <li class="dropdown"><a href="departments.html">Các chuyên khoa</a>
-                                <!--load từ db lên -->
-                                <!--                                <ul>
-                                                                    <li><a href="cardiac-clinic.html">Cardiac Clinic</a></li>
-                                                                    <li><a href="pulmonology.html">Pulmonology</a></li>
-                                                                    <li><a href="gynecology.html">Gynecology</a></li>
-                                                                    <li><a href="neurology.html">Neurology</a></li>
-                                                                    <li><a href="urology.html">Urology</a></li>
-                                                                    <li><a href="gastrology.html">Gastrology</a></li>
-                                                                    <li><a href="pediatrician.html">Pediatrician</a></li>
-                                                                    <li><a href="laborotory.html">Laborotory</a></li>
-                                                                </ul>-->
-                            </li>
-                            <li><a href="${pageContext.request.contextPath}/DoctorScheduleServlet">Thời gian biểu</a></li>
+                            <li class="dropdown"><a href="${pageContext.request.contextPath}/Views/Common/OtherItems/Specialty.jsp">Các chuyên khoa</a>
+
+                                <ul>
+                                    <c:forEach items="${sessionScope.daoSpecialty.specialty}" var="s">
+                                        <li><a href="${pageContext.request.contextPath}/LoadServicesServlet?id=${s.id}">${s.specialtyName}</a></li>
+                                        </c:forEach>
+                                </ul>
+
+                            <li><a href="${pageContext.request.contextPath}/LoadSchedulesServlet?id=0&type=-1">Thời gian biểu</a></li>
                             <li class="dropdown"><a href="#">Tin tức</a></li>
                             <li><a href="#">Giải đáp</a></li>
                         </ul>

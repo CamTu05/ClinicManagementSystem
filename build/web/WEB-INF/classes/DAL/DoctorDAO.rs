@@ -1,2 +1,0 @@
-DAL.DoctorDAO
-DAL.main

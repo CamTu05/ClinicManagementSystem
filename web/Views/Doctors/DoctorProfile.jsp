@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -112,12 +113,11 @@
                             <tr>
                                 <!-- STT -->
                                 <td>${st.index + 1}</td>
-
                                 <!-- THỨ -->
                                 <td>
                                     <select name="weekday_${sch.id}" disabled>
                                         <c:set var="w" value="${sch.weekday}" />
-                                        <option value="1" ${w==1?'selected':''}>Thứ&nbsp;2</option>
+                                        <option value="1" ${w==1?'selected':''}>Thứ&nbsp;2 </option>
                                         <option value="2" ${w==2?'selected':''}>Thứ&nbsp;3</option>
                                         <option value="3" ${w==3?'selected':''}>Thứ&nbsp;4</option>
                                         <option value="4" ${w==4?'selected':''}>Thứ&nbsp;5</option>

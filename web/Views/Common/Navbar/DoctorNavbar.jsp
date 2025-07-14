@@ -60,8 +60,8 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/DoctorProfileServlet">
-                                <i class="ti ti-clock-check"></i><span>Lịch trình</span>
+                            <a href="${pageContext.request.contextPath}/MyDoctorSchedule">
+                                <i class="ti ti-clock-check"></i><span>Lịch làm việc</span>
                             </a>
                         </li>
                         <li>

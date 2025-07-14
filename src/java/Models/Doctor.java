@@ -4,6 +4,8 @@
  */
 package Models;
 
+import DAL.UserDAO;
+
 /**
  *
  * @author admin
@@ -14,6 +16,7 @@ public class Doctor {
     private int yearsExp;
     private String description;
     private String picture;
+    
 
     public Doctor() {
     }
@@ -65,6 +68,7 @@ public class Doctor {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+    
 
     @Override
     public String toString() {

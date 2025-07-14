@@ -227,12 +227,15 @@ public class ScheduleDAO extends DBContext {
     }
 
     public static void main(String[] args) {
-        Vector<Schedule> schedules = ScheduleDAO.INSTANCE.loadSchedules();
+        Vector<Schedule> schedules = ScheduleDAO.INSTANCE.loadScheduleByDoctorId(21);
         for (Schedule s : schedules) {
             System.out.println(s.toString());
         }
-        ScheduleDAO.INSTANCE.deleteScheduleById(14);
+        System.out.println("....................");
+     //   ScheduleDAO.INSTANCE.addSchedule(21, 4, LocalTime.of(13, 0), LocalTime.of(17, 0));
+     //   ScheduleDAO.INSTANCE.deleteScheduleById(28);
 
+        schedules = ScheduleDAO.INSTANCE.loadScheduleByDoctorId(21);
         for (Schedule s : schedules) {
             System.out.println(s.toString());
         }
