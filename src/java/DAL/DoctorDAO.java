@@ -115,6 +115,43 @@ public class DoctorDAO extends DBContext {
         return null;
     }
 
+
+    public void LoadDoctor() {
+        String sql = "select * from Doctors";
+        doctors = new Vector<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();             // can get by fi or by oder number 
+            while (rs.next()) {
+                Doctor d = new Doctor();
+                d.setId(rs.getInt(1));
+
+                int specialtyId = rs.getInt("specialty_id");
+                Specialty specialty = SpecialtyDAO.INSTANCE.getSpecialtyById(specialtyId);
+                d.setSpecialty(specialty);
+
+                d.setYearsExp(rs.getInt(3));
+                d.setDescription(rs.getString(4));
+
+                doctors.add(d);
+            }
+        } catch (Exception e) {
+            status = "Error at read Student " + e.getMessage();
+        }
+
+    }
+
+    public Doctor getDoctorById(int id) {
+        for (Doctor d : doctors) {
+            if (d.getId() == id) {
+                return d;
+            }
+        }
+        return null;
+    }
+
+
+
     public Vector<DoctorInformation> getDoctorInformation() throws SQLException {
         String sql = """
             WITH DoctorSchedule AS (
@@ -237,4 +274,5 @@ public class DoctorDAO extends DBContext {
             System.out.println(d.toString());
         }
     }
+
 }

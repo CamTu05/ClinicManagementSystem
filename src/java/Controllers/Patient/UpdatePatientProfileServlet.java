@@ -80,13 +80,10 @@ public class UpdatePatientProfileServlet extends HttpServlet {
         String username = request.getParameter("username");
         String email = request.getParameter("email");
         String address = request.getParameter("address");
-
-        boolean usernameExists = UserDAO.INSTANCE.isUsernameExists(username);
-        boolean emailExists = UserDAO.INSTANCE.isEmailExists(email);
+        
         HttpSession session = request.getSession();
         User currentUser = (User) session.getAttribute("user");
         Date dob = null;
-
         try {
             dob = Date.valueOf(dob_raw);
         } catch (Exception e) {

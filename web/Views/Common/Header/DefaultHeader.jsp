@@ -13,16 +13,16 @@
                 Object user = session.getAttribute("user");
                 if (user == null) {
             %>
-            <a href="LoginServlet" style="margin-right: 15px; color: #333; text-decoration: none;">Đăng nhập</a>
-            <a href="RegisterServlet" style="color: #333; text-decoration: none;">Đăng ký</a>
+            <a href="${pageContext.request.contextPath}/LoginServlet" style="margin-right: 15px; color: #333; text-decoration: none;">Đăng nhập</a>
+            <a href="${pageContext.request.contextPath}/RegisterServlet" style="color: #333; text-decoration: none;">Đăng ký</a>
             <%
                 } else {
             %>
                     <li class="option"><a style="color:#0392ce" href="#">Xin chào, ${user.fullname}!</a>
                         <ul class="option-menu">
-                            <li><a href="UpdatePatientProfileServlet">Thông tin tài khoản</a></li>
-                            <li><a href="ChangePasswordServlet">Đổi mật khẩu</a></li>
-                            <li><a href="LogoutServlet">Đăng xuất</a></li>
+                            <li><a href="${pageContext.request.contextPath}/UpdatePatientProfileServlet">Thông tin tài khoản</a></li>
+                            <li><a href="${pageContext.request.contextPath}/ChangePasswordServlet">Đổi mật khẩu</a></li>
+                            <li><a href="${pageContext.request.contextPath}/LogoutServlet">Đăng xuất</a></li>
                         </ul>
                     </li>
                 
@@ -40,7 +40,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="logo">
-                    <a href="HomePageServlet">
+                    <a href="${pageContext.request.contextPath}/HomePageServlet">
                         <img src="${pageContext.request.contextPath}/images/resources/logo.png" alt="Awesome Logo">
                     </a>
                 </div>
