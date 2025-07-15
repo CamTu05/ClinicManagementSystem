@@ -7,7 +7,7 @@ package DAL;
 import Models.Doctor;
 import Models.Feedback;
 import Models.Patient;
-import Models.TempModels.FeedbackInfor;
+import DTO.FeedbackInfor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -69,7 +69,7 @@ public class FeedbackDAO extends DBContext {
 
                 Patient patient = PatientDAO.INSTANCE.getPatientById(rs.getInt("patient_id"));
 
-                Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(id, DoctorDAO.INSTANCE.LoadAllDoctors());
+                Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(id);
 
                 Feedback feedback = new Feedback(id, patient, doctor, rating, comment, createdAt);
                 feedbackList.add(feedback);
@@ -133,13 +133,13 @@ public class FeedbackDAO extends DBContext {
         }
         return feedbacks;
     }
-    
-    public Vector<Feedback> loadFeedbacks(){
+
+    public Vector<Feedback> loadFeedbacks() {
         String sql = "Select * FROM Feedbacks";
         Vector<Feedback> feedbacks = new Vector<>();
-        try (PreparedStatement ps = con.prepareStatement(sql)){
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
             ResultSet rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 Feedback f = new Feedback();
                 int feedbackId = rs.getInt(1);
                 int patientId = rs.getInt(2);
@@ -147,14 +147,14 @@ public class FeedbackDAO extends DBContext {
                 int rating = rs.getInt(4);
                 String comment = rs.getString(5);
                 Timestamp createdAt = rs.getTimestamp(6);
-                
+
                 f.setId(feedbackId);
                 f.setPatient(PatientDAO.INSTANCE.getPatientById(patientId));
-                f.setDoctor(DoctorDAO.INSTANCE.getDoctorById(doctorId, DoctorDAO.INSTANCE.LoadAllDoctors()));
+                f.setDoctor(DoctorDAO.INSTANCE.getDoctorById(doctorId));
                 f.setRating(rating);
                 f.setComment(comment);
                 f.setCreatedAt(createdAt);
-                
+
                 feedbacks.add(f);
             }
         } catch (Exception e) {
@@ -162,17 +162,17 @@ public class FeedbackDAO extends DBContext {
         return feedbacks;
     }
 
-    
     public static void main(String[] args) throws SQLException {
         Vector<Feedback> fs = FeedbackDAO.INSTANCE.loadFeedbacks();
-        for (Feedback f : fs){
+        for (Feedback f : fs) {
             System.out.println(f.toString());
         }
-        Feedback feedback = new Feedback(8, PatientDAO.INSTANCE.getPatientById(18), DoctorDAO.INSTANCE.getDoctorById(2, DoctorDAO.INSTANCE.LoadAllDoctors()), 3, "haha", new Timestamp(System.currentTimeMillis()));
+        Feedback feedback = new Feedback(8, PatientDAO.INSTANCE.getPatientById(18), DoctorDAO.INSTANCE.getDoctorById(2), 3, "haha", new Timestamp(System.currentTimeMillis()));
         FeedbackDAO.INSTANCE.addFeedback(feedback);
         fs = FeedbackDAO.INSTANCE.loadFeedbacks();
-        for (Feedback f : fs){
+        for (Feedback f : fs) {
             System.out.println(f.toString());
         }
+        
     }
 }

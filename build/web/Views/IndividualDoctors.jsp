@@ -32,49 +32,34 @@
         <link rel="stylesheet" href="css/doctorStyle.css"/>
 
         <style>
-            .star-group {
+            .rating {
                 display: inline-flex;
-                flex-direction: row-reverse;          /* đảo thứ tự để tô sao từ trái qua phải */
-                gap: 4px;
-                font-size: 24px;
+                flex-direction: row-reverse;       /* Đảo ngược để dùng selector ~ */
+                gap: .4rem;
+            }
+            .rating input {
+                display: none;                     /* Ẩn radio góc nhìn */
+            }
+
+            /* ---------- VẼ SAO ---------- */
+            .rating label {
+                font-size: 2.2rem;                 /* Kích thước sao */
+                color: #ccc;                       /* Màu sao rỗng */
                 cursor: pointer;
-            }
-            .star-group input {
-                display: none;                        /* ẩn radio gốc */
-            }
-            .star-group label {
-                color: #ccc;                          /* sao rỗng */
-                transition: color 0.2s;
-            }
-            .star-group input:checked ~ label,
-            .star-group label:hover,
-            .star-group label:hover ~ label {
-                color: #f5b50a;                       /* sao vàng khi hover/chọn */
+                transition: transform .15s;
             }
 
-            .pill-rating {
-                display: inline-flex;
-                gap: .25rem;
-            }
-            .pill-rating input {
-                display: none;
-            }
-
-            .pill-rating label {
-                padding: .4rem .8rem;
-                border: 1px solid #ddd;
-                border-radius: 999px;
-                cursor: pointer;
-                background: #f8f8f8;
-                transition: background .2s, color .2s, border-color .2s;
-            }
-            .pill-rating input:checked + label,
-            .pill-rating label:hover {
-                background: #FFB400;
-                border-color: #FFB400;
-                color: #fff;
+            /* Sao đã CHỌN */
+            .rating input:checked ~ label,
+            .rating label:hover,
+            .rating label:hover ~ label {
+                color: #ffb703;                    /* Màu sao sáng */
             }
 
+            /* Hiệu ứng khi hover */
+            .rating label:hover {
+                transform: scale(1.15);
+            }
         </style>
 
         <!-- Fixing Internet Explorer-->
@@ -95,7 +80,7 @@
         </div>
         <br/>
 
-        <!-- CARD -->
+        <!-- CARDS -->
         <section class="card">
             <div class="doctor-info">
                 <img src="${pageContext.request.contextPath}/images/team/${d.picture}" alt="Ảnh bác sĩ">
@@ -125,21 +110,22 @@
                     <!-- Comment -->
                     <textarea name="comment" placeholder="Nhập phản hồi của bạn..." required></textarea>
 
-                    <div class="pill-rating" role="radiogroup">
-                        <input type="radio" id="p1" name="rating" value="1" required>
-                        <label for="p1">1</label>
+                    <div class="rating">
+                        <!-- Lưu ý: value càng lớn ở bên trái nhờ flex-direction: row-reverse -->
+                        <input type="radio" id="star5" name="rating" value="5" />
+                        <label for="star5" title="Tuyệt vời">★</label>
 
-                        <input type="radio" id="p2" name="rating" value="2">
-                        <label for="p2">2</label>
+                        <input type="radio" id="star4" name="rating" value="4" />
+                        <label for="star4" title="Tốt">★</label>
 
-                        <input type="radio" id="p3" name="rating" value="3">
-                        <label for="p3">3</label>
+                        <input type="radio" id="star3" name="rating" value="3" />
+                        <label for="star3" title="Bình thường">★</label>
 
-                        <input type="radio" id="p4" name="rating" value="4">
-                        <label for="p4">4</label>
+                        <input type="radio" id="star2" name="rating" value="2" />
+                        <label for="star2" title="Kém">★</label>
 
-                        <input type="radio" id="p5" name="rating" value="5">
-                        <label for="p5">5</label>
+                        <input type="radio" id="star1" name="rating" value="1" />
+                        <label for="star1" title="Tệ">★</label>
                     </div>
                     <br/>
                     <button type="submit" name="btnSubmit" value="oke">Gửi phản hồi</button>

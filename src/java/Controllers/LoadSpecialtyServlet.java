@@ -5,7 +5,7 @@
 package Controllers;
 
 import DAL.DoctorDAO;
-import DAL.SchedulesDAO;
+import DAL.ScheduleDAO;
 import DAL.SpecialtyDAO;
 import DAL.UserDAO;
 import java.io.IOException;
@@ -35,13 +35,13 @@ public class LoadSpecialtyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SpecialtyDAO.INSTANCE.LoadSpecialty();
-        SchedulesDAO.INSTANCE.LoadSchedules();
+        ScheduleDAO.INSTANCE.LoadSchedules();
         DoctorDAO.INSTANCE.LoadDoctor();
         SpecialtyDAO.INSTANCE.LoadSpecialty();
         UserDAO.INSTANCE.LoadUser();
         HttpSession session = request.getSession();
         
-        session.setAttribute("daoSchedules", SchedulesDAO.INSTANCE);
+        session.setAttribute("daoSchedules", ScheduleDAO.INSTANCE);
         session.setAttribute("daoDoctor", DoctorDAO.INSTANCE);
         session.setAttribute("daoSpecialty", SpecialtyDAO.INSTANCE);
         session.setAttribute("daoUser", UserDAO.INSTANCE);

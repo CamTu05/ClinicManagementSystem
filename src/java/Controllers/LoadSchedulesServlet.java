@@ -6,7 +6,7 @@
 package Controllers;
 
 import DAL.DoctorDAO;
-import DAL.SchedulesDAO;
+import DAL.ScheduleDAO;
 import DAL.SpecialtyDAO;
 import DAL.UserDAO;
 import java.io.IOException;
@@ -42,7 +42,7 @@ public class LoadSchedulesServlet extends HttpServlet {
         String typeParam = request.getParameter("type");
         Integer typeDay = Integer.parseInt(typeParam);
 
-        SchedulesDAO.INSTANCE.LoadSchedules();
+        ScheduleDAO.INSTANCE.LoadSchedules();
         DoctorDAO.INSTANCE.LoadDoctor();
         SpecialtyDAO.INSTANCE.LoadSpecialty();
         UserDAO.INSTANCE.LoadUser();
@@ -51,7 +51,7 @@ public class LoadSchedulesServlet extends HttpServlet {
         session.setAttribute("idTable",idTable );
         session.setAttribute("typeDay",typeDay );
 
-        session.setAttribute("daoSchedules", SchedulesDAO.INSTANCE);
+        session.setAttribute("daoSchedules", ScheduleDAO.INSTANCE);
         session.setAttribute("daoDoctor", DoctorDAO.INSTANCE);
         session.setAttribute("daoSpecialty", SpecialtyDAO.INSTANCE);
         session.setAttribute("daoUser", UserDAO.INSTANCE);

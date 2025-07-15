@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!-- Topbar Start -->
 <header class="navbar-header">
     <div class="page-container topbar-menu">
@@ -105,107 +107,6 @@
                             </div>
                         </div>
 
-                        <!-- Notification Body -->
-                        <div class="notification-body position-relative z-2 rounded-0" data-simplebar>
-
-                            <!-- Item-->
-                            <div class="dropdown-item notification-item py-3 text-wrap border-bottom" id="notification-1">
-                                <div class="d-flex">
-                                    <div class="me-2 position-relative flex-shrink-0">
-                                        <img src="${pageContext.request.contextPath}/assets/img/doctors/doctor-01.jpg" class="avatar-md rounded-circle" alt="">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <p class="mb-0 fw-medium text-dark">Dr. Smith</p>
-                                        <p class="mb-1 text-wrap">
-                                            updated the <span class="fw-medium text-dark">surgery</span> schedule. 
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="fs-12"><i class="ti ti-clock me-1"></i>4 min ago</span>
-                                            <div class="notification-action d-flex align-items-center float-end gap-2">
-                                                <a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-                                                <button class="btn rounded-circle p-0" data-dismissible="#notification-1">
-                                                    <i class="ti ti-x"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Item-->
-                            <div class="dropdown-item notification-item py-3 text-wrap border-bottom" id="notification-2">
-                                <div class="d-flex">
-                                    <div class="me-2 position-relative flex-shrink-0">
-                                        <img src="${pageContext.request.contextPath}/assets/img/doctors/doctor-06.jpg" class="avatar-md rounded-circle" alt="">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <p class="mb-0 fw-medium text-dark">Dr. Patel</p>
-                                        <p class="mb-1 text-wrap">
-                                            completed a <span class="fw-medium text-dark">follow-up</span> report for patient <span class="fw-medium text-dark">Emily</span>.
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="fs-12"><i class="ti ti-clock me-1"></i>8 min ago</span>
-                                            <div class="notification-action d-flex align-items-center float-end gap-2">
-                                                <a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-                                                <button class="btn rounded-circle p-0" data-dismissible="#notification-2">
-                                                    <i class="ti ti-x"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Item-->
-                            <div class="dropdown-item notification-item py-3 text-wrap border-bottom" id="notification-3">
-                                <div class="d-flex">
-                                    <div class="me-2 position-relative flex-shrink-0">
-                                        <img src="${pageContext.request.contextPath}/assets/img/doctors/doctor-02.jpg" class="avatar-md rounded-circle" alt="">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <p class="mb-0 fw-medium text-dark">Emily</p>
-                                        <p class="mb-1 text-wrap">
-                                            booked an appointment with <span class="fw-medium text-dark">Dr. Patel</span> for <span class="fw-medium text-dark">April 15</span>
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="fs-12"><i class="ti ti-clock me-1"></i>15 min ago</span>
-                                            <div class="notification-action d-flex align-items-center float-end gap-2">
-                                                <a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-                                                <button class="btn rounded-circle p-0" data-dismissible="#notification-3">
-                                                    <i class="ti ti-x"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Item-->
-                            <div class="dropdown-item notification-item py-3 text-wrap" id="notification-4">
-                                <div class="d-flex">
-                                    <div class="me-2 position-relative flex-shrink-0">
-                                        <img src="${pageContext.request.contextPath}/assets/img/doctors/doctor-07.jpg" class="avatar-md rounded-circle" alt="">
-                                    </div>
-                                    <div class="flex-grow-1">
-                                        <p class="mb-0 fw-medium text-dark">Amelia</p>
-                                        <p class="mb-1 text-wrap">
-                                            completed the <span class="fw-medium text-dark">pre-visit</span> health questionnaire.
-                                        </p>
-                                        <div class="d-flex justify-content-between align-items-center">
-                                            <span class="fs-12"><i class="ti ti-clock me-1"></i>20 min ago</span>
-                                            <div class="notification-action d-flex align-items-center float-end gap-2">
-                                                <a href="javascript:void(0);" class="notification-read rounded-circle bg-danger" data-bs-toggle="tooltip" title="" data-bs-original-title="Make as Read" aria-label="Make as Read"></a>
-                                                <button class="btn rounded-circle p-0" data-dismissible="#notification-4">
-                                                    <i class="ti ti-x"></i>
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
                         <!-- View All-->
                         <div class="p-2 rounded-bottom border-top text-center">
                             <a href="notifications.html" class="text-center text-decoration-underline fs-14 mb-0">
@@ -220,16 +121,16 @@
             <!-- User Dropdown -->
             <div class="dropdown profile-dropdown d-flex align-items-center justify-content-center">
                 <a href="javascript:void(0);" class="topbar-link dropdown-toggle drop-arrow-none position-relative" data-bs-toggle="dropdown" data-bs-offset="0,22" aria-haspopup="false" aria-expanded="false">
-                    <img src="${pageContext.request.contextPath}/assets/img/users/user-01.jpg" width="32" class="rounded-circle d-flex" alt="user-image">
+                    <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" width="32" class="rounded-circle d-flex" alt="user-image">
                     <span class="online text-success"><i class="ti ti-circle-filled d-flex bg-white rounded-circle border border-1 border-white"></i></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-md p-2">
 
                     <div class="d-flex align-items-center bg-light rounded-3 p-2 mb-2">
-                        <img src="${pageContext.request.contextPath}/assets/img/users/user-01.jpg" class="rounded-circle" width="42" height="42" alt="">
+                        <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" class="rounded-circle" width="42" height="42" alt="">
                         <div class="ms-2">
-                            <p class="fw-medium text-dark mb-0">Jimmy Anderson</p>
-                            <span class="d-block fs-13">Administrator</span>
+                            <p class="fw-medium text-dark mb-0">${DoctorDAO.getDoctorNameById(doctor.id)}</p>
+                            <span class="d-block fs-13">Doctor</span>
                         </div>
                     </div>
 
@@ -261,7 +162,7 @@
 
                     <!-- Item-->
                     <div class="pt-2 mt-2 border-top">
-                        <a href="login.html" class="dropdown-item text-danger">
+                        <a href="${pageContext.request.contextPath}/LogoutServlet" class="dropdown-item text-danger">
                             <i class="ti ti-logout me-1 fs-17 align-middle"></i>
                             <span class="align-middle">Log Out</span>
                         </a>
