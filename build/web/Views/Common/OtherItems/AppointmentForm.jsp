@@ -13,17 +13,20 @@
                 <div class="inner-content">
                     <div class="title-box text-center">
                         <span class="flaticon-calendar"></span>
-                        <h2>Make an Appointment</h2>    
+                        <h2>Đặt lịch khám</h2>    
                     </div>
                     <div class="form-holder clearfix">
                         <form id="appointment" class="clearfix" name="appointment-form" action="https://st.ourhtmldemo.com/new/Hospitals/inc/sendmail.php" method="post">
+                            <div style="margin-bottom: 30px">
+                                <input type="text" name="form_name" value="" placeholder="Mô tả triệu chứng" required="">
+                            </div>
                             <div class="single-box mar-right-30">    
                                 <div class="input-box">
-                                    <input type="text" name="form_name" value="" placeholder="Your Name" required="">
+                                    <input type="text" name="form_name" value="" placeholder="Mô tả triệu chứng" required="">
                                 </div>
                                 <div class="input-box">
                                     <select class="selectmenu">
-                                        <option selected="selected">Select Doctor</option>
+                                        <option selected="selected">Chọn bác sĩ</option>
                                         <option>Marc Parcival</option>
                                         <option>Alen Bailey</option>
                                         <option>Basil Andrew</option>
@@ -36,7 +39,7 @@
                             <div class="single-box">    
                                 <div class="input-box">  
                                     <select class="selectmenu">
-                                        <option selected="selected">Select Department</option>
+                                        <option selected="selected">Chọn dịch vụ khám</option>
                                         <option>Cardiology</option>
                                         <option>Pulmonology</option>
                                         <option>Gynecology</option>
@@ -48,7 +51,7 @@
                                     </select>
                                 </div>
                                 <div class="input-box">
-                                    <input type="text" name="date" placeholder="Select Date" id="datepicker">
+                                    <input type="text" name="date" placeholder="Chọn ngày khám" id="datepicker">
                                     <div class="icon-box">
                                         <i class="fa fa-angle-down" aria-hidden="true"></i>
                                     </div>
