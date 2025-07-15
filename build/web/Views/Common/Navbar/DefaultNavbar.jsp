@@ -6,13 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%
-    // Kiểm tra nếu chưa có danh sách trong session
-    if (session.getAttribute("daoSpecialty") == null) {
-        response.sendRedirect(request.getContextPath() + "/LoadSpecialtyServlet");
-        return; 
-    }
-%>
+
 
 <!--Start main menu area-->
 <section class="mainmenu-area stricky">

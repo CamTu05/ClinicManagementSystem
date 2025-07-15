@@ -5,7 +5,6 @@
         <group>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/LoadServicesServlet.java</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/SpecialtyDAO.java</file>
-            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/assets/css/style.css</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Models/Doctor.java</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/LoadSpecialtyServlet.java</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/DBContext.java</file>
@@ -13,9 +12,11 @@
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/UserDAO.java</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/Controllers/LoadSchedulesServlet.java</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/Common/OtherItems/TimeTable.jsp</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/LoadAllData.jsp</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/Common/OtherItems/Services.jsp</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/Common/OtherItems/Specialty.jsp</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/Common/Navbar/DefaultNavbar.jsp</file>
+            <file>file:/D:/PRJ301/Project/ClinicManagementSystem/web/Views/HomePage.jsp</file>
             <file>file:/D:/PRJ301/Project/ClinicManagementSystem/src/java/DAL/DoctorDAO.java</file>
         </group>
     </open-files>

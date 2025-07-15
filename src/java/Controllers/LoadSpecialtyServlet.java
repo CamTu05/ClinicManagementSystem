@@ -4,7 +4,10 @@
  */
 package Controllers;
 
+import DAL.DoctorDAO;
+import DAL.SchedulesDAO;
 import DAL.SpecialtyDAO;
+import DAL.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -32,7 +35,16 @@ public class LoadSpecialtyServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         SpecialtyDAO.INSTANCE.LoadSpecialty();
+        SchedulesDAO.INSTANCE.LoadSchedules();
+        DoctorDAO.INSTANCE.LoadDoctor();
+        SpecialtyDAO.INSTANCE.LoadSpecialty();
+        UserDAO.INSTANCE.LoadUser();
         HttpSession session = request.getSession();
+        
+        session.setAttribute("daoSchedules", SchedulesDAO.INSTANCE);
+        session.setAttribute("daoDoctor", DoctorDAO.INSTANCE);
+        session.setAttribute("daoSpecialty", SpecialtyDAO.INSTANCE);
+        session.setAttribute("daoUser", UserDAO.INSTANCE);
         session.setAttribute("daoSpecialty", SpecialtyDAO.INSTANCE);
         request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
 
