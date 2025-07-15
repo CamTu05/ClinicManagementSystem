@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
         String i = request.getParameter("input");
         String p = request.getParameter("password");
 
-        User user = UserDAO.INSTANCE.getUserByInput(i);            // chỉ truy vấn DAO một lần
+        User user = UserDAO.INSTANCE.getUserByInput(i);            
         String storedPassword = user != null ? user.getPasswordHash() : null;
 
         if (storedPassword != null && BCryptUtil.checkPassword(p, storedPassword)) {
@@ -42,7 +42,7 @@ public class LoginServlet extends HttpServlet {
             HttpSession session = request.getSession();
             session.setAttribute("user", user);
 
-            int role = user.getRole(); // hoặc user.getRole(), tùy cấu trúc entity
+            int role = user.getRole(); 
 
             switch (role) {
                 case 1:  // Admin
@@ -51,15 +51,11 @@ public class LoginServlet extends HttpServlet {
                 case 2:  // Bác sĩ
                     response.sendRedirect("DoctorDashboardServlet");
                     break;
-                case 3:  // Khách hàng
+                case 3:  // Lễ tân
                     response.sendRedirect("HomePageServlet");
                     break;
-                case 4:  // Nhân viên CSKH
+                case 4:  // Bệnh nhân
                     response.sendRedirect("HomePageServlet");
-                    break;
-
-                default: // Các role chưa hỗ trợ
-                    response.sendRedirect("AccessDenied.jsp");
                     break;
             }
 
