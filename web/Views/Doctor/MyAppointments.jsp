@@ -173,17 +173,21 @@
                                     <th>Ngày sinh</th>
                                     <th>Lý do khám</th>
                                     <th>Ngày</th>
-                                    <th>Giờ</th>
+                                    <th>Ca</th>     <!-- 🔄 changed -->
                                     <th>Trạng thái</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <c:forEach var="dto" items="${appointmentDTOs}" varStatus="st">
+
+                                    <!-- CONFIRMED -->
                                     <c:if test="${dto.status eq 'CONFIRMED'}">
                                         <tr data-status="upcoming">
                                             <td>${st.index + 1}</td>
                                             <td>
-                                                <a href="${pageContext.request.contextPath}/PatientInformationServlet?patientId=${dto.patient.id}"
+                                                <a href="<c:url value='/PatientInformationServlet'>
+                                                       <c:param name='patientId' value='${dto.patient.id}'/>
+                                                   </c:url>"
                                                    style="color:#1976d2; text-decoration:none; font-weight:600;">
                                                     ${dto.patientName}
                                                 </a>
@@ -191,41 +195,64 @@
                                             <td>${dto.patientDob}</td>
                                             <td>${dto.service}</td>
                                             <td>${dto.date}</td>
-                                            <td>${dto.time}</td>
+                                            <td>${dto.shift}</td>   <!-- 🔄 changed -->
                                             <td class="status-ok">Đã xác nhận</td>
                                         </tr>
                                     </c:if>
+
+                                    <!-- PENDING -->
                                     <c:if test="${dto.status eq 'PENDING'}">
                                         <tr data-status="pending">
                                             <td>${st.index + 1}</td>
-                                            <td>${dto.patientName}</td>
+                                            <td>
+                                                <a href="<c:url value='/PatientInformationServlet'>
+                                                       <c:param name='patientId' value='${dto.patient.id}'/>
+                                                   </c:url>"
+                                                   style="color:#1976d2; text-decoration:none; font-weight:600;">
+                                                    ${dto.patientName}
+                                            </td>
                                             <td>${dto.patientDob}</td>
                                             <td>${dto.service}</td>
                                             <td>${dto.date}</td>
-                                            <td>${dto.time}</td>
+                                            <td>${dto.shift}</td>
                                             <td class="status-pend">Chờ xác nhận</td>
                                         </tr>
                                     </c:if>
+
+                                    <!-- COMPLETED -->
                                     <c:if test="${dto.status eq 'COMPLETED'}">
-                                        <!-- Đã hoàn thành -->
                                         <tr data-status="completed">
                                             <td>${st.index + 1}</td>
-                                            <td>${dto.patientName}</td>
+                                            <td>
+                                                <a href="<c:url value='/PatientInformationServlet'>
+                                                       <c:param name='patientId' value='${dto.patient.id}'/>
+                                                   </c:url>"
+                                                   style="color:#1976d2; text-decoration:none; font-weight:600;">
+                                                    ${dto.patientName}
+                                            </td>
                                             <td>${dto.patientDob}</td>
                                             <td>${dto.service}</td>
                                             <td>${dto.date}</td>
-                                            <td>${dto.time}</td>
+                                            <td>${dto.shift}</td>
                                             <td class="status-done">Hoàn thành</td>
                                         </tr>
                                     </c:if>
+
+                                    <!-- CANCELLED -->
                                     <c:if test="${dto.status eq 'CANCELLED'}">
                                         <tr data-status="canceled">
                                             <td>${st.index + 1}</td>
-                                            <td>${dto.patientName}</td>
+                                            <td>
+                                                <a href="<c:url value='/PatientInformationServlet'>
+                                                       <c:param name='patientId' value='${dto.patient.id}'/>
+                                                   </c:url>"
+                                                   style="color:#1976d2; text-decoration:none; font-weight:600;">
+                                                    ${dto.patientName}
+                                            </td>
                                             <td>${dto.patientDob}</td>
                                             <td>${dto.service}</td>
                                             <td>${dto.date}</td>
-                                            <td>${dto.time}</td>
+                                            <td>${dto.shift}</td>
                                             <td class="status-canc">Đã hủy</td>
                                         </tr>
                                     </c:if>

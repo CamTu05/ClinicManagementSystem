@@ -25,42 +25,41 @@ public class MyAppointmentsServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession ses = request.getSession();
         User user = (User) ses.getAttribute("user");
+
         Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(user.getId());
-        Vector<AppointmentDTO> appointmentDTOs = AppointmentDAO.INSTANCE.loadAppointmentDTOByDoctorId(doctor.getId(), null);
 
-        String filter = request.getParameter("filter");   
-        String status;                             
+        String filterStatus = request.getParameter("filter");
+        String statusFilter;
 
-        if (filter == null || filter.isBlank() || filter.equals("All")) {
-            status = null;      
-            filter = "All";      
+        if (filterStatus == null || filterStatus.isBlank() || filterStatus.equals("All")) {
+            statusFilter = null;
+            filterStatus = "All";
         } else {
-            switch (filter) {
-                case "upcoming":
-                    status = "CONFIRMED";
-                    break;
-                case "pending":
-                    status = "PENDING";
-                    break;
-                case "finished":
-                    status = "COMPLETED";
-                    break;
-                case "cancelled":
-                    status = "CANCELLED";
-                    break;
-                default:
-                    status = null; 
-                    filter = "All";
+            switch (filterStatus) {
+                case "upcoming" ->
+                    statusFilter = "CONFIRMED";
+                case "pending" ->
+                    statusFilter = "PENDING";
+                case "finished" ->
+                    statusFilter = "COMPLETED";
+                case "cancelled" ->
+                    statusFilter = "CANCELLED";
+                default -> {
+                    statusFilter = null;
+                    filterStatus = "All";
+                }
             }
         }
 
-        appointmentDTOs = AppointmentDAO.INSTANCE.loadAppointmentDTOByDoctorId(doctor.getId(), status);
+        Vector<AppointmentDTO> appointmentDTOs = AppointmentDAO.INSTANCE.loadAppointmentDTOByDoctorId(doctor.getId(), statusFilter); 
         request.setAttribute("doctor", doctor);
-        request.setAttribute("currentFilter", filter);
+        request.setAttribute("currentFilter", filterStatus);
         request.setAttribute("appointmentDTOs", appointmentDTOs);
-        request.getRequestDispatcher("Views/Doctor/MyAppointments.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Doctor/MyAppointments.jsp")
+                .forward(request, response);
     }
 
     @Override

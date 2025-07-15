@@ -1,190 +1,323 @@
 <%-- 
-    Document   : PatientProfile
-    Created on : Jul 11, 2025, 10:52:32 AM
+    Document   : DoctorDashboard
+    Created on : Jul 13, 2025, 5:05:25 PM
     Author     : admin
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Thông tin cá nhân</title>
-        <meta charset="UTF-8">
-        <!-- responsive meta -->
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <!-- For IE -->
+
+        <!-- Meta Tags -->
+        <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <!-- master stylesheet -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
-        <!-- Responsive stylesheet -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/responsive.css">
-        <!-- Extra stylesheet -->
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/mycss.css">
+        <title>Doctor Dashboard - Medical & Hospital - Bootstrap 5 Admin Template</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Dreams Technologies">
+
         <!-- Favicon -->
-        <link rel="apple-touch-icon" sizes="180x180" href="${pageContext.request.contextPath}/images/favicon/apple-touch-icon.png">
-        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
-        <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
+        <link rel="shortcut icon" href="${pageContext.request.contextPath}/assets/img/favicon.png">
+
+        <!-- Apple Icon -->
+        <link rel="apple-touch-icon" href="${pageContext.request.contextPath}/assets/img/apple-icon.png">
+
+        <!-- Theme Config Js -->
+        <script src="${pageContext.request.contextPath}/assets/js/theme-script.js" type="1820bbd1b8b16c1ec3133fa7-text/javascript"></script>
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap.min.css">
+
+        <!-- Fontawesome CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/fontawesome.min.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/fontawesome/css/all.min.css">
+
+        <!-- Tabler Icon CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/tabler-icons/tabler-icons.min.css">
+
+        <!-- Daterangepikcer CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/daterangepicker/daterangepicker.css">
+
+        <!-- Datetimepicker CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/bootstrap-datetimepicker.min.css">
+
+        <!-- Simplebar CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/plugins/simplebar/simplebar.min.css">
+
+        <!-- Main CSS -->
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css" id="app-style">
 
         <style>
+            * {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
             body {
-                background: #f4f6f8;
-                font-family: Arial, sans-serif;
+                font-family: 'Segoe UI', Arial, sans-serif;
+                background: #f5f7fa;
             }
 
-            .patient-card {
-                max-width: 720px;
-                margin: 50px auto;
-                padding: 32px;
-                border: 1px solid #ddd;
-                border-radius: 12px;
+            .flex {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 24px;
+            }
+
+            .left-card {
+                flex: 0 0 260px;
                 background: #fff;
-                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+                border-radius: 14px;
+                box-shadow: 0 4px 12px rgba(0, 0, 0, .06);
+                overflow: hidden;
             }
 
-            .patient-card h2 {
+            .left-card .header {
+                background: #fff;
+                padding: 24px 22px 14px;
+                border-bottom: 1px solid #f0f0f0;
+            }
+
+            .left-card h2 {
+                font-size: 21px;
+                line-height: 1.3;
+                font-weight: 600;
+                color: #0d1a26;
                 text-align: center;
-                margin-bottom: 32px;
-                color: #1976d2;
             }
 
-            .form-group {
-                margin-bottom: 20px;
+            .left-card .subtitle {
+                margin-top: 6px;
+                font-size: 13.5px;
+                color: #687076;
+                text-align: center;
             }
 
-            .form-label {
-                font-weight: bold;
-                color: #333;
+            .info-section {
+                padding: 18px 22px 24px;
             }
 
-            .form-control[readonly] {
-                background-color: #f9f9f9;
-                color: #555;
+            .info-row {
+                display: flex;
+                justify-content: space-between;
+                font-size: 14.5px;
+                padding: 6px 0;
+                border-bottom: 1px dashed #e3e7ed;
+            }
+
+            .info-row:last-of-type {
+                border-bottom: none;
+            }
+
+            .info-label {
+                color: #555d68;
+            }
+
+            .badge {
+                display: inline-block;
+                background: #1976d2;
+                color: #fff;
+                padding: 5px 14px;
+                border-radius: 18px;
+                font-size: 13px;
+                font-weight: 500;
+                margin-top: 14px;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                background: #fff;
+                border-radius: 12px;
+                overflow: hidden;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+            }
+
+            caption {
+                caption-side: top;
+                font-size: 18px;
+                font-weight: 600;
+                text-align: left;
+                padding: 12px 16px;
+                background: #f8f9fb;
+            }
+
+            th,
+            td {
+                padding: 10px 14px;
+                border: 1px solid #e0e0e0;
+                font-size: 14.5px;
+            }
+
+            th {
+                background: #f1f3f6;
+                text-align: left;
+            }
+
+            @media (max-width: 991px) {
+                .left-card {
+                    flex: 1 1 100%;
+                }
+            }
+
+            .benphai{
+                padding-left: 40px;
             }
         </style>
+
     </head>
     <body>
-        <%@ include file="../Common/Header/DefaultHeader.jsp" %>
-        <%@ include file="../Common/Navbar/DefaultNavbar.jsp" %>
 
-        <div class="patient-card">
-            <h2>Thông Tin Bệnh Nhân</h2>
+        <div class="main-wrapper">
+            <%@ include file="../Common/Header/DashboardHeader.jsp" %>
+            <%@ include file="../Common/Navbar/DoctorNavbar.jsp" %>
+        </div>
+        <br/>
 
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Họ tên</label>
-                    <input type="text" class="form-control" value="Nguyễn Văn A" readonly>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Giới tính</label>
-                    <input type="text" class="form-control" value="Nam" readonly>
-                </div>
-            </div>
+        <div class="container-fluid">
+            <div class="row g-0">
+                <!-- Cột trống (bên trái) chiếm 3/12 -->
+                <div class="col-12 col-lg-2"></div>
 
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Số điện thoại</label>
-                    <input type="text" class="form-control" value="0909123456" readonly>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Ngày sinh</label>
-                    <input type="text" class="form-control" value="1998-10-20" readonly>
-                </div>
-            </div>
+                <!-- Container bên phải chiếm 9/12 -->
+                <div class="col-12 col-lg-9">
+                    <div class="container benphai">
+                        <div class="flex">
 
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Tên đăng nhập</label>
-                    <input type="text" class="form-control" value="nguyenvana" readonly>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Email</label>
-                    <input type="email" class="form-control" value="vana@example.com" readonly>
-                </div>
-            </div>
+                            <!-- ==== CARD BÊN TRÁI ==== -->
+                            <div class="left-card">
+                                <!-- Header -->
+                                <div class="header">
+                                    <h2>${patientName}</h2>
+                                    <div class="subtitle">#ID: ${patient.id} &nbsp;·&nbsp; ${gender}, ${age}&nbsp;tuổi</div>
+                                </div>
 
-            <div class="form-group">
-                <label class="form-label">Địa chỉ</label>
-                <input type="text" class="form-control" value="123 Đường ABC, Quận 1, TP.HCM" readonly>
-            </div>
+                                <!-- Info -->
+                                <div class="info-section">
+                                    <div class="info-row">
+                                        <span class="info-label">Nhóm máu:</span>
+                                        <span>${patient.bloodType}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Dị ứng:</span>
+                                        <span>${patient.allergies}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">SĐT:</span>
+                                        <span>${user.phone}</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span class="info-label">Email:</span>
+                                        <span>${user.email}</span>
+                                    </div>
 
-            <div class="row">
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Nhóm máu</label>
-                    <input type="text" class="form-control" value="O+" readonly>
-                </div>
-                <div class="col-md-6 form-group">
-                    <label class="form-label">Dị ứng</label>
-                    <input type="text" class="form-control" value="Phấn hoa" readonly>
-                </div>
-            </div>
+                                    <!-- Badge -->
+                                    <span class="badge">Bảo hiểm BHYT</span>
+                                </div>
+                            </div>
 
-            <div class="form-group">
-                <label class="form-label">Tiền sử bệnh</label>
-                <textarea class="form-control" rows="3" readonly>Tiểu đường type 2, huyết áp cao</textarea>
+                            <!-- ==== BẢNG CHI TIẾT BÊN PHẢI ==== -->
+                            <div style="flex:1">
+                                <!-- 1. Bệnh sử -->
+                                <table>
+                                    <caption>Tiền sử bệnh lý</caption>
+                                    <tbody>
+                                        <c:if test="${appointments.size()==0}">
+                                            <tr>
+                                                <td>Chưa có</td>
+                                            </tr>
+                                        </c:if>
+                                        <c:forEach items="${appointments}" var="a">
+                                            <tr>
+                                                <td>${a.appointmentDay}</td>
+                                                <td>${a.description}</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+
+                                <!-- 2. Đơn thuốc gần nhất -->
+                                <table style="margin-top:22px">
+                                    <caption>Đơn thuốc gần nhất (${prescriptionDTO.createdAt})</caption>
+                                    <c:choose>
+                                        <c:when test="${prescriptionDTO eq null}">
+                                            <tbody>
+                                                <tr><td>Chưa có</td></tr>
+                                            </tbody>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <thead>
+                                                <tr><th>Thuốc</th><th>Số lượng</th><th>Cách dùng</th></tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:forEach var="medicine" items="${prescriptionDTO.medicines}">
+                                                    <tr>
+                                                        <td>${medicine.medicineName}</td>
+                                                        <td>${medicine.quantity}</td>
+                                                        <td>${medicine.usage}</td>
+                                                    </tr>
+                                                </c:forEach>
+                                            </tbody>   
+                                        </c:otherwise>
+                                    </c:choose>
+                                </table>
+
+                                <!-- 3. Lịch hẹn tương lai -->
+                                <table style="margin-top:22px">
+                                    <caption>Lịch hẹn sắp tới</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>Ngày</th><th>Ca</th><th>Bác sĩ</th><th>Dịch vụ</th><th>Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <c:forEach items="${appointmentDTOs}" var="appointment">
+                                            <tr>
+                                                <td>${appointment.date}</td>
+                                                <td>${appointment.shift}</td>
+                                                <td>${DoctorDAO.getDoctorNameById(appointment.doctor.id)}</td>
+                                                <td>${appointment.service}</td>
+                                                <td style="color:#f57c00;font-weight:600">CONFIRMED</td>
+                                            </tr>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
             </div>
         </div>
-
-
-
-        <%@ include file="../Common/Footer/DefaultFooter.jsp" %>
-        <!-- main jQuery -->
-        <script src="${pageContext.request.contextPath}/js/jquery-1.11.1.min.js"></script>
-        <!-- Wow Script -->
-        <script src="${pageContext.request.contextPath}/js/wow.js"></script>
-        <!-- bootstrap -->
-        <script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-        <!-- bx slider -->
-        <script src="${pageContext.request.contextPath}/js/jquery.bxslider.min.js"></script>
-        <!-- count to -->
-        <script src="${pageContext.request.contextPath}/js/jquery.countTo.js"></script>
-        <!-- owl carousel -->
-        <script src="${pageContext.request.contextPath}/js/owl.carousel.min.js"></script>
-        <!-- validate -->
-        <script src="${pageContext.request.contextPath}/js/validation.js"></script>
-        <!-- mixit up -->
-        <script src="${pageContext.request.contextPath}/js/jquery.mixitup.min.js"></script>
-        <!-- easing -->
-        <script src="${pageContext.request.contextPath}/js/jquery.easing.min.js"></script>
-        <!-- gmap helper -->
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAHzPSV2jshbjI8fqnC_C4L08ffnj5EN3A"></script>
-        <!--gmap script-->
-        <script src="${pageContext.request.contextPath}/js/gmaps.js"></script>
-        <script src="${pageContext.request.contextPath}/js/map-helper.js"></script>
-        <!-- fancy box -->
-        <script src="${pageContext.request.contextPath}/js/jquery.fancybox.pack.js"></script>
-        <script src="${pageContext.request.contextPath}/js/jquery.appear.js"></script>
-        <!-- isotope script-->
-        <script src="${pageContext.request.contextPath}/js/isotope.js"></script>
-        <script src="${pageContext.request.contextPath}/js/jquery.prettyPhoto.js"></script> 
-        <script src="${pageContext.request.contextPath}/js/jquery.bootstrap-touchspin.js"></script>
-        <!-- jQuery timepicker js -->
-        <script src="${pageContext.request.contextPath}/assets/timepicker/timePicker.js"></script>
-        <!-- Bootstrap select picker js -->
-        <script src="${pageContext.request.contextPath}/assets/bootstrap-sl-1.12.1/bootstrap-select.js"></script>                               
-        <!-- Bootstrap bootstrap touchspin js -->
-        <!-- jQuery ui js -->
-        <script src="${pageContext.request.contextPath}/assets/jquery-ui-1.11.4/jquery-ui.js"></script>
-        <!-- Language Switche  -->
-        <script src="${pageContext.request.contextPath}/assets/language-switcher/jquery.polyglot.language.switcher.js"></script>
-        <!-- Html 5 light box script-->
-        <script src="${pageContext.request.contextPath}/assets/html5lightbox/html5lightbox.js"></script>
-
-
-        <!-- revolution slider js -->
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/jquery.themepunch.tools.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/jquery.themepunch.revolution.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.actions.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.migration.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-        <script src="${pageContext.request.contextPath}/assets/revolution/js/extensions/revolution.extension.video.min.js"></script>
-
-        <!-- thm custom script -->
-        <script src="${pageContext.request.contextPath}/js/custom.js"></script>
     </body>
 </html>
+<!-- jQuery -->
+<script src="${pageContext.request.contextPath}/assets/js/jquery-3.7.1.min.js" type="text/javascript"></script>
+
+<!-- Bootstrap Core JS -->
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap.bundle.min.js" type="text/javascript"></script>    
+
+<!-- Simplebar JS -->
+<script src="${pageContext.request.contextPath}/assets/plugins/simplebar/simplebar.min.js" type="text/javascript"></script>
+
+<!-- Chart JS -->
+<script src="${pageContext.request.contextPath}/assets/plugins/apexchart/apexcharts.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/apexchart/chart-data.js" type="text/javascript"></script>
+
+<!-- Daterangepikcer JS -->
+<script src="${pageContext.request.contextPath}/assets/js/moment.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/assets/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+
+<!-- Datetimepicker JS -->
+<script src="${pageContext.request.contextPath}/assets/js/moment.min.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/assets/js/bootstrap-datetimepicker.min.js" type="text/javascript"></script> 
+
+<!-- Main JS -->
+<script src="${pageContext.request.contextPath}/assets/js/script.js" type="text/javascript"></script>
+
+<script src="../../cdn-cgi/scripts/7d0fa10a/cloudflare-static/rocket-loader.min.js" data-cf-settings="1820bbd1b8b16c1ec3133fa7-|49" defer></script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015" integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ==" data-cf-beacon='{"rayId":"95de4d0c882ec5e8","version":"2025.6.2","serverTiming":{"name":{"cfExtPri":true,"cfEdge":true,"cfOrigin":true,"cfL4":true,"cfSpeedBrain":true,"cfCacheStatus":true}},"token":"3ca157e612a14eccbb30cf6db6691c29","b":1}' crossorigin="anonymous"></script>
