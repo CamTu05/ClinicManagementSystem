@@ -25,11 +25,75 @@
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-32x32.png" sizes="32x32">
         <link rel="icon" type="image/png" href="${pageContext.request.contextPath}/images/favicon/favicon-16x16.png" sizes="16x16">
 
-        <!-- Fixing Internet Explorer-->
-        <!--[if lt IE 9]>
-            <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-            <script src="js/html5shiv.js"></script>
-        <![endif]-->
+        <style>
+            /* ===== Filter buttons ===== */
+            .filter-list           {
+                list-style:none;
+                margin:0;
+                padding:0;
+            }
+            .filter-item           {
+                display:inline-block;
+                width:200px;
+                margin:5px;
+                text-align:center;
+            }
+            .filter-item-bg        {
+                background:#add8e6;
+            }                 /* lightblue */
+            .filter-btn            {
+                width:100%;
+                padding:10px 0;
+                border:2px solid #000;
+                border-radius:5px;
+                background:transparent;
+                color:#000;
+                font-size:16px;
+                cursor:pointer;
+            }
+
+            /* ===== Doctor cards ===== */
+            .doc-col               {
+                margin-bottom:30px;
+                padding:15px;
+            }
+            .doc-card              {
+                border:1px solid #ddd;
+                border-radius:10px;
+                background:#f9f9f9;
+                padding:15px;
+                box-shadow:0 4px 8px rgba(0,0,0,.1);
+                transition:box-shadow .3s;
+            }
+            .doc-card:hover        {
+                box-shadow:0 6px 14px rgba(0,0,0,.18);
+            }
+
+            .doc-img               {
+                width:100%;
+                height:auto;
+                border-radius:10px;
+                box-shadow:0 4px 8px rgba(0,0,0,.2);
+                transition:transform .3s;
+            }
+            .doc-card:hover .doc-img {
+                transform:scale(1.05);
+            }
+
+            .doc-link              {
+                display:block;
+                margin-top:10px;
+                font-size:1.1em;
+                font-weight:bold;
+                color:#333;
+                text-decoration:none;
+                transition:color .3s, transform .3s;
+            }
+            .doc-link:hover        {
+                color:#007bff;
+                transform:translateY(-2px);
+            }
+        </style>
     </head>
     <body>
         <div>
@@ -75,36 +139,33 @@
         <section class="team-area doctor doctor-page-area">
             <div class="container">
                 <div class="row">
+                    <!-- FILTER -->
                     <div class="col-md-3">
-                        <form action="/doctorList" method="get">
-                            <ul style="list-style-type: none; padding: 0; margin: 0;">
-                                <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
-                                    <input type="submit" name="btnFilter" value="Toàn Bộ" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                        <form action="DoctorListServlet" method="get">
+                            <ul class="filter-list">
+                                <li class="filter-item filter-item-bg">
+                                    <input type="submit" name="btnFilter" value="Toàn Bộ" class="filter-btn"/>
                                 </li><br/>
                                 <c:forEach var="s" items="${specialties}">
-                                    <li style="display: inline-block; width: 200px; text-align: center; margin: 5px; background-color: lightblue">
-                                        <input type="submit" name="btnFilter" value="${s.specialtyName}" style="width: 100%; padding: 10px 0; border: 2px solid #000; background-color: transparent; color: #000; font-size: 16px; cursor: pointer; border-radius: 5px;" />
+                                    <li class="filter-item filter-item-bg">
+                                        <input type="submit" name="btnFilter" value="${s.specialtyName}" class="filter-btn"/>
                                     </li><br/>
                                 </c:forEach>
                             </ul>
                         </form>
-
-
                     </div>
+
+                    <!-- DOCTOR GRID -->
                     <div class="col-md-9">
                         <div class="row">
                             <c:forEach var="doctor" items="${doctorList}">
-                                <div class="col-md-4 text-center mb-4" style="margin-bottom: 30px; padding: 15px;">
-                                    <div style="border: 1px solid #ddd; padding: 15px; border-radius: 10px; background-color: #f9f9f9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); transition: box-shadow 0.3s ease;">
-                                        <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}" 
-                                             alt="${DoctorDAO.getDoctorNameById(doctor.id)}" 
-                                             style="max-width: 100%; height: auto; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.3s ease-in-out;" 
-                                             onmouseover="this.style.transform = 'scale(1.05)';" onmouseout="this.style.transform = 'scale(1)'">
-                                        <br/>
-                                        <a href="${pageContext.request.contextPath}/DoctorIndividualServlet?doctorId=${doctor.id}" 
-                                           style="display: block; margin-top: 10px; font-size: 1.1em; font-weight: bold; color: #333; text-decoration: none; transition: color 0.3s ease, transform 0.3s ease;" 
-                                           onmouseover="this.style.color = '#007bff'; this.style.transform = 'translateY(-2px)';" 
-                                           onmouseout="this.style.color = '#333'; this.style.transform = 'translateY(0)';">
+                                <div class="col-md-4 text-center mb-4 doc-col">
+                                    <div class="doc-card">
+                                        <img src="${pageContext.request.contextPath}/images/team/${doctor.picture}"
+                                             alt="${DoctorDAO.getDoctorNameById(doctor.id)}"
+                                             class="doc-img">
+                                        <a href="${pageContext.request.contextPath}/DoctorIndividualServlet?doctorId=${doctor.id}"
+                                           class="doc-link">
                                             ${DoctorDAO.getDoctorNameById(doctor.id)}
                                         </a>
                                     </div>
@@ -114,7 +175,7 @@
                     </div>
                 </div>
             </div>
-        </section> 
+        </section>
         <!--End team area--> 
 
         <%@ include file="Common/Footer/DefaultFooter.jsp" %>
@@ -181,9 +242,9 @@
         <script src="js/custom.js"></script>
 
         <script>
-                                               function filterToanBo() {
-                                                   document.getElementById("filterToanBo").click();
-                                               }
+            function filterToanBo() {
+                document.getElementById("filterToanBo").click();
+            }
         </script>
         <script>
             function filterNoiTongQuat() {

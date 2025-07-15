@@ -34,7 +34,7 @@
                             <li class="dropdown"><a href="#">Giới thiệu</a>
                                 <ul>
                                     <li><a href="#">Giới thiệu Phòng khám</a></li>
-                                    <li><a href="${pageContext.request.contextPath}/doctorList">Các bác sĩ</a></li>
+                                    <li><a href="${pageContext.request.contextPath}/DoctorListServlet">Các bác sĩ</a></li>
                                     <li><a href="#">Câu hỏi thường gặp</a></li>
                                     <li><a href="${pageContext.request.contextPath}/DoctorFeedbackServlet" id="patientReviewLink">Đánh giá từ bệnh nhân</a></li>
                                     <li><a href="#">Phòng trưng bày</a></li>

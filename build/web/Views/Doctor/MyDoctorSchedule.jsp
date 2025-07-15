@@ -198,20 +198,35 @@
                             </table>
                         </form>
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                         <script>
                             document.addEventListener('DOMContentLoaded', () => {
                                 const form = document.getElementById('scheduleForm');
                                 const weekdayNewEl = form.querySelector('[name="newWeekday"]');
                                 const shiftNewEl = form.querySelector('[name="newShift"]');
 
-                                // Hàm tiện ích đặt / gỡ required + bật tắt noValidate
                                 function toggleRequired(isInsert) {
                                     if (isInsert) {
-                                        form.noValidate = false;               // bật validation
+                                        form.noValidate = false;      
                                         weekdayNewEl.setAttribute('required', '');
                                         shiftNewEl.setAttribute('required', '');
                                     } else {
-                                        form.noValidate = true;                // tắt validation cho toàn form
+                                        form.noValidate = true;       
                                         weekdayNewEl.removeAttribute('required');
                                         shiftNewEl.removeAttribute('required');
                                     }
