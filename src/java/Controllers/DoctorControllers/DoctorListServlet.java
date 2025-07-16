@@ -31,11 +31,11 @@ public class DoctorListServlet extends HttpServlet {
         request.setAttribute("specialties", specialties); 
         
         String specialty = request.getParameter("btnFilter");
+        
         if (specialty != null && !specialty.isEmpty()) {
             if (specialty.equals("Toàn Bộ")) {
                 doctorList = DoctorDAO.INSTANCE.LoadAllDoctors();
             } else {
-                // Tìm specialty tương ứng từ danh sách specialties
                 for (Specialty s : specialties) {
                     if (s.getSpecialtyName().equals(specialty)) {
                         doctorList = DoctorDAO.INSTANCE.LoadDoctorsBySpecialty(s.getId());
@@ -47,7 +47,6 @@ public class DoctorListServlet extends HttpServlet {
         request.setAttribute("doctorList", doctorList);
         request.getRequestDispatcher("/Views/DoctorList.jsp").forward(request, response);
     }
-
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)

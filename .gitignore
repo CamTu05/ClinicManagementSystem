@@ -1,1 +1,10 @@
-/dist/
+# NetBeans private settings
+nbproject/private/
+
+# Build outputs
+build/
+dist/
+
+# Logs and temporary files
+*.log
+*.class

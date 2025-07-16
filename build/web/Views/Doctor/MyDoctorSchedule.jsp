@@ -133,7 +133,7 @@
                                             <td>
                                                 <select name="weekday_${sch.id}">
                                                     <c:set var="w" value="${sch.weekday}" />
-                                                    <option value="1" ${w==1?'selected':''}>Thứ&nbsp;2 ${schedules.size()}</option>
+                                                    <option value="1" ${w==1?'selected':''}>Thứ&nbsp;2</option>
                                                     <option value="2" ${w==2?'selected':''}>Thứ&nbsp;3</option>
                                                     <option value="3" ${w==3?'selected':''}>Thứ&nbsp;4</option>
                                                     <option value="4" ${w==4?'selected':''}>Thứ&nbsp;5</option>
@@ -198,20 +198,35 @@
                             </table>
                         </form>
                             
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                         <script>
                             document.addEventListener('DOMContentLoaded', () => {
                                 const form = document.getElementById('scheduleForm');
                                 const weekdayNewEl = form.querySelector('[name="newWeekday"]');
                                 const shiftNewEl = form.querySelector('[name="newShift"]');
 
-                                // Hàm tiện ích đặt / gỡ required + bật tắt noValidate
                                 function toggleRequired(isInsert) {
                                     if (isInsert) {
-                                        form.noValidate = false;               // bật validation
+                                        form.noValidate = false;      
                                         weekdayNewEl.setAttribute('required', '');
                                         shiftNewEl.setAttribute('required', '');
                                     } else {
-                                        form.noValidate = true;                // tắt validation cho toàn form
+                                        form.noValidate = true;       
                                         weekdayNewEl.removeAttribute('required');
                                         shiftNewEl.removeAttribute('required');
                                     }

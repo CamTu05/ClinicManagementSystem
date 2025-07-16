@@ -39,7 +39,6 @@ public class MyDoctorSchedule extends HttpServlet {
                 .forward(req, resp);
     }
 
-    /* ----- POST: ghi + PRG ----- */
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException {
@@ -51,18 +50,17 @@ public class MyDoctorSchedule extends HttpServlet {
         String action = req.getParameter("action");
         if (action != null && !action.isEmpty()) {
 
-            /* XÓA */
             if (action.startsWith("delete_")) {
                 int id = Integer.parseInt(action.substring("delete_".length()));
                 ScheduleDAO.INSTANCE.deleteScheduleById(id);
-            } /* CẬP NHẬT */ else if (action.startsWith("update_")) {
+            }else if (action.startsWith("update_")) {
                 int id = Integer.parseInt(action.substring("update_".length()));
                 int weekday = Integer.parseInt(req.getParameter("weekday_" + id));
                 String shift = req.getParameter("shift_" + id);
 
-                LocalTime[] t = toRange(shift);  // [start,end]
+                LocalTime[] t = toRange(shift); 
                 ScheduleDAO.INSTANCE.updateSchedule(id, weekday, t[0], t[1]);
-            } /* THÊM MỚI */ else if ("insert".equals(action)) {
+            }else if ("insert".equals(action)) {
                 int weekday = Integer.parseInt(req.getParameter("newWeekday"));
                 String shift = req.getParameter("newShift");
 
@@ -71,11 +69,9 @@ public class MyDoctorSchedule extends HttpServlet {
             }
         }
 
-        /* PRG: redirect để tránh gửi lại khi F5 */
         resp.sendRedirect(req.getContextPath() + "/MyDoctorSchedule");
     }
 
-    /* Trả mảng [start,end] theo ca */
     private LocalTime[] toRange(String shift) {
         return "AFTERNOON".equals(shift)
                 ? new LocalTime[]{LocalTime.of(13, 0), LocalTime.of(17, 0)}

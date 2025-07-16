@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Connection;
 import java.util.Vector;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.Period;
 
 /**
  *
@@ -28,7 +30,6 @@ public class UserDAO extends DBContext {
     public void setUser(Vector<User> users) {
         this.users = users;
     }
-
 
     public static UserDAO INSTANCE = new UserDAO();
 
@@ -197,12 +198,70 @@ public class UserDAO extends DBContext {
         }
     }
 
+    public User getUserById(int userId) {
+
+        String sql = """
+        SELECT
+            user_id,
+            username,
+            password_hash,
+            email,
+            phone,
+            fullname,
+            gender,
+            dob,
+            address,
+            role_id,
+            is_active,
+            created_at
+        FROM   Users
+        WHERE  user_id = ?;
+    """;
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, userId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    User u = new User();
+                    u.setId(rs.getInt("user_id"));
+                    u.setUsername(rs.getString("username"));
+                    u.setPasswordHash(rs.getString("password_hash"));
+                    u.setEmail(rs.getString("email"));
+                    u.setPhone(rs.getString("phone"));
+                    u.setFullname(rs.getString("fullname"));
+                    u.setGender(rs.getString("gender"));
+                    u.setDob(rs.getDate("dob"));
+                    u.setAddress(rs.getString("address"));
+                    u.setRole(rs.getInt("role_id"));
+                    u.setIsActive(rs.getBoolean("is_active"));
+                    u.setCreatedAt(rs.getTimestamp("created_at"));
+                    return u;
+                }
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error loading user by id: " + e.getMessage());
+            status = "Error loading user by id: " + e.getMessage();
+        }
+        return null;   // không tìm thấy hoặc lỗi
+    }
+
+    public int getAgeByUser(User user) {
+        if (user == null || user.getDob() == null) {
+            return -1;   // không hợp lệ
+        }
+        LocalDate dob = user.getDob().toLocalDate();
+        LocalDate today = LocalDate.now();
+
+        return Period.between(dob, today).getYears();
+    }
+
     //For Testing
     public static void main(String[] args) {
-        UserDAO d = new UserDAO();
-
+        String patientName = UserDAO.INSTANCE.getFullNameById(15);
+        System.out.println(patientName);
     }
-    
 
     public void LoadUser() {
         String sql = "select * from Users";
@@ -233,12 +292,51 @@ public class UserDAO extends DBContext {
         }
     }
 
+    public Vector<User> loadUsersToVector() {
+
+        String sql = """
+        SELECT
+            user_id, username, password_hash, email, phone,
+            fullname, gender, dob, address,
+            role_id, is_active, created_at
+        FROM Users
+    """;
+
+        Vector<User> list = new Vector<>();
+
+        try (PreparedStatement ps = con.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("user_id"));          // cột đúng trong DB
+                u.setUsername(rs.getString("username"));
+                u.setPasswordHash(rs.getString("password_hash"));
+                u.setEmail(rs.getString("email"));
+                u.setPhone(rs.getString("phone"));
+                u.setFullname(rs.getString("fullname"));
+                u.setGender(rs.getString("gender"));
+                u.setDob(rs.getDate("dob"));
+                u.setAddress(rs.getString("address"));
+                u.setRole(rs.getInt("role_id"));
+                u.setIsActive(rs.getBoolean("is_active"));
+                u.setCreatedAt(rs.getTimestamp("created_at"));
+                list.add(u);
+            }
+
+        } catch (Exception e) {
+            status = "Error reading users: " + e.getMessage();
+            System.out.println(status);
+        }
+        return list;           // luôn trả về (rỗng nếu lỗi)
+    }
+
     public String getFullNameById(int id) {
-        for (User u : users) {
+        for (User u : UserDAO.INSTANCE.loadUsersToVector()) {
             if (u.getId() == id) {
                 return u.getFullname();
             }
         }
         return "Unknown";
     }
+
 }
