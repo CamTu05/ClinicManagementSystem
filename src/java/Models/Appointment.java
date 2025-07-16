@@ -12,8 +12,10 @@ import java.sql.Date;
  * @author admin
  */
 public class Appointment {
+
     private int id;
     private Patient patient;
+    private User user;
     private String fullname;
     private String phone;
     private Date dob;
@@ -30,6 +32,34 @@ public class Appointment {
     public Appointment() {
     }
 
+    public Appointment(int id, User user, String fullname, String phone, Date dob, String gender, String address, Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
+        this.id = id;
+        this.user = user;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+        this.doctor = doctor;
+        this.serviceId = serviceId;
+        this.appointmentDay = appointmentDay;
+        this.appointmentShift = appointmentShift;
+        this.status = status;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    
+    
+    
     public Appointment(int id, Patient patient, String fullname, String phone, Date dob, String gender, String address, Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
         this.id = id;
         this.patient = patient;
@@ -56,8 +86,6 @@ public class Appointment {
         this.description = description;
         this.createdAt = createdAt;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -175,6 +203,5 @@ public class Appointment {
     public String toString() {
         return "Appointment{" + "id=" + id + ", patient=" + patient + ", fullname=" + fullname + ", phone=" + phone + ", dob=" + dob + ", gender=" + gender + ", address=" + address + ", doctor=" + doctor + ", serviceId=" + serviceId + ", appointmentDay=" + appointmentDay + ", appointmentShift=" + appointmentShift + ", status=" + status + ", description=" + description + ", createdAt=" + createdAt + '}';
     }
-    
 
 }

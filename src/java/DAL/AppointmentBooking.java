@@ -245,35 +245,40 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
     }
 
     // Thêm lịch hẹn mới
-    public boolean addAppointment(Appointment appointment) {
-        String sql = "INSERT INTO Appointments (patient_id, fullname, phone, dob, gender, address, doctor_id, service_id, appointment_day, appointment_shift, status, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        try {
-            PreparedStatement st = con.prepareStatement(sql);
-            if (appointment.getPatient() != null) {
-                st.setInt(1, appointment.getPatient().getId());
-            } else {
-                st.setNull(1, java.sql.Types.INTEGER);
-            }
-            st.setString(2, appointment.getFullname());
-            st.setString(3, appointment.getPhone());
-            st.setDate(4, appointment.getDob());
-            st.setString(5, appointment.getGender());
-            st.setString(6, appointment.getAddress());
-            st.setInt(7, appointment.getDoctor().getId());
-            st.setInt(8, appointment.getServiceId());
-            st.setDate(9, appointment.getAppointmentDay());
-            st.setString(10, appointment.getAppointmentShift());
-            st.setString(11, appointment.getStatus());
-            st.setString(12, appointment.getDescription());
-            
-            int result = st.executeUpdate();
-            return result > 0;
-        } catch (Exception e) {
-            status = "Error at addAppointment " + e.getMessage();
-        }
-        return false;
-    }
 
+    public boolean addAppointment(Appointment appointment) {
+    String sql = "INSERT INTO Appointments (patient_id, fullname, phone, dob, gender, address, doctor_id, service_id, appointment_day, appointment_shift, status, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    try {
+        PreparedStatement st = con.prepareStatement(sql);
+        
+        // Lấy user_id để gán vào patient_id
+        if (appointment.getUser() != null) {
+            st.setInt(1, appointment.getUser().getId()); // Gán user_id vào patient_id
+        } else {
+            st.setNull(1, java.sql.Types.INTEGER);
+        }
+        
+        st.setString(2, appointment.getFullname());
+        st.setString(3, appointment.getPhone());
+        st.setDate(4, appointment.getDob());
+        st.setString(5, appointment.getGender());
+        st.setString(6, appointment.getAddress());
+        st.setInt(7, appointment.getDoctor().getId());
+        st.setInt(8, appointment.getServiceId());
+        st.setDate(9, appointment.getAppointmentDay());
+        st.setString(10, appointment.getAppointmentShift());
+        st.setString(11, appointment.getStatus());
+        st.setString(12, appointment.getDescription());
+        
+        int result = st.executeUpdate();
+        return result > 0;
+    } catch (Exception e) {
+        status = "Error at addAppointment " + e.getMessage();
+    }
+    return false;
+}
+
+    
     // Lấy dịch vụ theo ID
     public Service getServiceById(int serviceId) {
         String sql = "SELECT service_id, service_name, price, description, specialty_id FROM Services WHERE service_id = ?";

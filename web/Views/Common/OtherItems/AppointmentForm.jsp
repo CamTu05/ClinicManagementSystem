@@ -1,6 +1,52 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!--Start call to action area-->
+<style>
+    #message-container {
+        margin-bottom: 20px;
+    }
+    
+    .alert {
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 4px;
+        position: relative;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    
+    .alert-success {
+        color: #155724;
+        background-color: #d4edda;
+        border: 1px solid #c3e6cb;
+    }
+    
+    .alert-error {
+        color: #721c24;
+        background-color: #f8d7da;
+        border: 1px solid #f5c6cb;
+    }
+    
+    .alert-close {
+        position: absolute;
+        top: 10px;
+        right: 15px;
+        font-size: 20px;
+        font-weight: bold;
+        cursor: pointer;
+        color: inherit;
+        opacity: 0.7;
+    }
+    
+    .alert-close:hover {
+        opacity: 1;
+    }
+    
+    .alert i {
+        margin-right: 8px;
+    }
+</style>
+
 <section id="appointment-form" class="callto-action-area">
     <div class="container">
         <div class="row">
@@ -10,46 +56,84 @@
                         <span class="flaticon-calendar"></span>
                         <h2>Đặt lịch khám</h2>    
                     </div>
-                    <div class="form-holder clearfix">
-                        <form id="appointment" class="clearfix" name="appointment-form" method="post" action="">
-                            <div style="margin-bottom: 30px">
-                                <textarea style="border-color:#f0f0f0; width: 690px; max-width: 100%; padding:15px" maxlength="400" name="description" rows="4" placeholder="Nhập mô tả triệu chứng..."></textarea>
-                            </div>
-                            <div class="single-box mar-right-30">    
-                                <div class="input-box">
-                                    <select id="serviceSelect" class="selectmenu" required name="service">
-                                        <option value="" selected disabled>-- Chọn dịch vụ khám --</option>
-                                        <c:forEach var="service" items="${sessionScope.services}">
-                                            <option value="${service.id}">${service.serviceName}</option>
-                                        </c:forEach>
-                                    </select>
-                                </div>
-                                <div class="input-box">
-                                    <select id="doctorSelect" class="selectmenu" required name="doctor" disabled>
-                                        <option value="" selected disabled>-- Chọn bác sĩ --</option>
-                                    </select>  
-                                </div>
-                            </div>
-                            <div class="single-box">    
-                                <div class="input-box">
-                                    <select id="dateSelect" class="selectmenu" name="date" required disabled>
-                                        <option value="" selected disabled>-- Chọn ngày khám --</option>
-                                    </select>
-                                </div>       
-                                <div class="input-box">  
-                                    <select id="shiftSelect" class="selectmenu" required name="shift" disabled>
-                                        <option value="" selected disabled>-- Chọn buổi --</option>
-                                    </select>  
-                                </div>
-                            </div>
-                            <button class="thm-btn bgclr-1" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>    
-                        </form>
-                    </div>
+                   <div class="form-holder clearfix">
+    <!-- Hiển thị message ở đây -->
+    <div id="message-container">
+        <c:if test="${not empty successMessage}">
+            <div class="alert alert-success">
+                <span class="alert-close" onclick="this.parentElement.style.display='none';">&times;</span>
+                <i class="fa fa-check-circle"></i>
+                <strong>Thành công!</strong> ${successMessage}
+            </div>
+        </c:if>
+
+        <c:if test="${not empty errorMessage}">
+            <div class="alert alert-error">
+                <span class="alert-close" onclick="this.parentElement.style.display='none';">&times;</span>
+                <i class="fa fa-exclamation-circle"></i>
+                <strong>Lỗi!</strong> ${errorMessage}
+            </div>
+        </c:if>
+    </div>
+    
+    <form id="appointment" class="clearfix" name="appointment-form" method="post" action="CreateAppointment">
+        <div style="margin-bottom: 30px">
+            <textarea style="border-color:#f0f0f0; width: 690px; max-width: 100%; padding:15px" maxlength="400" name="description" rows="4" placeholder="Nhập mô tả triệu chứng..."></textarea>
+        </div>
+        <div class="single-box mar-right-30">    
+            <div class="input-box">
+                <select id="serviceSelect" class="selectmenu" required name="service">
+                    <option value="" selected disabled>-- Chọn dịch vụ khám --</option>
+                    <c:forEach var="service" items="${sessionScope.services}">
+                        <option value="${service.id}">${service.serviceName}</option>
+                    </c:forEach>
+                </select>
+            </div>
+            <div class="input-box">
+                <select id="doctorSelect" class="selectmenu" required name="doctor" disabled>
+                    <option value="" selected disabled>-- Chọn bác sĩ --</option>
+                </select>  
+            </div>
+        </div>
+        <div class="single-box">    
+            <div class="input-box">
+                <select id="dateSelect" class="selectmenu" name="date" required disabled>
+                    <option value="" selected disabled>-- Chọn ngày khám --</option>
+                </select>
+            </div>       
+            <div class="input-box">  
+                <select id="shiftSelect" class="selectmenu" required name="shift" disabled>
+                    <option value="" selected disabled>-- Chọn buổi --</option>
+                </select>  
+            </div>
+        </div>
+        <button class="thm-btn bgclr-1" type="submit"><i class="fa fa-paper-plane" aria-hidden="true"></i></button>    
+    </form>
+</div>
+
                 </div>
             </div>
         </div>
     </div>
 </section>
+<script>
+    // Auto hide alert after 5 seconds
+    setTimeout(function() {
+        const alerts = document.querySelectorAll('#message-container .alert');
+        alerts.forEach(function(alert) {
+            alert.style.display = 'none';
+        });
+    }, 5000);
+    
+    // Hide message when form is submitted
+    document.getElementById('appointment').addEventListener('submit', function() {
+        const messageContainer = document.getElementById('message-container');
+        if (messageContainer) {
+            messageContainer.style.display = 'none';
+        }
+    });
+</script>
+
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 // Prevent multiple initialization
