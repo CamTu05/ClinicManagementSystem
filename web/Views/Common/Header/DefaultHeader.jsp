@@ -41,7 +41,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3">
                 <div class="logo">
-                    <a href="${pageContext.request.contextPath}/Views/HomePage.jsp">
+                    <a href="${pageContext.request.contextPath}/HomePageServlet">
                         <img src="${pageContext.request.contextPath}/images/resources/logo.png" alt="Awesome Logo">
                     </a>
                 </div>
