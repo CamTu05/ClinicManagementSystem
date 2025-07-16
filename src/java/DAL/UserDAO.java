@@ -23,25 +23,26 @@ public class UserDAO extends DBContext {
     private Connection con;
     private Vector<User> users;
 
-    public Vector<User> getUser() {
-        return users;
-    }
-
-    public void setUser(Vector<User> users) {
-        this.users = users;
-    }
 
     public static UserDAO INSTANCE = new UserDAO();
 
     public UserDAO() {
         if (INSTANCE == null) {
             INSTANCE = this;
+            
             try {
                 con = new DBContext().getConnection();
             } catch (Exception e) {
                 status = "Error at connection " + e.getMessage();
             }
         }
+    }
+    public Vector<User> getUser() {
+        return users;
+    }
+
+    public void setUser(Vector<User> users) {
+        this.users = users;
     }
 
     public String getStatus() {
@@ -271,7 +272,7 @@ public class UserDAO extends DBContext {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 User u = new User();
-                u.setId(rs.getInt("id"));
+                u.setId(rs.getInt("user_id"));
                 u.setUsername(rs.getString("username"));
                 u.setPasswordHash(rs.getString("password_hash"));
                 u.setEmail(rs.getString("email"));
@@ -291,6 +292,10 @@ public class UserDAO extends DBContext {
             status = "Error at reading users: " + e.getMessage();
         }
     }
+    public String getFullNameById() {
+    return "";
+    }
+
 
     public Vector<User> loadUsersToVector() {
 
