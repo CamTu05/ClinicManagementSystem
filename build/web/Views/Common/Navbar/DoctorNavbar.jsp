@@ -12,17 +12,17 @@
     <div class="sidebar-logo">
         <div>
             <!-- Logo Normal -->
-            <a href="index.html" class="logo logo-normal">
+            <a href="LogoutServlet" class="logo logo-normal">
                 <img src="${pageContext.request.contextPath}/assets/img/logo.svg" alt="Logo">
             </a>
 
             <!-- Logo Small -->
-            <a href="index.html" class="logo-small">
+            <a href="LogoutServlet" class="logo-small">
                 <img src="${pageContext.request.contextPath}/assets/img/logo-small.svg" alt="Logo">
             </a>
 
             <!-- Logo Dark -->
-            <a href="index.html" class="dark-logo">
+            <a href="LogoutServlet" class="dark-logo">
                 <img src="${pageContext.request.contextPath}/assets/img/logo-white.svg" alt="Logo">
             </a>
         </div>
@@ -45,7 +45,7 @@
                 <li>
                     <ul>
                         <li class="active">
-                            <a href="doctor-dashboard.html">
+                            <a href="DoctorDashboardServlet">
                                 <i class="ti ti-layout-dashboard"></i><span>Bảng điều khiển</span>
                             </a>
                         </li>
@@ -55,8 +55,8 @@
                                 <span class="menu-arrow"></span>
                             </a>
                             <ul>
-                                <li><a href="doctors-appointments.html">Cuộc hẹn</a></li>
-                                <li><a href="online-consultations.html">Tư vấn trực tuyến</a></li>
+                                <li><a href="MyAppointmentsServlet">Cuộc hẹn</a></li>
+                                <li><a href="#">Tư vấn trực tuyến</a></li>
                             </ul>
                         </li>
                         <li>
