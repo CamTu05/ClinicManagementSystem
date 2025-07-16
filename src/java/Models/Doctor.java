@@ -12,6 +12,7 @@ import DAL.UserDAO;
  */
 public class Doctor {
     private int id;
+    private User doctor;
     private Specialty specialty;
     private int yearsExp;
     private String description;
@@ -27,6 +28,22 @@ public class Doctor {
         this.yearsExp = yearsExp;
         this.description = description;
         this.picture = picture;
+    }
+
+    public Doctor(User doctor, Specialty specialty, int yearsExp, String description, String picture) {
+        this.doctor = doctor;
+        this.specialty = specialty;
+        this.yearsExp = yearsExp;
+        this.description = description;
+        this.picture = picture;
+    }
+
+    public User getDoctor() {
+        return doctor;
+    }
+
+    public void setDoctor(User doctor) {
+        this.doctor = doctor;
     }
 
     public int getId() {
@@ -79,4 +96,11 @@ public class Doctor {
         return getPicture().substring(0, picture.lastIndexOf("."));
     }
     
+    public String getDoctorName() {
+    if (this.doctor != null) {
+        return this.doctor.getFullname();
+    }
+    return "Unknown";
+}
+
 }
