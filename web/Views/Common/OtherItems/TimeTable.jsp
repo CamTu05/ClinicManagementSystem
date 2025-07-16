@@ -1,8 +1,3 @@
-<%-- 
-    Document   : TimeTable
-    Created on : Jul 10, 2025, 9:17:35 AM
-    Author     : SONHA
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
