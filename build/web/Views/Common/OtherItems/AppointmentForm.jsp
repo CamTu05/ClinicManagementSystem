@@ -11,20 +11,18 @@
                         <h2>Đặt lịch khám</h2>    
                     </div>
                     <div class="form-holder clearfix">
-                        <form id="appointment" class="clearfix" name="appointment-form" method="post">
+                        <form id="appointment" class="clearfix" name="appointment-form" method="post" action="">
                             <div style="margin-bottom: 30px">
                                 <textarea style="border-color:#f0f0f0; width: 690px; max-width: 100%; padding:15px" maxlength="400" name="description" rows="4" placeholder="Nhập mô tả triệu chứng..."></textarea>
                             </div>
                             <div class="single-box mar-right-30">    
                                 <div class="input-box">
-                                    <div class="input-box">  
-                                        <select id="serviceSelect" class="selectmenu" required name="service">
-                                            <option value="" selected disabled>-- Chọn dịch vụ khám --</option>
-                                            <c:forEach var="service" items="${sessionScope.services}">
-                                                <option value="${service.id}">${service.serviceName}</option>
-                                            </c:forEach>
-                                        </select>
-                                    </div>
+                                    <select id="serviceSelect" class="selectmenu" required name="service">
+                                        <option value="" selected disabled>-- Chọn dịch vụ khám --</option>
+                                        <c:forEach var="service" items="${sessionScope.services}">
+                                            <option value="${service.id}">${service.serviceName}</option>
+                                        </c:forEach>
+                                    </select>
                                 </div>
                                 <div class="input-box">
                                     <select id="doctorSelect" class="selectmenu" required name="doctor" disabled>
@@ -34,10 +32,9 @@
                             </div>
                             <div class="single-box">    
                                 <div class="input-box">
-                                    <input id="dateSelect" type="date" name="date" placeholder="-- Chọn ngày khám --" required disabled>
-                                    <div class="icon-box">
-                                        <i class="fa fa-angle-down" aria-hidden="true"></i>
-                                    </div>
+                                    <select id="dateSelect" class="selectmenu" name="date" required disabled>
+                                        <option value="" selected disabled>-- Chọn ngày khám --</option>
+                                    </select>
                                 </div>       
                                 <div class="input-box">  
                                     <select id="shiftSelect" class="selectmenu" required name="shift" disabled>
@@ -53,113 +50,417 @@
         </div>
     </div>
 </section>
-<!--End call to action area-->
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-$(document).ready(function () {
-    // Khi chọn dịch vụ
-    $('#serviceSelect').on('change', function () {
-        const serviceId = $(this).val();
-        console.log('Selected service ID:', serviceId);
-
-        // Reset
-        $('#doctorSelect').html('<option value="" selected disabled>-- Chọn bác sĩ --</option>').prop('disabled', true);
-        $('#dateSelect').val('').prop('disabled', true);
-        $('#shiftSelect').html('<option value="" selected disabled>-- Chọn buổi --</option>').prop('disabled', true);
-
-        if (serviceId) {
-            $.get('DoctorByService', {serviceId: serviceId}, function (data) {
-                console.log('Raw data received:', data);
+// Prevent multiple initialization
+if (typeof window.appointmentFormInitialized === 'undefined') {
+    window.appointmentFormInitialized = true;
+    
+    $(document).ready(function () {
+        // ===== CONFIGURATION =====
+        
+        // Initialize selectmenu AFTER all other configurations
+        let selectmenuInitialized = false;
+        
+        $.ajaxSetup({
+            cache: false,
+            timeout: 10000
+        });
+        
+        // Loading flags to prevent multiple requests
+        let loadingStates = {
+            doctors: false,
+            dates: false,
+            shifts: false
+        };
+        
+        // ===== UTILITY FUNCTIONS =====
+        
+        // Safe element selector
+        function safeSelect(selector) {
+            const element = $(selector);
+            if (element.length === 0) {
+                console.warn('Element not found:', selector);
+                return $();
+            }
+            return element;
+        }
+        
+        // Initialize selectmenu properly
+        function initializeSelectmenu() {
+            if ($.fn.selectmenu && !selectmenuInitialized) {
+                $('.selectmenu').selectmenu({
+                    width: 'auto',
+                    change: function(event, ui) {
+                        // Trigger change event on original select
+                        $(this).trigger('change');
+                    }
+                });
+                selectmenuInitialized = true;
+                console.log('Selectmenu initialized');
+            }
+        }
+        
+        // Reset all dependent fields
+        function resetAllFields() {
+            resetDoctorSelect();
+            resetDateSelect();
+            resetShiftSelect();
+            console.log('All fields reset');
+        }
+        
+        // Reset specific selects with selectmenu support
+        function resetDoctorSelect() {
+            const $select = safeSelect('#doctorSelect');
+            if ($select.length) {
+                $select.empty()
+                    .append('<option value="" selected disabled>-- Chọn bác sĩ --</option>')
+                    .prop('disabled', true);
                 
-                let doctors;
+                // Refresh selectmenu if initialized
+                if (selectmenuInitialized && $select.selectmenu) {
+                    try {
+                        $select.selectmenu('refresh');
+                    } catch (e) {
+                        console.warn('Could not refresh doctor selectmenu:', e);
+                    }
+                }
+            }
+        }
+        
+        function resetDateSelect() {
+            const $select = safeSelect('#dateSelect');
+            if ($select.length) {
+                $select.empty()
+                    .append('<option value="" selected disabled>-- Chọn ngày khám --</option>')
+                    .prop('disabled', true);
+                
+                // Refresh selectmenu if initialized
+                if (selectmenuInitialized && $select.selectmenu) {
+                    try {
+                        $select.selectmenu('refresh');
+                    } catch (e) {
+                        console.warn('Could not refresh date selectmenu:', e);
+                    }
+                }
+            }
+        }
+        
+        function resetShiftSelect() {
+            const $select = safeSelect('#shiftSelect');
+            if ($select.length) {
+                $select.empty()
+                    .append('<option value="" selected disabled>-- Chọn buổi --</option>')
+                    .prop('disabled', true);
+                
+                // Refresh selectmenu if initialized
+                if (selectmenuInitialized && $select.selectmenu) {
+                    try {
+                        $select.selectmenu('refresh');
+                    } catch (e) {
+                        console.warn('Could not refresh shift selectmenu:', e);
+                    }
+                }
+            }
+        }
+        
+        // Update select with proper selectmenu handling
+        function updateSelectWithAnimation(selectId, html, disabled = false) {
+            const $select = safeSelect(selectId);
+            if (!$select.length) return;
+            
+            // Update the select element
+            $select.empty().html(html).prop('disabled', disabled);
+            
+            // Refresh selectmenu if initialized
+            if (selectmenuInitialized && $select.selectmenu) {
                 try {
-                    if (typeof data === 'string') {
-                        doctors = JSON.parse(data);
+                    $select.selectmenu('refresh');
+                    if (disabled) {
+                        $select.selectmenu('disable');
                     } else {
-                        doctors = data;
+                        $select.selectmenu('enable');
                     }
                 } catch (e) {
-                    console.error('JSON parse error:', e);
-                    alert('Lỗi xử lý dữ liệu');
+                    console.warn('Could not refresh selectmenu:', e);
+                }
+            }
+        }
+        
+        // Show loading state with selectmenu support
+        function showLoadingState(selectId, message) {
+            const $select = safeSelect(selectId);
+            if ($select.length) {
+                $select.empty()
+                    .append('<option value="" selected disabled>-- ' + message + ' --</option>')
+                    .prop('disabled', true);
+                
+                // Refresh selectmenu if initialized
+                if (selectmenuInitialized && $select.selectmenu) {
+                    try {
+                        $select.selectmenu('refresh');
+                        $select.selectmenu('disable');
+                    } catch (e) {
+                        console.warn('Could not refresh selectmenu:', e);
+                    }
+                }
+            }
+        }
+        
+        // Show error state with selectmenu support
+        function showErrorState(selectId, message) {
+            const $select = safeSelect(selectId);
+            if ($select.length) {
+                $select.empty()
+                    .append('<option value="" selected disabled>-- ' + message + ' --</option>')
+                    .prop('disabled', false);
+                
+                // Refresh selectmenu if initialized
+                if (selectmenuInitialized && $select.selectmenu) {
+                    try {
+                        $select.selectmenu('refresh');
+                        $select.selectmenu('enable');
+                    } catch (e) {
+                        console.warn('Could not refresh selectmenu:', e);
+                    }
+                }
+            }
+        }
+        
+        // Parse JSON safely
+        function parseJsonData(data) {
+            try {
+                return typeof data === 'string' ? JSON.parse(data) : data;
+            } catch (e) {
+                console.error('JSON parse error:', e);
+                return null;
+            }
+        }
+        
+        // Generate timestamp for cache busting
+        function getTimestamp() {
+            return new Date().getTime();
+        }
+        
+        // Validate form data
+        function validateForm() {
+            const service = safeSelect('#serviceSelect').val();
+            const doctor = safeSelect('#doctorSelect').val();
+            const date = safeSelect('#dateSelect').val();
+            const shift = safeSelect('#shiftSelect').val();
+            
+            if (!service || !doctor || !date || !shift) {
+                alert('Vui lòng điền đầy đủ thông tin');
+                return false;
+            }
+            return true;
+        }
+        
+        // ===== EVENT HANDLERS =====
+        
+        // Service selection handler
+        function handleServiceChange() {
+            const serviceId = $(this).val();
+            console.log('Selected service ID:', serviceId);
+            
+            // Reset all dependent fields
+            resetAllFields();
+            
+            if (!serviceId || loadingStates.doctors) {
+                return;
+            }
+            
+            loadingStates.doctors = true;
+            showLoadingState('#doctorSelect', 'Đang tải...');
+            
+            $.get('DoctorByService', {
+                serviceId: serviceId,
+                _t: getTimestamp()
+            })
+            .done(function (data) {
+                console.log('Raw doctor data:', data);
+                
+                const doctors = parseJsonData(data);
+                if (doctors === null) {
+                    showErrorState('#doctorSelect', 'Lỗi xử lý dữ liệu');
                     return;
                 }
                 
                 console.log('Parsed doctors:', doctors);
                 
                 if (!Array.isArray(doctors) || doctors.length === 0) {
-                    console.log('No doctors found');
-                    $('#doctorSelect').html('<option value="" selected disabled>-- Không có bác sĩ --</option>');
+                    updateSelectWithAnimation('#doctorSelect', 
+                        '<option value="" selected disabled>-- Không có bác sĩ --</option>', true);
                     return;
                 }
-
-                let html = '<option value="" selected disabled>-- Chọn bác sĩ --</option>';
                 
-                for (let i = 0; i < doctors.length; i++) {
-                    const doctor = doctors[i];
-                    console.log('Processing doctor:', doctor);
-                    
-                    // Lấy id và name
+                let html = '<option value="" selected disabled>-- Chọn bác sĩ --</option>';
+                doctors.forEach(doctor => {
                     const doctorId = doctor.id;
                     const doctorName = doctor.fullname || doctor.name || 'Bác sĩ ' + doctor.id;
-                    
-                    console.log('Doctor ID:', doctorId, 'Name:', doctorName);
                     
                     if (doctorId) {
                         html += '<option value="' + doctorId + '">' + doctorName + '</option>';
                     }
-                }
-                
-                console.log('Final HTML:', html);
-                $('#doctorSelect').html(html).prop('disabled', false);
-                
-            }).fail(function (xhr, status, error) {
-                console.error('AJAX error:', error);
-                console.error('Response:', xhr.responseText);
-                alert('Không thể tải danh sách bác sĩ');
-            });
-        }
-    });
-
-    // Các event khác giữ nguyên...
-    $(document).on('change', '#doctorSelect', function () {
-        const doctorId = $(this).val();
-        console.log('Doctor selected:', doctorId);
-        $('#dateSelect').val('').prop('disabled', false);
-        $('#shiftSelect').html('<option value="" selected disabled>-- Chọn buổi --</option>').prop('disabled', true);
-    });
-
-    $(document).on('change', '#dateSelect', function () {
-        const doctorId = $('#doctorSelect').val();
-        const date = $(this).val();
-
-        $('#shiftSelect').html('<option value="">-- Chọn buổi --</option>').prop('disabled', true);
-
-        if (doctorId && date) {
-            $.get('AvailableShifts', {doctorId: doctorId, date: date}, function (data) {
-                let shifts;
-                if (typeof data === 'string') {
-                    shifts = JSON.parse(data);
-                } else {
-                    shifts = data;
-                }
-
-                let html = '<option value="">-- Chọn buổi --</option>';
-                shifts.forEach(shift => {
-                    const shiftText = shift === 'Sáng' ? 'Sáng (7h-11h)' : 'Chiều (13h-17h)';
-                    html += '<option value="' + shift + '">' + shiftText + '</option>';
                 });
-                $('#shiftSelect').html(html).prop('disabled', false);
+                
+                updateSelectWithAnimation('#doctorSelect', html, false);
+            })
+            .fail(function (xhr, status, error) {
+                console.error('Error loading doctors:', error);
+                showErrorState('#doctorSelect', 'Không thể tải danh sách bác sĩ');
+            })
+            .always(function() {
+                loadingStates.doctors = false;
             });
         }
+        
+        // Doctor selection handler
+        function handleDoctorChange() {
+            const doctorId = $(this).val();
+            console.log('Selected doctor ID:', doctorId);
+            
+            resetDateSelect();
+            resetShiftSelect();
+            
+            if (!doctorId || loadingStates.dates) {
+                return;
+            }
+            
+            loadingStates.dates = true;
+            showLoadingState('#dateSelect', 'Đang tải...');
+            
+            $.get('DoctorSchedule', {
+                doctorId: doctorId,
+                _t: getTimestamp()
+            })
+            .done(function (data) {
+                console.log('Raw schedule data:', data);
+                
+                const availableDates = parseJsonData(data);
+                if (availableDates === null) {
+                    showErrorState('#dateSelect', 'Lỗi xử lý dữ liệu lịch');
+                    return;
+                }
+                
+                if (!Array.isArray(availableDates) || availableDates.length === 0) {
+                    updateSelectWithAnimation('#dateSelect', 
+                        '<option value="" selected disabled>-- Bác sĩ không có lịch --</option>', true);
+                    return;
+                }
+                
+                let html = '<option value="" selected disabled>-- Chọn ngày khám --</option>';
+                availableDates.forEach(dateInfo => {
+                    html += '<option value="' + dateInfo.date + '">' + dateInfo.displayName + '</option>';
+                });
+                
+                updateSelectWithAnimation('#dateSelect', html, false);
+            })
+            .fail(function (xhr, status, error) {
+                console.error('Error loading schedule:', error);
+                showErrorState('#dateSelect', 'Không thể tải lịch làm việc');
+            })
+            .always(function() {
+                loadingStates.dates = false;
+            });
+        }
+        
+        // Date selection handler
+        function handleDateChange() {
+            const doctorId = safeSelect('#doctorSelect').val();
+            const date = $(this).val();
+            
+            resetShiftSelect();
+            
+            if (!doctorId || !date || loadingStates.shifts) {
+                return;
+            }
+            
+            loadingStates.shifts = true;
+            showLoadingState('#shiftSelect', 'Đang tải...');
+            
+            $.get('AvailableShifts', {
+                doctorId: doctorId,
+                date: date,
+                _t: getTimestamp()
+            })
+            .done(function (data) {
+                console.log('Raw shift data:', data);
+                
+                const shifts = parseJsonData(data);
+                if (shifts === null) {
+                    showErrorState('#shiftSelect', 'Lỗi xử lý dữ liệu');
+                    return;
+                }
+                
+                let html = '<option value="" selected disabled>-- Chọn buổi --</option>';
+                if (Array.isArray(shifts)) {
+                    shifts.forEach(shift => {
+                        const shiftText = shift === 'Sáng' ? 'Sáng (7h-11h)' : 'Chiều (13h-17h)';
+                        html += '<option value="' + shift + '">' + shiftText + '</option>';
+                    });
+                }
+                
+                updateSelectWithAnimation('#shiftSelect', html, false);
+            })
+            .fail(function (xhr, status, error) {
+                console.error('Error loading shifts:', error);
+                showErrorState('#shiftSelect', 'Không thể tải ca làm việc');
+            })
+            .always(function() {
+                loadingStates.shifts = false;
+            });
+        }
+        
+        // Form submission handler
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            if (!validateForm()) {
+                return false;
+            }
+            
+            const formData = {
+                service: safeSelect('#serviceSelect').val(),
+                doctor: safeSelect('#doctorSelect').val(),
+                date: safeSelect('#dateSelect').val(),
+                shift: safeSelect('#shiftSelect').val(),
+                description: $('textarea[name="description"]').val()
+            };
+            
+            console.log('Form submitted with data:', formData);
+            
+            // Submit form normally or via AJAX
+            this.submit();
+        }
+        
+        // ===== BIND EVENTS =====
+        
+        // Unbind existing events first to prevent duplicates
+        $(document).off('change', '#serviceSelect')
+                   .off('change', '#doctorSelect')
+                   .off('change', '#dateSelect')
+                   .off('submit', '#appointment');
+        
+        // Initialize selectmenu first
+        initializeSelectmenu();
+        
+        // Bind events - use selectmenuchange for selectmenu elements
+        if (selectmenuInitialized) {
+            $('#serviceSelect').on('selectmenuchange', handleServiceChange);
+            $('#doctorSelect').on('selectmenuchange', handleDoctorChange);
+            $('#dateSelect').on('selectmenuchange', handleDateChange);
+        } else {
+            // Fallback to regular change events
+            $(document).on('change', '#serviceSelect', handleServiceChange);
+            $(document).on('change', '#doctorSelect', handleDoctorChange);
+            $(document).on('change', '#dateSelect', handleDateChange);
+        }
+        
+        $(document).on('submit', '#appointment', handleFormSubmit);
+        
+        console.log('Appointment form initialized successfully');
     });
-
-    // Giới hạn ngày
-    const today = new Date();
-    const maxDay = new Date();
-    maxDay.setDate(today.getDate() + 14);
-    document.getElementById('dateSelect').min = today.toISOString().split('T')[0];
-    document.getElementById('dateSelect').max = maxDay.toISOString().split('T')[0];
-});
+}
 </script>
 

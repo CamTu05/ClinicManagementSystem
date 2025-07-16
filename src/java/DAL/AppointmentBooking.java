@@ -6,6 +6,7 @@ package DAL;
 
 import Models.Appointment;
 import Models.Doctor;
+import Models.Schedule;
 import Models.Service;
 import Models.Specialty;
 import Models.User;
@@ -14,6 +15,7 @@ import java.util.Vector;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Date;
+import java.sql.SQLException;
 
 /**
  *
@@ -373,5 +375,32 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         }
         return false;
     }
+    
+    // Thêm vào class AppointmentBooking
+public Vector<Schedule> getDoctorSchedules(int doctorId) {
+    Vector<Schedule> schedules = new Vector<>();
+    String sql = "SELECT schedule_id, doctor_id, weekday, start_time, end_time " +
+                 "FROM Schedules WHERE doctor_id = ?";
+    
+    try (PreparedStatement ps = con.prepareStatement(sql)) {
+        ps.setInt(1, doctorId);
+        ResultSet rs = ps.executeQuery();
+        
+        while (rs.next()) {
+            Schedule schedule = new Schedule();
+            schedule.setId(rs.getInt("schedule_id"));
+            schedule.setWeekday(rs.getInt("weekday"));
+            schedule.setStartTime(rs.getTime("start_time").toLocalTime());
+            schedule.setEndTime(rs.getTime("end_time").toLocalTime());
+            
+            schedules.add(schedule);
+        }
+    } catch (SQLException e) {
+        e.printStackTrace();
+    }
+    
+    return schedules;
+}
+
 }
 
