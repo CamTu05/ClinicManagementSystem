@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package Controllers;
 
 import DAL.DoctorDAO;
@@ -20,58 +21,56 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author SONHA
  */
-public class LoadSpecialtyServlet extends HttpServlet {
+public class LoadSchedulesServlet extends HttpServlet {
+   
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        SpecialtyDAO.INSTANCE.LoadSpecialty();
+    throws ServletException, IOException {
+        
+        String idParam = request.getParameter("id");
+        Integer idTable = null;
+        if (idParam != null) {
+            try {
+                idTable = Integer.parseInt(idParam);
+            } catch (NumberFormatException e) {
+                idTable = null;
+            }
+        }
+
+        String typeParam = request.getParameter("type");
+        Integer typeDay = Integer.parseInt(typeParam);
+
         ScheduleDAO.INSTANCE.LoadSchedules();
         DoctorDAO.INSTANCE.LoadDoctor();
         SpecialtyDAO.INSTANCE.LoadSpecialty();
         UserDAO.INSTANCE.LoadUser();
         HttpSession session = request.getSession();
-        
+
+        session.setAttribute("idTable",idTable );
+        session.setAttribute("typeDay",typeDay );
+
         session.setAttribute("daoSchedules", ScheduleDAO.INSTANCE);
         session.setAttribute("daoDoctor", DoctorDAO.INSTANCE);
         session.setAttribute("daoSpecialty", SpecialtyDAO.INSTANCE);
         session.setAttribute("daoUser", UserDAO.INSTANCE);
-        session.setAttribute("daoSpecialty", SpecialtyDAO.INSTANCE);
-        request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
 
-    }
 
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+        request.getRequestDispatcher("/Views/Common/OtherItems/TimeTable.jsp").forward(request, response);
+        
+    } 
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
+
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
 }
-

@@ -3,6 +3,7 @@ package DAL;
 import DAL.DBContext;
 import Models.*;
 import Models.Schedule;
+import Models.Schedules;
 import java.util.Vector;
 import java.sql.Connection;
 import java.sql.Time;
@@ -10,11 +11,14 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalTime;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ScheduleDAO extends DBContext {
-
+    
+    private Vector<Schedules> schedules;
     private Vector<Schedule> doctors;
     private String status = "ok";
     private Connection con;
@@ -226,6 +230,75 @@ public class ScheduleDAO extends DBContext {
         }
     }
 
+    public Vector<Schedules> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(Vector<Schedules> schedules) {
+        sortByStartTimeAndWeekday(schedules);
+        this.schedules = schedules;
+    }
+
+    public void LoadSchedules() {
+        String sql = "select * from Schedules ORDER BY start_time";
+        schedules = new Vector<>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();             // can get by fi or by oder number 
+            while (rs.next()) {
+                Schedules s = new Schedules();
+                s.setId(rs.getInt(1));
+                int doctorId = rs.getInt("doctor_id");
+                Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(doctorId);                
+                s.setDoctor(doctor);
+                
+                s.setWeekday(rs.getInt(3));
+                s.setStartTime(rs.getTime(4));
+                s.setEndTime(rs.getTime(5));
+
+
+                schedules.add(s);
+            }
+        } catch (Exception e) {
+            status = "Error at read Student " + e.getMessage();
+        }
+
+    }
+
+
+    public String getStatus() {
+
+        return status;
+    }
+      public void sortByStartTimeAndWeekday(Vector<Schedules> list) {
+        Collections.sort(list, new Comparator<Schedules>() {
+            @Override
+            public int compare(Schedules s1, Schedules s2) {
+                int timeCompare = s1.getStartTime().compareTo(s2.getStartTime());
+                if (timeCompare != 0) {
+                    return timeCompare;
+                } else {
+                    return Integer.compare(s1.getWeekday(), s2.getWeekday());
+                }
+            }
+        });
+    }
+      
+    public String getFullNameById(int id) {
+        for (User u : UserDAO.INSTANCE.getUser()) {
+            if (u.getId() == id) {
+                return u.getFullname();
+            }
+        }
+        return "Unknown";
+    }
+    
+
+
+    
+    
+    
+    
     public static void main(String[] args) {
         Vector<Schedule> schedules = ScheduleDAO.INSTANCE.loadScheduleByDoctorId(21);
         for (Schedule s : schedules) {

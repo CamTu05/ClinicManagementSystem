@@ -1,20 +1,7 @@
-<%-- 
-    Document   : TimeTable
-    Created on : Jul 10, 2025, 9:17:35 AM
-    Author     : SONHA
---%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%
-  if (session.getAttribute("daoSchedules") == null ||
-  session.getAttribute("daoDoctor") == null||
-  session.getAttribute("daoSpecialty") == null||
-  session.getAttribute("daoUser") == null) {
-  
-      response.sendRedirect(request.getContextPath() + "/LoadSchedulesServlet?id=0&type=-1");
-  }
-%>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -38,7 +25,6 @@
         <div class="boxed_wrapper">
             <%@ include file="../Header/DefaultHeader.jsp" %>
             <%@ include file="../Navbar/DefaultNavbar.jsp" %>
-
 
 
             <!--Start time table area-->
@@ -156,9 +142,14 @@
                                                                           && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
                                                                           && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
                                                                   <h5>${sch.doctor.specialty.specialtyName}</h5>
+                                                                  <c:forEach items="${sessionScope.daoUser.user}" var="u">
 
-                                                                  
-                                                                  <h6 class="level"><span>Năm kinh nghiệm: ${sch.doctor.yearsExp}</span></h6>
+                                                                      <c:if test="${u.id == sch.doctor.id}">
+                                                                          <p>Bsi. ${u.fullname}</p>
+                                                                      </c:if>
+                                                                  </c:forEach>
+
+                                                                  <h6 class="level">Năm kinh nghiệm: <span>${sch.doctor.yearsExp}</span></h6>
                                                                   <hr>
                                                             </c:if>
                                                         </c:forEach>
@@ -202,10 +193,14 @@
                                                                           && (sessionScope.idTable == 0 || sch.doctor.specialty.id == sessionScope.idTable)
                                                                           && (sessionScope.typeDay == -1 || sessionScope.typeDay == day)}">
                                                                   <h5>${sch.doctor.specialty.specialtyName}</h5>
+                                                                  <c:forEach items="${sessionScope.daoUser.user}" var="u">
+                                                                      <c:if test="${u.id == sch.doctor.id}">
+                                                                          <p>Bsi. ${u.fullname}</p>
+                                                                      </c:if>
+                                                                  </c:forEach>
 
-                                                             
 
-                                                                  <h6 class="level"><span>Năm kinh nghiệm: ${sch.doctor.yearsExp}</span></h6>
+                                                                  <h6 class="level">Năm kinh nghiệm:<span> ${sch.doctor.yearsExp}</span></h6>
                                                                   <hr>
                                                             </c:if>
                                                         </c:forEach>
