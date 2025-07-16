@@ -3,10 +3,14 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DTO/AppointmentDTO.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DAL/DoctorDAO.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/Models/Patient.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/Models/Appointment.java</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DAL/AppointmentDAO.java</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/Views/Doctor/PatientView.jsp</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DAL/PatientDAO.java</file>
             <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/Controllers/Patient/PatientInformationServlet.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/Views/Doctor/MyAppointments.jsp</file>
+            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DAL/UserDAO.java</file>
         </group>
     </open-files>
 </project-private>
