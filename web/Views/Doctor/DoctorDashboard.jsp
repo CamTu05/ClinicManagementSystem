@@ -85,7 +85,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <div>
-                                                <p class="mb-1">Total Appointments</p>
+                                                <p class="mb-1">Tổng các lịch hẹn</p>
                                                 <div class="d-flex align-items-center gap-1">
                                                     <h3 class="fw-bold mb-0">658</h3>
                                                     <span class="badge bg-success fw-medium">+95%</span>
@@ -103,7 +103,7 @@
                                                 +21% <i class="ti ti-arrow-up ms-1"></i>
                                             </span>
 
-                                            <p class="fs-13 mb-0 text-nowrap">in last 7 Days</p>
+                                            <p class="fs-13 mb-0 text-nowrap">Trong 7 ngày qua</p>
                                         </div>
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <div>
-                                                <p class="mb-1">Online Consultations</p>
+                                                <p class="mb-1">Tư vấn trực tuyến</p>
                                                 <div class="d-flex align-items-center gap-1">
                                                     <h3 class="fw-bold mb-0">125</h3>
                                                     <span class="badge bg-danger fw-medium">-15%</span>
@@ -136,7 +136,7 @@
                                                 +21% <i class="ti ti-arrow-down ms-1"></i>
                                             </span>
 
-                                            <p class="fs-13 mb-0 text-nowrap">in last 7 Days</p>
+                                            <p class="fs-13 mb-0 text-nowrap">Trong 7 ngày qua</p>
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@
                                     <div class="card-body">
                                         <div class="d-flex justify-content-between align-items-center mb-3">
                                             <div>
-                                                <p class="mb-1">Cancelled Appointments</p>
+                                                <p class="mb-1">Lịch hẹn đã hủy</p>
                                                 <div class="d-flex align-items-center gap-1">
                                                     <h3 class="fw-bold mb-0">35</h3>
                                                     <span class="badge bg-success fw-medium">+45%</span>
@@ -169,7 +169,7 @@
                                                 +31% <i class="ti ti-arrow-up ms-1"></i>
                                             </span>
 
-                                            <p class="fs-13 mb-0 text-nowrap">in last 7 Days</p>
+                                            <p class="fs-13 mb-0 text-nowrap">Trong 7 ngày qua</p>
                                         </div>
                                     </div>
 
@@ -177,6 +177,118 @@
                             </div>
                         </div>
                     </div> <!-- end row -->
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+
+                    <div class="row">
+
+                        <!-- col start -->
+                        <div class="col-xl-4 d-flex">
+                            <!-- card start -->
+                            <div class="card shadow-sm flex-fill w-100">
+                                <div class="card-header d-flex align-items-center justify-content-between">
+                                    <h5 class="fw-bold mb-0 text-truncate">Cuộc Hẹn Sắp Tới</h5> 
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="btn btn-sm px-2 border shadow-sm btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                            Hôm nay <i class="ti ti-chevron-down ms-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">Hôm nay</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Tuần này</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Tháng này</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <a href="javascript:void(0);" class="avatar me-2 flex-shrink-0">
+                                            <img src="${pageContext.request.contextPath}/img/hoada.jpg" alt="img" class="rounded-circle">
+                                        </a>
+                                        <div>
+                                            <h6 class="fs-14 mb-1 text-truncate"><a href="javascript:void(0);" class="fw-semibold">Hoa Đà</a></h6>
+                                            <p class="mb-0 fs-13 text-truncate">#Thần Y</p>
+                                        </div>
+                                    </div>
+                                    <h6 class="fs-14 fw-semibold mb-1">Thăm bệnh tổng quát</h6>
+                                    <div class="d-flex align-items-center gap-2 flex-wrap mb-3">
+                                        <p class="mb-0 d-inline-flex align-items-center"><i class="ti ti-calendar-time text-dark me-1"></i>Monday, 31 Mar 2025</p>
+                                        <p class="mb-0 d-inline-flex align-items-center"><i class="ti ti-clock text-dark me-1"></i>06:30 PM </p>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col">
+                                            <h6 class="fs-13 fw-semibold mb-1">Phòng ban</h6>
+                                            <p>Khoa Tim mạch</p>
+                                        </div>
+                                        <div class="col">
+                                            <h6 class="fs-13 fw-semibold mb-1">Dịch vụ</h6>
+                                            <p class="text-truncate">Tư vấn trực tuyến</p>
+                                        </div>
+                                    </div>
+                                    <div class="my-3 border-bottom pb-3">
+                                        <a href="javascript:void(0);" class="btn btn-primary w-100">Bắt đầu lịch hẹn</a>
+                                    </div>
+                                    <div class="d-flex align-items-center gap-2">
+                                        <a href="javascript:void(0);" class="btn btn-dark w-100"><i class="ti ti-brand-hipchat me-1"></i>Trò chuyện ngay</a>
+                                        <a href="javascript:void(0);" class="btn btn-outline-white w-100"><i class="ti ti-video me-1"></i>Tư vấn qua video</a>
+                                    </div>                                
+                                </div>
+                            </div>
+                            <!-- card end -->
+                        </div>
+                        <!-- col end -->
+
+                        <!-- col start -->
+                        <div class="col-xl-8 d-flex">
+                            <!-- card start -->
+                            <div class="card shadow-sm flex-fill w-100">
+                                <div class="card-header d-flex align-items-center justify-content-between">
+                                    <h5 class="fw-bold mb-0">Thống Kê Lịch Hẹn</h5> 
+                                    <div class="dropdown">
+                                        <a href="javascript:void(0);" class="btn btn-sm px-2 border shadow-sm btn-outline-white d-inline-flex align-items-center" data-bs-toggle="dropdown">
+                                            Theo Tháng <i class="ti ti-chevron-down ms-1"></i>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <a class="dropdown-item" href="#">Theo Tháng</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Theo Tuần</a>
+                                            </li>
+                                            <li>
+                                                <a class="dropdown-item" href="#">Theo Năm</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <div class="card-body pb-0">
+                                    <div class="d-flex align-items-center justify-content-end gap-2 mb-1 flex-wrap mb-3">
+                                        <p class="mb-0 d-inline-flex align-items-center"><i class="ti ti-point-filled me-1 fs-18 text-primary"></i>Tổng Số Lịch Hẹn</p>
+                                        <p class="mb-0 d-inline-flex align-items-center"><i class="ti ti-point-filled me-1 fs-18 text-success"></i>Lịch Hẹn Trực Tuyến</p>
+                                    </div>
+                                    <div class="chart-set" id="s-col-20"></div>
+                                </div>
+                            </div>
+                            <!-- card end -->
+                        </div>
+                        <!-- col end -->
+                    </div>
+                    <!-- row end -->
+
                 </div>
             </div>
         </div>
