@@ -4,7 +4,7 @@
  */
 package Models;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 import java.sql.Date;
 
 /**
@@ -46,6 +46,18 @@ public class Appointment {
         this.description = description;
         this.createdAt = createdAt;
     }
+
+    public Appointment(Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
+        this.doctor = doctor;
+        this.serviceId = serviceId;
+        this.appointmentDay = appointmentDay;
+        this.appointmentShift = appointmentShift;
+        this.status = status;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+    
+    
 
     public int getId() {
         return id;

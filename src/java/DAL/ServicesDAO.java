@@ -37,10 +37,6 @@ public class ServicesDAO {
         this.ser = ser;
     }
 
-
-
-    
-
     public void LoadServices() {
         String sql = "select * from Services";
         ser = new Vector<>();
@@ -53,10 +49,10 @@ public class ServicesDAO {
                 s.setServiceName(rs.getString(2));
                 s.setPrice(rs.getDouble(3));
                 s.setDescription(rs.getString(4));
-                
+
                 int specialtyId = rs.getInt("specialty_id");
                 Specialty specialty = SpecialtyDAO.INSTANCE.getSpecialtyById(specialtyId);
-                
+
                 s.setSpecialty(specialty);
 
                 ser.add(s);
@@ -80,6 +76,29 @@ public class ServicesDAO {
 
         return status;
     }
+
+    public Vector<Service> getServiceBySpecialty(int specialtyId) {
+        String sql = "  select * from Services where specialty_id=?";
+        Vector<Service> services = new Vector<>();
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, specialtyId);
+            ResultSet rs = st.executeQuery();
+
+            while (rs.next()) {
+                Specialty specialty = SpecialtyDAO.INSTANCE.getSpecialtyById(rs.getInt("specialty_id"));
+                Service s = new Service(rs.getInt("service_id"),
+                        rs.getString("service_name"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        specialty);
+
+                services.add(s);
+            }
+        } catch (Exception e) {
+        }
+        return services;
+    }
 }
 
 //class Using{
@@ -90,3 +109,4 @@ public class ServicesDAO {
 //        System.out.println(n);
 //    }
 //}
+

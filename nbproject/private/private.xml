@@ -3,8 +3,24 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/DBContext.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/DoctorDAO.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/UserDAO.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/web/Views/Patient/ViewAppointments.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Controllers/LoginServlet.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/web/Views/Patient/PatientProfile.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Controllers/Patient/PatientViewAppointments.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/PatientDAO.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Models/Patient.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/web/Views/Common/Header/DefaultHeader.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/FeedbackDAO.java</file>
             <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/web/Views/Common/OtherItems/AppointmentForm.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/web/css/style.css</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Helpers/DayOfWeekUtil.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Controllers/Patient/DoctorByService.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Controllers/LogoutServlet.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/ServicesDAO.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/Models/Appointment.java</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Assigment/ClinicManagementSystem/src/java/DAL/SpecialtyDAO.java</file>
         </group>
     </open-files>
 </project-private>

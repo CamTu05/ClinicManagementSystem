@@ -21,6 +21,7 @@
                     <li class="option"><a style="color:#0392ce" href="#">Xin chào, ${user.fullname}!</a>
                         <ul class="option-menu">
                             <li><a href="UpdatePatientProfileServlet">Thông tin tài khoản</a></li>
+                            <li><a href="PatientViewAppointments">Lịch khám của tôi</a></li>
                             <li><a href="ChangePasswordServlet">Đổi mật khẩu</a></li>
                             <li><a href="LogoutServlet">Đăng xuất</a></li>
                         </ul>
