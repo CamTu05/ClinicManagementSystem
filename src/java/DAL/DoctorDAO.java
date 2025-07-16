@@ -256,6 +256,23 @@ public class DoctorDAO extends DBContext {
         }
         return null;  // không tìm thấy
     }
+    
+    public Doctor getFullDoctorById(int doctorId) {
+        String sql = "select * from Doctors where doctor_id=?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, doctorId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                User doctor = UserDAO.INSTANCE.findUserById(doctorId);
+                Specialty specialty = SpecialtyDAO.INSTANCE.getSpecialtyById(rs.getInt("specialty_id"));
+                Doctor d = new Doctor(doctor, specialty, rs.getInt("years_experience"), rs.getString("description"), rs.getString("picture") );
+                return d;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }
 
 class main{

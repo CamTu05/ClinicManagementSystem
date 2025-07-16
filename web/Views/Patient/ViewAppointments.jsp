@@ -34,7 +34,7 @@
             <th>Timestamp</th>
             <c:forEach var="a" items="${appointments}">
                 <tr>
-                    <td>${a.doctor.id}</td>
+                    <td>${a.doctor.doctor.fullname}</td>
                 </tr> 
             </c:forEach>
         </table>

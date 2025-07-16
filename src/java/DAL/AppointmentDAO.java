@@ -56,7 +56,7 @@ public class AppointmentDAO {
             st.setInt(1, patientId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Doctor doctor = DoctorDAO.INSTANCE.getDoctorById(rs.getInt("doctor_id"));
+                Doctor doctor = DoctorDAO.INSTANCE.getFullDoctorById(rs.getInt("doctor_id"));
                 Appointment a = new Appointment(doctor, rs.getInt("service_id"), rs.getDate("appointment_day"),
                         rs.getString("appointment_shift"),
                         rs.getString("status"),

@@ -63,10 +63,8 @@ public class PatientViewAppointments extends HttpServlet {
         HttpSession session = request.getSession();
         User u = (User) session.getAttribute("user");
         int patientId = u.getId();
-        System.out.println(patientId);
         Vector<Appointment> appointments = new Vector<Appointment>();
         appointments = AppointmentDAO.INSTANCE.getAppointmentsByPatientId(patientId);
-        System.out.println(appointments.size());
         request.setAttribute("appointments", appointments);
         request.getRequestDispatcher("Views/Patient/ViewAppointments.jsp").forward(request, response);
     }
