@@ -520,7 +520,7 @@ body {
 
 .option .option-menu li a {
     display: block;
-    padding: 5px 15px;
+    padding: 0px 15px;
     text-decoration: none;
     color: #333;
     white-space: nowrap;

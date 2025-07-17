@@ -29,7 +29,7 @@ public class DBContext {
     private final String dbName = "Clinic_Management";
     private final String portNumber = "1433";
     private final String userID = "sa";
-    private final String password = "Sonha1612!";
+    private final String password = "lecamtu2005";
 }
 
 class Using {

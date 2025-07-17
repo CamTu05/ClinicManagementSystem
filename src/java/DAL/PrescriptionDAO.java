@@ -95,6 +95,44 @@ public class PrescriptionDAO {
         return dto;   // null nếu bệnh nhân chưa có đơn
     }
 
+    public Prescription getPresciptionByAppointmentId(int appointmentId) {
+        String sql = "select * from Prescriptions where appointment_id = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, appointmentId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Appointment a = AppointmentDAO.INSTANCE.getAppointmentById(rs.getInt("appointment_id"));
+                Prescription p = new Prescription(rs.getInt("prescription_id"),
+                        a,
+                        rs.getTimestamp("createdAt"),
+                        rs.getString("notes"));
+                return p;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+  
+    public Prescription getPresciptionById(int prescriptionId) {
+        String sql = "select * from Prescriptions where prescription_id = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, prescriptionId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Appointment a = AppointmentDAO.INSTANCE.getAppointmentById(rs.getInt("appointment_id"));
+                Prescription p = new Prescription(rs.getInt("prescription_id"),
+                        a,
+                        rs.getTimestamp("createdAt"),
+                        rs.getString("notes"));
+                return p;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         PrescriptionDTO presList = PrescriptionDAO.INSTANCE.loadLatestPrescriptionByPatientId(20);
 

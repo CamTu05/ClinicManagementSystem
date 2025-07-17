@@ -80,6 +80,26 @@ public class ServicesDAO {
 
         return status;
     }
+    
+    public Service getServiceById(int serviceId) {
+        String sql = "select * from Services where service_id = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, serviceId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Specialty spec = SpecialtyDAO.INSTANCE.getSpecialtyById(rs.getInt("specialty_id"));
+                Service s = new Service(rs.getInt("service_id"),
+                rs.getString("service_name"), 
+                rs.getDouble("price"),
+                rs.getString("description"),
+                spec);
+                return s;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
 }
 
 //class Using{

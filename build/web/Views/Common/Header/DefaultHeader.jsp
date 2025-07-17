@@ -21,6 +21,7 @@
                     <li class="option"><a style="color:#0392ce" href="#">Xin chào, ${user.fullname}!</a>
                         <ul class="option-menu">
                             <li><a href="UpdatePatientProfileServlet">Thông tin tài khoản</a></li>
+                            <li><a href="PatientViewAppointments">Lịch khám của tôi</a></li>
                             <li><a href="ChangePasswordServlet">Đổi mật khẩu</a></li>
                             <li><a href="LogoutServlet">Đăng xuất</a></li>
                         </ul>
@@ -71,7 +72,7 @@
                                 <span class="flaticon-agenda"></span>
                             </div>
                             <div class="text-holder">
-                                <h4>T2 - T7</h4>
+                                <h4>T2 - CN</h4>
                                 <span>8h00 - 17h00</span>    
                             </div>
                         </li>        
