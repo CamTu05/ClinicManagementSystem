@@ -1,9 +1,16 @@
-
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package Models;
 
 import java.sql.Timestamp;
 import java.sql.Date;
 
+/**
+ *
+ * @author admin
+ */
 public class Appointment {
     private int id;
     private Patient patient;
@@ -13,6 +20,7 @@ public class Appointment {
     private String gender;
     private String address;
     private Doctor doctor;
+    private Service service;
     private int serviceId;
     private Date appointmentDay;
     private String appointmentShift;
@@ -39,6 +47,27 @@ public class Appointment {
         this.description = description;
         this.createdAt = createdAt;
     }
+
+    public Appointment(int id, Doctor doctor, Service service, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
+        this.id = id;
+        this.doctor = doctor;
+        this.service = service;
+        this.appointmentDay = appointmentDay;
+        this.appointmentShift = appointmentShift;
+        this.status = status;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+
+    public Service getService() {
+        return service;
+    }
+
+    public void setService(Service service) {
+        this.service = service;
+    }
+    
+    
 
     public int getId() {
         return id;

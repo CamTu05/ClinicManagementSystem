@@ -342,15 +342,69 @@ public class AppointmentDAO {
         return list;
     }
 
-    public static void main(String[] args) {
-        Vector<AppointmentDTO> appointmentDTOs = AppointmentDAO.INSTANCE.loadAppointmentDTOs();
-        Vector<AppointmentDTO> appointmentDTOs1 = AppointmentDAO.INSTANCE.loadAppointmentDTOByDoctorId(21, null);
-        Vector<AppointmentDTO> appointmentDTOs2 = AppointmentDAO.INSTANCE.loadAppointmentDTOByPatientId(15, null);
-        Vector<Appointment> a1 = AppointmentDAO.INSTANCE.getAppointmentsByPatientId(15, "COMPLETED");
-
-        for (Appointment a : a1) {
-            System.out.println(a.toString());
+    public Vector<Appointment> getAppointmentsByPatientId(int patientId) {
+        Vector<Appointment> appointments = new Vector<Appointment>();
+        String sql = "  select [appointment_id], [doctor_id]\n"
+                + "      ,[service_id]\n"
+                + "      ,[appointment_day]\n"
+                + "      ,[appointment_shift]\n"
+                + "      ,[status]\n"
+                + "      ,[description]\n"
+                + "      ,[created_at] from Appointments where patient_id=?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, patientId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Doctor doctor = DoctorDAO.INSTANCE.getFullDoctorById(rs.getInt("doctor_id"));
+                Service service = ServicesDAO.INSTANCE.getServiceById(rs.getInt("service_id"));
+                Appointment a = new Appointment(rs.getInt("appointment_id"),
+                        doctor, service, rs.getDate("appointment_day"),
+                        rs.getString("appointment_shift"),
+                        rs.getString("status"),
+                        rs.getString("description"),
+                        rs.getTimestamp("created_at"));
+                appointments.add(a);
+            }
+        } catch (Exception e) {
         }
+        return appointments;
 
+    }
+
+    public Appointment getAppointmentById(int appointmentId) {
+        String sql = "select * from Appointment where appointment_id = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, appointmentId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                Patient p = PatientDAO.INSTANCE.getPatientById(rs.getInt("patient_id"));
+                Doctor d = DoctorDAO.INSTANCE.getDoctorById(rs.getInt("doctor_id"));
+                Appointment a = new Appointment(rs.getInt("appoinment_id"),
+                        p,
+                        rs.getString("fullname"),
+                        rs.getString("phone"),
+                        rs.getDate("dob"),
+                        rs.getString("gender"),
+                        rs.getString("address"),
+                        d,
+                        rs.getInt("service_id"),
+                        rs.getDate("appointment_day"),
+                        rs.getString("appointment_shift"),
+                        rs.getString("status"),
+                        rs.getString("description"),
+                        rs.getTimestamp("created_at"));
+                return a;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        Vector<Appointment> a = new Vector<Appointment>();
+        a = AppointmentDAO.INSTANCE.getAppointmentsByPatientId(21);
+        System.out.println(a);
     }
 }
