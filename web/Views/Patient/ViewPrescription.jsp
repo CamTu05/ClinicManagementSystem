@@ -6,6 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -71,8 +73,9 @@
                         <div class="info-value">${sessionScope.user.fullname}</div>
 
                         <div class="info-label">Ngày sinh:</div>
-                        <div class="info-value">${sessionScope.user.dob}</div>
-
+                        <div class="info-value">
+                            <fmt:formatDate value="${sessionScope.user.dob}" pattern="dd-MM-yyyy "/>
+                        </div>
                         <div class="info-label">Dịch vụ khám:</div>
                         <div class="info-value">${appointment.service.serviceName}</div>
 
@@ -80,11 +83,13 @@
                         <div class="info-value">BS. ${appointment.doctor.doctor.fullname}</div>
 
                         <div class="info-label">Ngày khám:</div>
-                        <div class="info-value">${appointment.appointmentDay}</div>
+                        <div class="info-value">
+                            <fmt:formatDate value="${appointment.appointmentDay}" pattern="dd-MM-yyyy "/>
+                        </div>
 
                         <div class="info-label">Thời gian tạo kết quả:</div>
                         <div class="info-value">
-                            <fmt:formatDate value="${pd.prescription.createdAt}" pattern="dd/MM/yyyy HH:mm:ss"/>
+                            <fmt:formatDate value="${pd.prescription.createdAt}" pattern="HH:mm:ss, dd-MM-yyyy "/>
                         </div>
                     </div>
                 </div>
@@ -146,16 +151,16 @@
 
             <!-- Nút thao tác -->
             <div class="action-buttons">
-                <a href="printMedicalRecord?id=${medicalRecord.id}" class="btn btn-primary">
+                <a href="#" class="btn btn-primary">
                     <i class="fas fa-print"></i> In kết quả
                 </a>
-                <a href="downloadPDF?id=${medicalRecord.id}" class="btn btn-success">
+                <a href="#" class="btn btn-success">
                     <i class="fas fa-download"></i> Tải PDF
                 </a>
                 <a href="rebookAppointment?doctorId=${appointment.doctor.id}" class="btn btn-secondary">
                     <i class="fas fa-calendar-plus"></i> Đặt lịch tái khám
                 </a>
-                <a href="viewAppointments" class="btn btn-secondary">
+                <a href="PatientViewAppointments" class="btn btn-secondary">
                     <i class="fas fa-arrow-left"></i> Quay lại danh sách
                 </a>
             </div>

@@ -266,7 +266,7 @@ public class DoctorDAO extends DBContext {
             if (rs.next()) {
                 User doctor = UserDAO.INSTANCE.findUserById(doctorId);
                 Specialty specialty = SpecialtyDAO.INSTANCE.getSpecialtyById(rs.getInt("specialty_id"));
-                Doctor d = new Doctor(doctor, specialty, rs.getInt("years_experience"), rs.getString("description"), rs.getString("picture") );
+                Doctor d = new Doctor(rs.getInt("doctor_id"), doctor, specialty, rs.getInt("years_experience"), rs.getString("description"), rs.getString("picture") );
                 return d;
             }
         } catch (Exception e) {
@@ -282,6 +282,6 @@ class main{
 //            System.out.println(d.toString());
 //        }
         
-            System.out.println(DoctorDAO.INSTANCE.getDoctorNameById(21));
+            System.out.println(DoctorDAO.INSTANCE.getFullDoctorById(4));
     }
 }

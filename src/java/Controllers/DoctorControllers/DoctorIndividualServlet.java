@@ -59,7 +59,6 @@ public class DoctorIndividualServlet extends HttpServlet {
         if (user == null) {
             request.setAttribute("message", "Bạn cần đăng nhập để tiếp tục.");
             request.getRequestDispatcher("/Views/Login.jsp").forward(request, response);
-            return;
         }
 
         if (submit != null && !submit.isEmpty()) {

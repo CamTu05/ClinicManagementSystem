@@ -12,6 +12,7 @@ import java.sql.Date;
  * @author admin
  */
 public class Appointment {
+
     private int id;
     private Patient patient;
     private String fullname;
@@ -66,8 +67,6 @@ public class Appointment {
     public void setService(Service service) {
         this.service = service;
     }
-    
-    
 
     public int getId() {
         return id;
@@ -185,6 +184,5 @@ public class Appointment {
     public String toString() {
         return "Appointment{" + "id=" + id + ", patient=" + patient + ", fullname=" + fullname + ", phone=" + phone + ", dob=" + dob + ", gender=" + gender + ", address=" + address + ", doctor=" + doctor + ", serviceId=" + serviceId + ", appointmentDay=" + appointmentDay + ", appointmentShift=" + appointmentShift + ", status=" + status + ", description=" + description + ", createdAt=" + createdAt + '}';
     }
-    
 
 }
