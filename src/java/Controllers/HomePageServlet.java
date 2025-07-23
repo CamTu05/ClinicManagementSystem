@@ -4,12 +4,16 @@
  */
 package Controllers;
 
+import DAL.AppointmentBooking;
+import Models.Service;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.Vector;
 
 /**
  *
@@ -55,6 +59,10 @@ public class HomePageServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        Vector<Service> services = AppointmentBooking.INSTANCE.getAllServices();
+        HttpSession session = request.getSession();
+        session.setAttribute("services", services);
+
         request.getRequestDispatcher("Views/HomePage.jsp").forward(request, response);
     }
 

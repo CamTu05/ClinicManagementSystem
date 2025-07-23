@@ -15,14 +15,15 @@ public class Appointment {
 
     private int id;
     private Patient patient;
+    private User user;
     private String fullname;
     private String phone;
     private Date dob;
     private String gender;
     private String address;
     private Doctor doctor;
-    private Service service;
     private int serviceId;
+    private Service service;
     private Date appointmentDay;
     private String appointmentShift;
     private String status;
@@ -32,9 +33,9 @@ public class Appointment {
     public Appointment() {
     }
 
-    public Appointment(int id, Patient patient, String fullname, String phone, Date dob, String gender, String address, Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
+    public Appointment(int id, User user, String fullname, String phone, Date dob, String gender, String address, Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
         this.id = id;
-        this.patient = patient;
+        this.user = user;
         this.fullname = fullname;
         this.phone = phone;
         this.dob = dob;
@@ -66,6 +67,41 @@ public class Appointment {
 
     public void setService(Service service) {
         this.service = service;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Appointment(int id, Patient patient, String fullname, String phone, Date dob, String gender, String address, Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
+        this.id = id;
+        this.patient = patient;
+        this.fullname = fullname;
+        this.phone = phone;
+        this.dob = dob;
+        this.gender = gender;
+        this.address = address;
+        this.doctor = doctor;
+        this.serviceId = serviceId;
+        this.appointmentDay = appointmentDay;
+        this.appointmentShift = appointmentShift;
+        this.status = status;
+        this.description = description;
+        this.createdAt = createdAt;
+    }
+
+    public Appointment(Doctor doctor, int serviceId, Date appointmentDay, String appointmentShift, String status, String description, Timestamp createdAt) {
+        this.doctor = doctor;
+        this.serviceId = serviceId;
+        this.appointmentDay = appointmentDay;
+        this.appointmentShift = appointmentShift;
+        this.status = status;
+        this.description = description;
+        this.createdAt = createdAt;
     }
 
     public int getId() {
