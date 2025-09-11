@@ -105,7 +105,7 @@ public class PrescriptionDAO {
                 Appointment a = AppointmentDAO.INSTANCE.getAppointmentById(rs.getInt("appointment_id"));
                 Prescription p = new Prescription(rs.getInt("prescription_id"),
                         a,
-                        rs.getTimestamp("createdAt"),
+                        rs.getTimestamp("created_at"),
                         rs.getString("notes"));
                 return p;
             }
@@ -124,7 +124,7 @@ public class PrescriptionDAO {
                 Appointment a = AppointmentDAO.INSTANCE.getAppointmentById(rs.getInt("appointment_id"));
                 Prescription p = new Prescription(rs.getInt("prescription_id"),
                         a,
-                        rs.getTimestamp("createdAt"),
+                        rs.getTimestamp("created_at"),
                         rs.getString("notes"));
                 return p;
             }
@@ -134,12 +134,8 @@ public class PrescriptionDAO {
     }
 
     public static void main(String[] args) {
-        PrescriptionDTO presList = PrescriptionDAO.INSTANCE.loadLatestPrescriptionByPatientId(20);
-
-//        for (PrescriptionDTO p : presList) {
-//            System.out.println(p.toString());
-//        }
-        System.out.println(presList.toString());
+       Prescription p = PrescriptionDAO.INSTANCE.getPresciptionById(1);
+        System.out.println(p);
     }
 
 }

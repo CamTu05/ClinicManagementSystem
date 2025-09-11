@@ -11,13 +11,13 @@ import DAL.UserDAO;
  * @author admin
  */
 public class Doctor {
+
     private int id;
     private User doctor;
     private Specialty specialty;
     private int yearsExp;
     private String description;
     private String picture;
-    
 
     public Doctor() {
     }
@@ -30,7 +30,8 @@ public class Doctor {
         this.picture = picture;
     }
 
-    public Doctor(User doctor, Specialty specialty, int yearsExp, String description, String picture) {
+    public Doctor(int id, User doctor, Specialty specialty, int yearsExp, String description, String picture) {
+        this.id = id;
         this.doctor = doctor;
         this.specialty = specialty;
         this.yearsExp = yearsExp;
@@ -85,15 +86,21 @@ public class Doctor {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-    
 
     @Override
     public String toString() {
-        return "Doctor{" + "id=" + id + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + ", picture=" + picture + '}';
+        return "Doctor{" + "id=" + id + ", doctor=" + doctor + ", specialty=" + specialty + ", yearsExp=" + yearsExp + ", description=" + description + ", picture=" + picture + '}';
     }
 
-    public String getShortName(){
+    public String getShortName() {
         return getPicture().substring(0, picture.lastIndexOf("."));
     }
-    
+
+    public String getDoctorName() {
+        if (this.doctor != null) {
+            return this.doctor.getFullname();
+        }
+        return "Unknown";
+    }
+
 }

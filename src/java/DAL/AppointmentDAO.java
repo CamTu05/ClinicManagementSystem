@@ -357,6 +357,7 @@ public class AppointmentDAO {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 Doctor doctor = DoctorDAO.INSTANCE.getFullDoctorById(rs.getInt("doctor_id"));
+                System.out.println(doctor);
                 Service service = ServicesDAO.INSTANCE.getServiceById(rs.getInt("service_id"));
                 Appointment a = new Appointment(rs.getInt("appointment_id"),
                         doctor, service, rs.getDate("appointment_day"),
@@ -373,24 +374,16 @@ public class AppointmentDAO {
     }
 
     public Appointment getAppointmentById(int appointmentId) {
-        String sql = "select * from Appointment where appointment_id = ?";
+        String sql = "select * from Appointments where appointment_id = ?";
         try {
             PreparedStatement st = con.prepareStatement(sql);
             st.setInt(1, appointmentId);
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
-                Patient p = PatientDAO.INSTANCE.getPatientById(rs.getInt("patient_id"));
-                Doctor d = DoctorDAO.INSTANCE.getDoctorById(rs.getInt("doctor_id"));
-                Appointment a = new Appointment(rs.getInt("appoinment_id"),
-                        p,
-                        rs.getString("fullname"),
-                        rs.getString("phone"),
-                        rs.getDate("dob"),
-                        rs.getString("gender"),
-                        rs.getString("address"),
-                        d,
-                        rs.getInt("service_id"),
-                        rs.getDate("appointment_day"),
+                Doctor d = DoctorDAO.INSTANCE.getFullDoctorById(rs.getInt("doctor_id"));
+                Service s = ServicesDAO.INSTANCE.getServiceById(rs.getInt("service_id"));
+                Appointment a = new Appointment(rs.getInt("appointment_id"),
+                        d, s, rs.getDate("appointment_day"),
                         rs.getString("appointment_shift"),
                         rs.getString("status"),
                         rs.getString("description"),
@@ -403,8 +396,8 @@ public class AppointmentDAO {
     }
 
     public static void main(String[] args) {
-        Vector<Appointment> a = new Vector<Appointment>();
-        a = AppointmentDAO.INSTANCE.getAppointmentsByPatientId(21);
+
+        Appointment a = AppointmentDAO.INSTANCE.getAppointmentById(23);
         System.out.println(a);
     }
 }

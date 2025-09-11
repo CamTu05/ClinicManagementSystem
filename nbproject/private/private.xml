@@ -3,13 +3,8 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/DTO/AppointmentDTO.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/Views/Doctor/DoctorDashboard.jsp</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/src/java/Models/Patient.java</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/Views/Doctor/PatientView.jsp</file>
-            <file>file:/C:/Users/Administrator/Documents/NetBeansProjects/ClinicManagementSystem/web/css/doctorDashboardStyle.css</file>
-
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Project/ClinicManagementSystem/web/Views/DoctorList.jsp</file>
+            <file>file:/D:/ClassWork/Sem4(Su25)/PRJ301/Project/ClinicManagementSystem/web/Views/Login.jsp</file>
         </group>
     </open-files>
 </project-private>

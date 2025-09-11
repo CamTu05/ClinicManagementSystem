@@ -53,7 +53,7 @@ public class PatientDAO extends DBContext{
     }
     
     public static void main(String[] args) {
-        Patient patient = PatientDAO.INSTANCE.getPatientById(14);
-        System.out.println(patient.getMedicalHistory());
+        Patient patient = PatientDAO.INSTANCE.getPatientById(21);
+        System.out.println(patient);
     }
 }
