@@ -57,7 +57,7 @@
                         <h2>Đặt lịch khám</h2>    
                     </div>
                    <div class="form-holder clearfix">
-    <!-- Hiển thị message ở đây -->
+    <!-- Message -->
     <div id="message-container">
         <c:if test="${not empty successMessage}">
             <div class="alert alert-success">

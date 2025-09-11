@@ -21,7 +21,7 @@ import java.sql.SQLException;
  *
  * @author admin
  */
-public class AppointmentBooking{
+public class AppointmentBooking {
 
     private String status = "ok";
     private Connection con;
@@ -75,7 +75,6 @@ public class AppointmentBooking{
         return appointments;
     }
 
-    // Lấy danh sách tất cả dịch vụ
     public Vector<Service> getAllServices() {
         Vector<Service> services = new Vector<Service>();
         String sql = "SELECT service_id, service_name, price, description, specialty_id FROM Services";
@@ -85,11 +84,11 @@ public class AppointmentBooking{
             while (rs.next()) {
                 Specialty specialty = getSpecialtyById(rs.getInt("specialty_id"));
                 Service service = new Service(
-                    rs.getInt("service_id"),
-                    rs.getString("service_name"),
-                    rs.getDouble("price"),
-                    rs.getString("description"),
-                    specialty
+                        rs.getInt("service_id"),
+                        rs.getString("service_name"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        specialty
                 );
                 services.add(service);
             }
@@ -99,42 +98,35 @@ public class AppointmentBooking{
         return services;
     }
 
-    // Lấy danh sách bác sĩ theo dịch vụ
-   // Trong AppointmentBooking.getDoctorsByServiceId()
-public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
-    Vector<Doctor> doctors = new Vector<Doctor>();
-    String sql = "SELECT d.doctor_id, d.specialty_id, d.years_experience, d.description, d.picture " +
-                 "FROM Doctors d " +
-                 "JOIN Services s ON d.specialty_id = s.specialty_id " +
-                 "WHERE s.service_id = ?";
-    try {
-        PreparedStatement st = con.prepareStatement(sql);
-        st.setInt(1, serviceId);
-        ResultSet rs = st.executeQuery();
-        while (rs.next()) {
-            Specialty specialty = getSpecialtyById(rs.getInt("specialty_id"));
-            
-            // Load User object
-            User user = UserDAO.INSTANCE.findUserById(rs.getInt("doctor_id"));
-            
-            Doctor doctor = new Doctor(rs.getInt("doctor_id"),
-                user, // Truyền User object vào constructor
-                specialty,
-                rs.getInt("years_experience"),
-                rs.getString("description"),
-                rs.getString("picture")
-            );
-            doctor.setId(rs.getInt("doctor_id"));
-            doctors.add(doctor);
+    public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
+        Vector<Doctor> doctors = new Vector<Doctor>();
+        String sql = "SELECT d.doctor_id, d.specialty_id, d.years_experience, d.description, d.picture "
+                + "FROM Doctors d "
+                + "JOIN Services s ON d.specialty_id = s.specialty_id "
+                + "WHERE s.service_id = ?";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.setInt(1, serviceId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Specialty specialty = getSpecialtyById(rs.getInt("specialty_id"));
+                User user = UserDAO.INSTANCE.findUserById(rs.getInt("doctor_id"));
+                Doctor doctor = new Doctor(rs.getInt("doctor_id"),
+                        user, 
+                        specialty,
+                        rs.getInt("years_experience"),
+                        rs.getString("description"),
+                        rs.getString("picture")
+                );
+                doctor.setId(rs.getInt("doctor_id"));
+                doctors.add(doctor);
+            }
+        } catch (Exception e) {
+            status = "Error at getDoctorsByServiceId " + e.getMessage();
         }
-    } catch (Exception e) {
-        status = "Error at getDoctorsByServiceId " + e.getMessage();
+        return doctors;
     }
-    return doctors;
-}
 
-
-    // Lấy các ngày trong tuần mà bác sĩ làm việc
     public Vector<Integer> getWorkingDays(int doctorId) {
         Vector<Integer> workingDays = new Vector<Integer>();
         String sql = "SELECT DISTINCT weekday FROM Schedules WHERE doctor_id = ? ORDER BY weekday";
@@ -146,12 +138,10 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
                 workingDays.add(rs.getInt("weekday"));
             }
         } catch (Exception e) {
-            status = "Error at getWorkingDays " + e.getMessage();
         }
         return workingDays;
     }
 
-    // Kiểm tra xem bác sĩ có slot trống trong ngày không
     public boolean hasAvailableSlot(int doctorId, Date date) {
         String sql = "SELECT COUNT(*) as count FROM Appointments WHERE doctor_id = ? AND appointment_day = ? AND status != 'CANCELLED'";
         try {
@@ -161,16 +151,13 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 int count = rs.getInt("count");
-                // Giả sử mỗi bác sĩ chỉ nhận tối đa 20 lịch hẹn/ngày (10 sáng + 10 chiều)
-                return count < 20;
+                return count < 4;
             }
         } catch (Exception e) {
-            status = "Error at hasAvailableSlot " + e.getMessage();
         }
         return false;
     }
 
-    // Lấy các ca làm việc của bác sĩ trong một ngày cụ thể
     public Vector<String> getWorkingShifts(int doctorId, int dayOfWeek) {
         Vector<String> workingShifts = new Vector<String>();
         String sql = "SELECT start_time, end_time FROM Schedules WHERE doctor_id = ? AND weekday = ?";
@@ -182,8 +169,7 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             while (rs.next()) {
                 String startTime = rs.getTime("start_time").toString();
                 String endTime = rs.getTime("end_time").toString();
-                
-                // Chuyển đổi thời gian thành ca làm việc
+
                 if (startTime.compareTo("12:00:00") < 0) {
                     if (!workingShifts.contains("Sáng")) {
                         workingShifts.add("Sáng");
@@ -200,7 +186,6 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return workingShifts;
     }
 
-    // Kiểm tra xem buổi khám có còn slot trống không
     public boolean isShiftAvailable(int doctorId, Date date, String shift) {
         String sql = "SELECT COUNT(*) as count FROM Appointments WHERE doctor_id = ? AND appointment_day = ? AND appointment_shift = ? AND status != 'CANCELLED'";
         try {
@@ -211,8 +196,7 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 int count = rs.getInt("count");
-                // Giả sử mỗi buổi chỉ nhận tối đa 10 lịch hẹn
-                return count < 10;
+                return count < 4;
             }
         } catch (Exception e) {
             status = "Error at isShiftAvailable " + e.getMessage();
@@ -220,7 +204,6 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return false;
     }
 
-    // Kiểm tra bác sĩ có làm việc vào ca cụ thể không
     public boolean isDoctorWorkingOnShift(int doctorId, int dayOfWeek, String shift) {
         String sql = "SELECT start_time, end_time FROM Schedules WHERE doctor_id = ? AND weekday = ?";
         try {
@@ -230,8 +213,7 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 String startTime = rs.getTime("start_time").toString();
-                
-                // Kiểm tra ca làm việc
+
                 if (shift.equals("Sáng") && startTime.compareTo("12:00:00") < 0) {
                     return true;
                 } else if (shift.equals("Chiều") && startTime.compareTo("12:00:00") >= 0) {
@@ -244,42 +226,38 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return false;
     }
 
-    // Thêm lịch hẹn mới
-
     public boolean addAppointment(Appointment appointment) {
-    String sql = "INSERT INTO Appointments (patient_id, fullname, phone, dob, gender, address, doctor_id, service_id, appointment_day, appointment_shift, status, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    try {
-        PreparedStatement st = con.prepareStatement(sql);
-        
-        // Lấy user_id để gán vào patient_id
-        if (appointment.getUser() != null) {
-            st.setInt(1, appointment.getUser().getId()); // Gán user_id vào patient_id
-        } else {
-            st.setNull(1, java.sql.Types.INTEGER);
-        }
-        
-        st.setString(2, appointment.getFullname());
-        st.setString(3, appointment.getPhone());
-        st.setDate(4, appointment.getDob());
-        st.setString(5, appointment.getGender());
-        st.setString(6, appointment.getAddress());
-        st.setInt(7, appointment.getDoctor().getId());
-        st.setInt(8, appointment.getServiceId());
-        st.setDate(9, appointment.getAppointmentDay());
-        st.setString(10, appointment.getAppointmentShift());
-        st.setString(11, appointment.getStatus());
-        st.setString(12, appointment.getDescription());
-        
-        int result = st.executeUpdate();
-        return result > 0;
-    } catch (Exception e) {
-        status = "Error at addAppointment " + e.getMessage();
-    }
-    return false;
-}
+        String sql = "INSERT INTO Appointments (patient_id, fullname, phone, dob, gender, address, doctor_id, service_id, appointment_day, appointment_shift, status, description) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
 
-    
-    // Lấy dịch vụ theo ID
+            // Lấy user_id để gán vào patient_id
+            if (appointment.getUser() != null) {
+                st.setInt(1, appointment.getUser().getId()); // Gán user_id vào patient_id
+            } else {
+                st.setNull(1, java.sql.Types.INTEGER);
+            }
+
+            st.setString(2, appointment.getFullname());
+            st.setString(3, appointment.getPhone());
+            st.setDate(4, appointment.getDob());
+            st.setString(5, appointment.getGender());
+            st.setString(6, appointment.getAddress());
+            st.setInt(7, appointment.getDoctor().getId());
+            st.setInt(8, appointment.getServiceId());
+            st.setDate(9, appointment.getAppointmentDay());
+            st.setString(10, appointment.getAppointmentShift());
+            st.setString(11, appointment.getStatus());
+            st.setString(12, appointment.getDescription());
+
+            int result = st.executeUpdate();
+            return result > 0;
+        } catch (Exception e) {
+            status = "Error at addAppointment " + e.getMessage();
+        }
+        return false;
+    }
+
     public Service getServiceById(int serviceId) {
         String sql = "SELECT service_id, service_name, price, description, specialty_id FROM Services WHERE service_id = ?";
         try {
@@ -289,11 +267,11 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             if (rs.next()) {
                 Specialty specialty = getSpecialtyById(rs.getInt("specialty_id"));
                 Service service = new Service(
-                    rs.getInt("service_id"),
-                    rs.getString("service_name"),
-                    rs.getDouble("price"),
-                    rs.getString("description"),
-                    specialty
+                        rs.getInt("service_id"),
+                        rs.getString("service_name"),
+                        rs.getDouble("price"),
+                        rs.getString("description"),
+                        specialty
                 );
                 return service;
             }
@@ -303,7 +281,6 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return null;
     }
 
-    // Lấy thông tin bác sĩ theo ID
     public Doctor getDoctorById(int doctorId) {
         String sql = "SELECT doctor_id, specialty_id, years_experience, description, picture FROM Doctors WHERE doctor_id = ?";
         try {
@@ -313,11 +290,11 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             if (rs.next()) {
                 Specialty specialty = getSpecialtyById(rs.getInt("specialty_id"));
                 Doctor doctor = new Doctor(
-                    rs.getInt("doctor_id"),
-                    specialty,
-                    rs.getInt("years_experience"),
-                    rs.getString("description"),
-                    rs.getString("picture")
+                        rs.getInt("doctor_id"),
+                        specialty,
+                        rs.getInt("years_experience"),
+                        rs.getString("description"),
+                        rs.getString("picture")
                 );
                 return doctor;
             }
@@ -327,7 +304,6 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return null;
     }
 
-    // Lấy chuyên khoa theo ID
     public Specialty getSpecialtyById(int specialtyId) {
         String sql = "SELECT specialty_id, specialty_name FROM Specialties WHERE specialty_id = ?";
         try {
@@ -336,8 +312,8 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
             ResultSet rs = st.executeQuery();
             if (rs.next()) {
                 Specialty specialty = new Specialty(
-                    rs.getInt("specialty_id"),
-                    rs.getString("specialty_name")
+                        rs.getInt("specialty_id"),
+                        rs.getString("specialty_name")
                 );
                 return specialty;
             }
@@ -347,7 +323,6 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return null;
     }
 
-    // Đếm số lượng lịch hẹn của bác sĩ trong ngày
     public int countAppointmentsByDoctorAndDate(int doctorId, Date date) {
         String sql = "SELECT COUNT(*) as count FROM Appointments WHERE doctor_id = ? AND appointment_day = ? AND status != 'CANCELLED'";
         try {
@@ -364,7 +339,6 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         return 0;
     }
 
-    // Kiểm tra bác sĩ có làm việc vào ngày cụ thể không
     public boolean isDoctorWorkingOnDay(int doctorId, int dayOfWeek) {
         String sql = "SELECT COUNT(*) as count FROM Schedules WHERE doctor_id = ? AND weekday = ?";
         try {
@@ -380,31 +354,30 @@ public Vector<Doctor> getDoctorsByServiceId(int serviceId) {
         }
         return false;
     }
-    
-    // Thêm vào class AppointmentBooking
-public Vector<Schedule> getDoctorSchedules(int doctorId) {
-    Vector<Schedule> schedules = new Vector<>();
-    String sql = "SELECT schedule_id, doctor_id, weekday, start_time, end_time " +
-                 "FROM Schedules WHERE doctor_id = ?";
-    
-    try (PreparedStatement ps = con.prepareStatement(sql)) {
-        ps.setInt(1, doctorId);
-        ResultSet rs = ps.executeQuery();
-        
-        while (rs.next()) {
-            Schedule schedule = new Schedule();
-            schedule.setId(rs.getInt("schedule_id"));
-            schedule.setWeekday(rs.getInt("weekday"));
-            schedule.setStartTime(rs.getTime("start_time").toLocalTime());
-            schedule.setEndTime(rs.getTime("end_time").toLocalTime());
-            
-            schedules.add(schedule);
+
+    public Vector<Schedule> getDoctorSchedules(int doctorId) {
+        Vector<Schedule> schedules = new Vector<>();
+        String sql = "SELECT schedule_id, doctor_id, weekday, start_time, end_time "
+                + "FROM Schedules WHERE doctor_id = ?";
+
+        try (PreparedStatement ps = con.prepareStatement(sql)) {
+            ps.setInt(1, doctorId);
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                Schedule schedule = new Schedule();
+                schedule.setId(rs.getInt("schedule_id"));
+                schedule.setWeekday(rs.getInt("weekday"));
+                schedule.setStartTime(rs.getTime("start_time").toLocalTime());
+                schedule.setEndTime(rs.getTime("end_time").toLocalTime());
+
+                schedules.add(schedule);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-    } catch (SQLException e) {
-        e.printStackTrace();
+
+        return schedules;
     }
-    
-    return schedules;
-}
 
 }

@@ -29,41 +29,29 @@ protected void doGet(HttpServletRequest request, HttpServletResponse response)
     String serviceId = request.getParameter("serviceId");
     
     try {
-        System.out.println("=== PROCESSING SERVICE REQUEST ===");
-        System.out.println("Service ID: " + serviceId);
-        System.out.println("Timestamp: " + System.currentTimeMillis());
-        
         if (serviceId == null || serviceId.trim().isEmpty()) {
             response.getWriter().write("[]");
             return;
         }
-        
         Vector<Doctor> doctors = AppointmentBooking.INSTANCE.getDoctorsByServiceId(Integer.parseInt(serviceId));
         JsonArray jsonArray = new JsonArray();
-        
-        System.out.println("Found " + doctors.size() + " doctors for service " + serviceId);
-        
+                
         for (Doctor doctor : doctors) {
             JsonObject jsonObj = new JsonObject();
             jsonObj.addProperty("id", doctor.getId());
             
-            String doctorName = "Unknown";
+            String doctorName = "";
             if (doctor.getDoctor() != null) {
                 doctorName = doctor.getDoctor().getFullname();
             } else {
                 doctorName = doctor.getDoctorName();
             }
-            
-            if (doctorName == null || doctorName.equals("Unknown")) {
-                doctorName = "Bác sĩ " + doctor.getId();
-            }
-            
+  
             jsonObj.addProperty("fullname", doctorName);
             jsonArray.add(jsonObj);
         }
         
         String finalJson = jsonArray.toString();
-        System.out.println("Final JSON for service " + serviceId + ": " + finalJson);
         response.getWriter().write(finalJson);
         
     } catch (Exception e) {
